@@ -8,6 +8,7 @@ import pandas as pd
 import pyarrow as pa
 from typing import Dict, List, Optional, Tuple, Union, Callable, Any
 from pathlib import Path
+from collections import OrderedDict
 import io
 import queue
 import os
@@ -51,6 +52,7 @@ cdef class MMapReader:
         public cython.int _vector_cache_size
         public object _prefetch_pool
         public dict _mmap_arrays
+        public list _column_order
 
     def __init__(self, filepath: Union[str, Path], thread_count: cython.int = 4):
         """Initialize the MMapReader"""
@@ -120,6 +122,8 @@ cdef class MMapReader:
 
     cdef void _init_mmap(self):
         """Initialize the memory mapping"""
+        self._column_order = []
+
         with open(self.filepath, 'rb') as f:
             self._mmap = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
 
@@ -133,6 +137,7 @@ cdef class MMapReader:
                 for _ in range(n_cols):
                     name_bytes = self._mmap.read(256)
                     name = name_bytes.decode('utf-8').rstrip('\0')
+                    self._column_order.append(name)
                     n_blocks = struct.unpack('<I', self._mmap.read(4))[0]
 
                     blocks = []
@@ -247,7 +252,11 @@ cdef class MMapReader:
         if isinstance(columns, str):
             columns = [columns]
         elif columns is None:
-            columns = list(self._column_info.keys())
+            # 使用保存的列顺序
+            columns = self._column_order
+        else:
+            # 确保用户指定的列按原始顺序排序
+            columns = [col for col in self._column_order if col in columns]
 
         # 区分向量列和非向量列
         vector_columns = []
@@ -287,15 +296,13 @@ cdef class MMapReader:
         arrays = []
         names = []
         
-        # 处理向量列
-        for col in vector_columns:
-            sorted_blocks = sorted(vector_results[col], key=lambda x: x[0])
-            arrays.append(pa.concat_arrays([block[1] for block in sorted_blocks]))
-            names.append(col)
-
-        # 处理常规列
-        if regular_results:
-            for col in regular_columns:
+        # 按照原始列顺序处理结果
+        for col in columns:  # 使用有序的列名列表
+            if col in vector_columns:
+                sorted_blocks = sorted(vector_results[col], key=lambda x: x[0])
+                arrays.append(pa.concat_arrays([block[1] for block in sorted_blocks]))
+                names.append(col)
+            elif col in regular_columns:
                 arrays.append(regular_results[col])
                 names.append(col)
 
@@ -711,7 +718,8 @@ cdef class LyFile:
         public object _block_index
         public object _memory_pool
         public object _pool_lock
-    
+        public list _column_order  # 添加列顺序属性
+
     MAGIC = b'LYFILE01'  # Update version number
     HEADER_FORMAT = '<8sIIIQ'  # File header format
     COLUMN_HEADER_FORMAT = '<II256s'  # Column header format
@@ -741,9 +749,10 @@ cdef class LyFile:
         self.thread_count = thread_count or min(8, os.cpu_count() * 2)
         self._executor = ThreadPoolExecutor(max_workers=self.thread_count)
         self._thread_local = threading.local()
-        self._block_index: Dict[str, List[Tuple[int, int, int]]] = {}
+        self._block_index = {}
         self._memory_pool = {}
         self._pool_lock = threading.Lock()
+        self._column_order = []  # 初始化列顺序列表
 
     cdef object _get_memory_buffer(self, int size):
         """Get a buffer from the memory pool."""
@@ -856,26 +865,23 @@ cdef class LyFile:
         return self.TYPE_NUMPY
 
     cdef object _convert_input_data(self, object data):
-        """Convert input data to columnar storage format.
-        
-        Parameters:
-            data (Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]): The input data.
-
-        Returns:
-            Dict[str, np.ndarray]: The converted data.
-        """
+        """Convert input data to columnar storage format."""
         if isinstance(data, pd.DataFrame):
-            return {name: self._convert_column(values)
-                   for name, values in data.items()}
+            # 使用有序字典来保持列顺序
+            result = OrderedDict()
+            for name in data.columns:
+                result[name] = self._convert_column(data[name])
+            return result
         elif isinstance(data, pd.Series):
             return {data.name or 'value': self._convert_column(data)}
         elif isinstance(data, pa.Table):
-            return {name: self._convert_column(data.column(name).to_numpy())
-                   for name in data.column_names}
+            result = OrderedDict()
+            for name in data.column_names:
+                result[name] = self._convert_column(data.column(name).to_numpy())
+            return result
         else:  # List[Dict]
             df = pd.DataFrame(data)
-            return {name: self._convert_column(values)
-                   for name, values in df.items()}
+            return self._convert_input_data(df)
 
     cdef object _convert_column(self, object values):
         """Convert single column data to numpy array.
@@ -902,39 +908,35 @@ cdef class LyFile:
         return values
 
     cdef void _write_to_file(self, dict blocks_info, dict compressed_data, int n_rows):
-        """Optimized file write method
-        
-        Parameters:
-            blocks_info (Dict[str, List[Tuple[int, int, int]]]): The block information.
-            compressed_data (Dict[str, Tuple[bytes, bytes]]): The compressed data.
-            n_rows (int): The number of rows.
-        """
-        # Preallocate file size
-        total_size = (28 +  # File header
+        """Optimized file write method"""
+        # 计算总大小
+        total_size = (28 +  # 文件头
                      sum(len(header) + len(data) 
                          for header, data in compressed_data.values()) +
-                     sum(256 + 4 + len(blocks) * 16  # Block index size
+                     sum(256 + 4 + len(blocks) * 16  # 块索引大小
                          for blocks in blocks_info.values()))
         
         with open(self.filepath, 'wb') as f:
             f.truncate(total_size)
             
-            # Buffered write
+            # 使用缓冲写入
             with io.BufferedWriter(f, buffer_size=self.DEFAULT_BUFFER_SIZE) as bf:
-                # Write file header
+                # 写入文件头
                 index_pos = sum(len(header) + len(data)
                               for header, data in compressed_data.values()) + 28
                 bf.write(struct.pack(self.HEADER_FORMAT,
                                   self.MAGIC, 1, len(compressed_data),
                                   n_rows, index_pos))
 
-                # Batch write column data
-                for name, (header, data) in compressed_data.items():
+                # 批量写入列数据
+                for name in self._column_order:  # 使用有序的列名
+                    header, data = compressed_data[name]
                     bf.write(header)
                     bf.write(data)
                 
-                # Batch write block index
-                for name, blocks in blocks_info.items():
+                # 批量写入块索引
+                for name in self._column_order:  # 使用有序的列名
+                    blocks = blocks_info[name]
                     bf.write(name.encode('utf-8').ljust(256, b'\0'))
                     bf.write(struct.pack('<I', len(blocks)))
                     blocks_packed = struct.pack(
@@ -943,7 +945,7 @@ cdef class LyFile:
                     )
                     bf.write(blocks_packed)
 
-        # Update block index in memory
+        # 更新内存中的块索引
         self._block_index = blocks_info
 
     cdef void _init_block_index(self):
@@ -973,28 +975,30 @@ cdef class LyFile:
         return self._compress_column(name, values, compress)
 
     def write(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table], compress: bool = True):
-        """Optimized parallel write method
-        
-        Parameters:
-            data (Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]): The data to write.
-            compress (bool): Whether to compress the data, defaults to True.
-        """
-        # Convert input data
+        """Optimized parallel write method"""
+        # 转换输入数据
         columns = self._convert_input_data(data)
-
-        # Parallel compression all columns
+        
+        # 记录列顺序并打印
+        if isinstance(data, pd.DataFrame):
+            self._column_order = list(data.columns)
+        elif isinstance(data, pa.Table):
+            self._column_order = data.column_names
+        else:
+            self._column_order = list(columns.keys())
+        
+        # 并行压缩所有列
         futures = {}
-        for name, values in columns.items():
-            # 使用包装器方法而不是直接使用cdef方法
+        for name in self._column_order:  # 使用有序的列名
             futures[name] = self._executor.submit(
-                self._compress_column_wrapper, name, values, compress)
+                self._compress_column_wrapper, name, columns[name], compress)
 
-        # Collect compression results
+        # 收集压缩结果
         blocks_info = {}
         compressed_data = {}
-        current_pos = 28  # File header length
+        current_pos = 28  # 文件头长度
 
-        for name in columns.keys():
+        for name in self._column_order:  # 使用有序的列名
             name, compressed, type_id, n_rows = futures[name].result()
             name_bytes = name.encode('utf-8').ljust(256, b'\0')
             header = struct.pack(self.COLUMN_HEADER_FORMAT,
@@ -1004,9 +1008,8 @@ cdef class LyFile:
             compressed_data[name] = (header, compressed)
             current_pos += 264 + len(compressed)
 
-        # Write to file
+        # 写入文件
         self._write_to_file(blocks_info, compressed_data, len(next(iter(columns.values()))))
-        
 
     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:
         """Optimized read method, directly using pyarrow to process.
@@ -1019,8 +1022,7 @@ cdef class LyFile:
         """
         with self.mmap_reader() as reader:
             result = reader.read(columns=columns)
-            
-        return result
+            return result
     
     def read_vec(self, column_name: str):
         """Read vector data as a continuous ndarray.

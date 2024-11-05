@@ -193,56 +193,57 @@ cdef class ArrayView:
         """转换为嵌套列表"""
         return self.__array__().tolist()
 
+    cdef str _format_row(self, cnp.float64_t *data_ptr):
+        cdef list row_values = []
+        cdef cnp.npy_intp j
+        cdef cnp.float64_t value
+        cdef int vector_dim = self.vector_dim
+        cdef int max_cols = 6
+        cdef int half_cols = max_cols // 2
+
+        if vector_dim <= max_cols:
+            # 显示所有列
+            for j in range(vector_dim):
+                value = data_ptr[j]
+                row_values.append(f"{value:<.8f}")
+            return f"[{', '.join(row_values)}]"
+        else:
+            # 显示部分列
+            for j in range(half_cols):
+                value = data_ptr[j]
+                row_values.append(f"{value:<.8f}")
+            row_values.append("...")
+            for j in range(vector_dim - half_cols, vector_dim):
+                value = data_ptr[j]
+                row_values.append(f"{value:<.8f}")
+            return f"[{', '.join(row_values)}]"
+
     def __repr__(self):
         """NumPy风格的字符串表示"""
         cdef:
             int max_rows = 12  # 最多显示的行数
             int half_rows = max_rows // 2  # 每一半显示的行数
-            int max_cols = 6  # 最多显示的列数
-            int half_cols = max_cols // 2  # 每一半显示的列数
-            int total_rows = self.total_rows
-            int vector_dim = self.vector_dim
-            int i, j
+            cnp.npy_intp total_rows = self.total_rows
+            cnp.npy_intp i
             list rows = []
             cnp.float64_t *data_ptr
-            cnp.float64_t value
-
-        # 定义格式化单行向量的函数
-        def format_row(data_ptr):
-            cdef list row_values = []
-            if vector_dim <= max_cols:
-                # 显示所有列
-                for j in range(vector_dim):
-                    value = data_ptr[j]
-                    row_values.append(f"{value:<.8f}")
-                return f"[{', '.join(row_values)}]"
-            else:
-                # 显示部分列
-                for j in range(half_cols):
-                    value = data_ptr[j]
-                    row_values.append(f"{value:<.8f}")
-                row_values.append("...")
-                for j in range(vector_dim - half_cols, vector_dim):
-                    value = data_ptr[j]
-                    row_values.append(f"{value:<.8f}")
-                return f"[{', '.join(row_values)}]"
 
         if total_rows <= max_rows:
             # 显示所有行
             for i in range(total_rows):
                 data_ptr = self.get_row_ptr(i)
-                rows.append(format_row(data_ptr))
+                rows.append(self._format_row(data_ptr))
         else:
             # 显示头部行
             for i in range(half_rows):
                 data_ptr = self.get_row_ptr(i)
-                rows.append(format_row(data_ptr))
+                rows.append(self._format_row(data_ptr))
             # 添加省略号
             rows.append("...")
             # 显示尾部行
             for i in range(total_rows - half_rows, total_rows):
                 data_ptr = self.get_row_ptr(i)
-                rows.append(format_row(data_ptr))
+                rows.append(self._format_row(data_ptr))
 
         # 组合最终字符串
         content = ",\n ".join(rows)
