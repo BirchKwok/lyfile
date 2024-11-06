@@ -64,11 +64,20 @@ extensions = [
         extra_compile_args=cpp_extra_compile_args,
     ),
     Extension(
+            "lyfile.storage.mmap",
+            [str(storage_dir / "mmap.pyx")],
+            include_dirs=[
+                np.get_include(),
+                str(utils_dir),
+            ],
+            language="c++",
+            extra_compile_args=cpp_extra_compile_args,
+        ),
+    Extension(
         "lyfile.utils.array",
         [str(utils_dir / "array.pyx")],
         include_dirs=[
-            np.get_include(),
-            str(utils_dir),
+            np.get_include()
         ],
         language="c++",
         extra_compile_args=cpp_extra_compile_args,
