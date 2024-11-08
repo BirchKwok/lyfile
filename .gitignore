@@ -161,3 +161,7 @@ Benchmarks.ipynb
 *.ipynb
 *.vec
 *.npy
+
+# cython generated files
+*.c
+*.cpp
