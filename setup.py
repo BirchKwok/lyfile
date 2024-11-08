@@ -44,45 +44,36 @@ cpp_extra_compile_args = extra_compile_args.copy()
 if system != "Windows":
     cpp_extra_compile_args.append("-std=c++11")
 
+
+def create_extension(name, source_file, extra_includes=None):
+    """创建扩展模块的辅助函数
+    
+    Args:
+        name: 模块名称 (如 'lyfile.utils.fsst')
+        source_file: 源文件路径
+        extra_includes: 额外的include目录列表
+    """
+    includes = [np.get_include()]
+    if extra_includes:
+        includes.extend(extra_includes)
+    
+    return Extension(
+        name,
+        [str(source_file)],
+        include_dirs=includes,
+        language="c++",
+        extra_compile_args=cpp_extra_compile_args,
+    )
+
 # 定义扩展模块
 extensions = [
-    Extension(
-        "lyfile.utils.fsst",
-        [str(utils_dir / "fsst.pyx")],
-        include_dirs=[np.get_include()],
-        language="c++",
-        extra_compile_args=cpp_extra_compile_args,
-    ),
-    Extension(
-        "lyfile.storage.lyfile",
-        [str(storage_dir / "lyfile.pyx")],
-        include_dirs=[
-            np.get_include(),
-            str(utils_dir),
-        ],
-        language="c++",
-        extra_compile_args=cpp_extra_compile_args,
-    ),
-    Extension(
-            "lyfile.storage.mmap",
-            [str(storage_dir / "mmap.pyx")],
-            include_dirs=[
-                np.get_include(),
-                str(utils_dir),
-            ],
-            language="c++",
-            extra_compile_args=cpp_extra_compile_args,
-        ),
-    Extension(
-        "lyfile.utils.array",
-        [str(utils_dir / "array.pyx")],
-        include_dirs=[
-            np.get_include()
-        ],
-        language="c++",
-        extra_compile_args=cpp_extra_compile_args,
-    ),
+    create_extension("lyfile.storage.lyfile", storage_dir / "lyfile.pyx", [str(utils_dir)]),
+    create_extension("lyfile.storage.mmap", storage_dir / "mmap.pyx", [str(utils_dir)]),
+    create_extension("lyfile.utils.array", utils_dir / "array.pyx"),
+    create_extension("lyfile.utils.fsst", utils_dir / "fsst.pyx"),
+    create_extension("lyfile.utils.nnp", utils_dir / "nnp.pyx"),
 ]
+
 
 # Cython 编译指令
 compiler_directives = {
