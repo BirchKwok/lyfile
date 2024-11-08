@@ -3,6 +3,7 @@ import cython
 cimport numpy as cnp
 import numpy as np
 from libc.stdlib cimport malloc, free
+import pyarrow as pa
 
 # 初始化 NumPy
 cnp.import_array()
@@ -170,25 +171,14 @@ cdef class ArrayView:
         """数组元素总数"""
         return self.total_rows * self.vector_dim
 
-    @property
-    def T(self):
-        """转置视图"""
-        return self.transpose()
-
-    def transpose(self, *axes):
-        """转置操作"""
-        return self.__array__().transpose(*axes)
-
     def reshape(self, *shape):
         """重塑数组形状"""
         return self.__array__().reshape(*shape)
 
-    def astype(self, dtype):
-        """转换数据类型"""
-        if dtype == np.float64:
-            return self
-        return np.array(self, dtype=dtype)
-
+    def to_numpy(self):
+        """转换为 NumPy 数组"""
+        return self.__array__()
+    
     def tolist(self):
         """转换为嵌套列表"""
         return self.__array__().tolist()

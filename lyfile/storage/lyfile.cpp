@@ -1728,7 +1728,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "lyfile/storage/lyfile.pyx":26
+/* "lyfile/storage/lyfile.pyx":22
  * 
  * # Define types
  * ctypedef np.int32_t INT32             # <<<<<<<<<<<<<<
@@ -1737,7 +1737,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  */
 typedef __pyx_t_5numpy_int32_t __pyx_t_6lyfile_7storage_6lyfile_INT32;
 
-/* "lyfile/storage/lyfile.pyx":27
+/* "lyfile/storage/lyfile.pyx":23
  * # Define types
  * ctypedef np.int32_t INT32
  * ctypedef np.int64_t INT64             # <<<<<<<<<<<<<<
@@ -1746,7 +1746,7 @@ typedef __pyx_t_5numpy_int32_t __pyx_t_6lyfile_7storage_6lyfile_INT32;
  */
 typedef __pyx_t_5numpy_int64_t __pyx_t_6lyfile_7storage_6lyfile_INT64;
 
-/* "lyfile/storage/lyfile.pyx":28
+/* "lyfile/storage/lyfile.pyx":24
  * ctypedef np.int32_t INT32
  * ctypedef np.int64_t INT64
  * ctypedef np.float32_t FLOAT32             # <<<<<<<<<<<<<<
@@ -1755,7 +1755,7 @@ typedef __pyx_t_5numpy_int64_t __pyx_t_6lyfile_7storage_6lyfile_INT64;
  */
 typedef __pyx_t_5numpy_float32_t __pyx_t_6lyfile_7storage_6lyfile_FLOAT32;
 
-/* "lyfile/storage/lyfile.pyx":29
+/* "lyfile/storage/lyfile.pyx":25
  * ctypedef np.int64_t INT64
  * ctypedef np.float32_t FLOAT32
  * ctypedef np.float64_t FLOAT64             # <<<<<<<<<<<<<<
@@ -1832,7 +1832,7 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "lyfile/storage/lyfile.pyx":32
+/* "lyfile/storage/lyfile.pyx":28
  * cdef int64_t file_offset
  * 
  * ctypedef tuple ColumnInfo             # <<<<<<<<<<<<<<
@@ -1841,7 +1841,7 @@ typedef npy_cdouble __pyx_t_5numpy_complex_t;
  */
 typedef PyObject *__pyx_t_6lyfile_7storage_6lyfile_ColumnInfo;
 
-/* "lyfile/storage/lyfile.pyx":33
+/* "lyfile/storage/lyfile.pyx":29
  * 
  * ctypedef tuple ColumnInfo
  * ctypedef dict BlocksInfo             # <<<<<<<<<<<<<<
@@ -1850,7 +1850,7 @@ typedef PyObject *__pyx_t_6lyfile_7storage_6lyfile_ColumnInfo;
  */
 typedef PyObject *__pyx_t_6lyfile_7storage_6lyfile_BlocksInfo;
 
-/* "lyfile/storage/lyfile.pyx":35
+/* "lyfile/storage/lyfile.pyx":31
  * ctypedef dict BlocksInfo
  * 
  * cdef class LyFile:             # <<<<<<<<<<<<<<
@@ -1878,7 +1878,7 @@ struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile {
 };
 
 
-/* "lyfile/storage/lyfile.pyx":224
+/* "lyfile/storage/lyfile.pyx":222
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):             # <<<<<<<<<<<<<<
@@ -1894,7 +1894,7 @@ struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch {
 };
 
 
-/* "lyfile/storage/lyfile.pyx":242
+/* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
@@ -1907,7 +1907,7 @@ struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_part
 };
 
 
-/* "lyfile/storage/lyfile.pyx":259
+/* "lyfile/storage/lyfile.pyx":257
  *         #
  *         if (len(partitions) > self._max_partitions or
  *             any(p['rows'] < self._min_partition_size for p in partitions)):             # <<<<<<<<<<<<<<
@@ -1923,7 +1923,7 @@ struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr {
 
 
 
-/* "lyfile/storage/lyfile.pyx":35
+/* "lyfile/storage/lyfile.pyx":31
  * ctypedef dict BlocksInfo
  * 
  * cdef class LyFile:             # <<<<<<<<<<<<<<
@@ -2407,9 +2407,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyUnicode_From_Py_ssize_t(Py_ssize_t value,
 /* JoinPyUnicode.proto */
 static PyObject* __Pyx_PyUnicode_Join(PyObject* value_tuple, Py_ssize_t value_count, Py_ssize_t result_ulength,
                                       Py_UCS4 max_char);
-
-/* ExtTypeTest.proto */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* IncludeStructmemberH.proto */
 #include <structmember.h>
@@ -2985,8 +2982,6 @@ static CYTHON_INLINE npy_intp __pyx_f_5numpy_7ndarray_4size_size(PyArrayObject *
 static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__pyx_v_self); /* proto*/
 static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self); /* proto*/
 
-/* Module declarations from "cython" */
-
 /* Module declarations from "libc.stdint" */
 
 /* Module declarations from "libc.string" */
@@ -3026,7 +3021,7 @@ static const char __pyx_k_i[] = "i";
 static const char __pyx_k__6[] = "\346\226\260\346\225\260\346\215\256\347\232\204\345\210\227\344\270\216\347\216\260\346\234\211\345\210\227\344\270\215\345\214\271\351\205\215";
 static const char __pyx_k_df[] = "df";
 static const char __pyx_k_gc[] = "gc";
-static const char __pyx_k_io[] = "io";
+static const char __pyx_k_ly[] = ".ly";
 static const char __pyx_k_np[] = "np";
 static const char __pyx_k_os[] = "os";
 static const char __pyx_k_pa[] = "pa";
@@ -3042,7 +3037,7 @@ static const char __pyx_k_col[] = "col";
 static const char __pyx_k_int[] = "int";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_str[] = "str";
-static const char __pyx_k_vec[] = ".vec";
+static const char __pyx_k_vec[] = "-*.vec";
 static const char __pyx_k_Dict[] = "Dict";
 static const char __pyx_k_List[] = "List";
 static const char __pyx_k_Lock[] = "Lock";
@@ -3076,7 +3071,6 @@ static const char __pyx_k_temp[] = "_temp";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_wait[] = "wait";
 static const char __pyx_k_Table[] = "Table";
-static const char __pyx_k_Tuple[] = "Tuple";
 static const char __pyx_k_Union[] = "Union";
 static const char __pyx_k_close[] = "close";
 static const char __pyx_k_enter[] = "__enter__";
@@ -3092,7 +3086,6 @@ static const char __pyx_k_table[] = "table";
 static const char __pyx_k_throw[] = "throw";
 static const char __pyx_k_utils[] = "utils";
 static const char __pyx_k_write[] = "write";
-static const char __pyx_k_Future[] = "Future";
 static const char __pyx_k_LyFile[] = "LyFile";
 static const char __pyx_k_Merged[] = "Merged ";
 static const char __pyx_k_Series[] = "Series";
@@ -3114,7 +3107,6 @@ static const char __pyx_k_rmtree[] = "rmtree";
 static const char __pyx_k_schema[] = "schema";
 static const char __pyx_k_shutil[] = "shutil";
 static const char __pyx_k_snappy[] = "snappy";
-static const char __pyx_k_struct[] = "struct";
 static const char __pyx_k_submit[] = "submit";
 static const char __pyx_k_tables[] = "tables";
 static const char __pyx_k_typing[] = "typing";
@@ -3122,7 +3114,6 @@ static const char __pyx_k_unlink[] = "unlink";
 static const char __pyx_k_update[] = "update";
 static const char __pyx_k_values[] = "values";
 static const char __pyx_k_vstack[] = "vstack";
-static const char __pyx_k_BytesIO[] = "BytesIO";
 static const char __pyx_k_columns[] = "columns";
 static const char __pyx_k_disable[] = "disable";
 static const char __pyx_k_end_idx[] = "end_idx";
@@ -3130,7 +3121,8 @@ static const char __pyx_k_genexpr[] = "genexpr";
 static const char __pyx_k_inplace[] = "inplace";
 static const char __pyx_k_logging[] = "logging";
 static const char __pyx_k_parents[] = "parents";
-static const char __pyx_k_parquet[] = ".parquet";
+static const char __pyx_k_parquet[] = "parquet";
+static const char __pyx_k_part_ly[] = "part-*.ly";
 static const char __pyx_k_pathlib[] = "pathlib";
 static const char __pyx_k_pyarrow[] = "pyarrow";
 static const char __pyx_k_st_size[] = "st_size";
@@ -3146,24 +3138,24 @@ static const char __pyx_k_optimize[] = "optimize";
 static const char __pyx_k_pa_Table[] = "pa.Table";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
 static const char __pyx_k_read_vec[] = "read_vec";
-static const char __pyx_k_save_nnp[] = "save_nnp";
+static const char __pyx_k_save_vec[] = "save_vec";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_shutdown[] = "shutdown";
+static const char __pyx_k_vec_data[] = "vec_data";
+static const char __pyx_k_ArrayView[] = "ArrayView";
 static const char __pyx_k_DataFrame[] = "DataFrame";
 static const char __pyx_k_cpu_count[] = "cpu_count";
 static const char __pyx_k_isenabled[] = "isenabled";
 static const char __pyx_k_mmap_mode[] = "mmap_mode";
 static const char __pyx_k_overwrite[] = "overwrite";
-static const char __pyx_k_parquet_2[] = "parquet";
 static const char __pyx_k_partition[] = "partition";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_threading[] = "threading";
-static const char __pyx_k_utils_nnp[] = "utils.nnp";
 static const char __pyx_k_MMapReader[] = "MMapReader";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_VecStorage[] = "VecStorage";
 static const char __pyx_k_batch_size[] = "batch_size";
-static const char __pyx_k_np_ndarray[] = "np.ndarray";
 static const char __pyx_k_partitions[] = " partitions";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
@@ -3172,11 +3164,9 @@ static const char __pyx_k_read_table[] = "read_table";
 static const char __pyx_k_total_rows[] = "total_rows";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_LyFile_read[] = "LyFile.read";
-static const char __pyx_k_OrderedDict[] = "OrderedDict";
 static const char __pyx_k_ParquetFile[] = "ParquetFile";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_async_merge[] = "_async_merge";
-static const char __pyx_k_collections[] = "collections";
 static const char __pyx_k_column_name[] = "column_name";
 static const char __pyx_k_compression[] = "compression";
 static const char __pyx_k_from_pandas[] = "from_pandas";
@@ -3185,6 +3175,8 @@ static const char __pyx_k_mmap_reader[] = "mmap_reader";
 static const char __pyx_k_relative_to[] = "relative_to";
 static const char __pyx_k_target_path[] = "target_path";
 static const char __pyx_k_temp_folder[] = "temp_folder";
+static const char __pyx_k_utils_array[] = "utils.array";
+static const char __pyx_k_vec_storage[] = "vec_storage";
 static const char __pyx_k_write_table[] = "write_table";
 static const char __pyx_k_LyFile_write[] = "LyFile.write";
 static const char __pyx_k_initializing[] = "_initializing";
@@ -3192,21 +3184,19 @@ static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_merged_table[] = "merged_table";
 static const char __pyx_k_parquet_file[] = "parquet_file";
 static const char __pyx_k_parquet_path[] = "parquet_path";
-static const char __pyx_k_part_parquet[] = "part-*.parquet";
 static const char __pyx_k_partition_id[] = "partition_id";
 static const char __pyx_k_partitions_2[] = "partitions";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "<stringsource>";
 static const char __pyx_k_thread_count[] = "thread_count";
 static const char __pyx_k_use_setstate[] = "use_setstate";
-static const char __pyx_k_vec_filename[] = "vec_filename";
 static const char __pyx_k_LyFile_append[] = "LyFile.append";
 static const char __pyx_k_class_getitem[] = "__class_getitem__";
 static const char __pyx_k_concat_tables[] = "concat_tables";
+static const char __pyx_k_part_00000_ly[] = "part-00000.ly";
 static const char __pyx_k_read_metadata[] = "read_metadata";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_trigger_merge[] = "trigger_merge";
-static const char __pyx_k_vectors_array[] = "vectors_array";
 static const char __pyx_k_max_partitions[] = "max_partitions";
 static const char __pyx_k_new_partitions[] = "new_partitions";
 static const char __pyx_k_partition_size[] = "partition_size";
@@ -3229,7 +3219,6 @@ static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_concurrent_futures[] = "concurrent.futures";
 static const char __pyx_k_min_partition_size[] = "min_partition_size";
-static const char __pyx_k_part_00000_parquet[] = "part-00000.parquet";
 static const char __pyx_k_LyFile__async_merge[] = "LyFile._async_merge";
 static const char __pyx_k_pyx_unpickle_LyFile[] = "__pyx_unpickle_LyFile";
 static const char __pyx_k_LyFile_trigger_merge[] = "LyFile.trigger_merge";
@@ -3239,6 +3228,7 @@ static const char __pyx_k_merge_small_partitions[] = "_merge_small_partitions";
 static const char __pyx_k_Union_pd_DataFrame_dict[] = "Union[pd.DataFrame, dict]";
 static const char __pyx_k_LyFile___setstate_cython[] = "LyFile.__setstate_cython__";
 static const char __pyx_k_lyfile_storage_lyfile_pyx[] = "lyfile/storage/lyfile.pyx";
+static const char __pyx_k_Union_np_ndarray_ArrayView[] = "Union[np.ndarray, ArrayView]";
 static const char __pyx_k_Union_Optional_List_str_str[] = "Union[Optional[List[str]], str]";
 static const char __pyx_k_Error_during_partition_merge[] = "Error during partition merge: ";
 static const char __pyx_k_LyFile__merge_small_partitions[] = "LyFile._merge_small_partitions";
@@ -3253,7 +3243,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
 static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_data); /* proto */
 static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_data); /* proto */
 static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_columns); /* proto */
-static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_column_name, PyObject *__pyx_v_mmap_mode); /* proto */
+static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_column_name, PyObject *__pyx_v_mmap_mode); /* proto */
 static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_10read_batch(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_batch_size, PyObject *__pyx_v_columns); /* proto */
 static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13__getitem__(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_key); /* proto */
 static Py_ssize_t __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15__len__(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self); /* proto */
@@ -3348,8 +3338,6 @@ typedef struct {
   #endif
   #if CYTHON_USE_MODULE_STATE
   #endif
-  #if CYTHON_USE_MODULE_STATE
-  #endif
   PyTypeObject *__pyx_ptype_7cpython_4type_type;
   #if CYTHON_USE_MODULE_STATE
   #endif
@@ -3389,11 +3377,10 @@ typedef struct {
   PyObject *__pyx_kp_u_05d;
   PyObject *__pyx_kp_u_2_0;
   PyObject *__pyx_kp_u_2_6;
-  PyObject *__pyx_n_s_BytesIO;
+  PyObject *__pyx_n_s_ArrayView;
   PyObject *__pyx_n_s_DataFrame;
   PyObject *__pyx_n_s_Dict;
   PyObject *__pyx_kp_u_Error_during_partition_merge;
-  PyObject *__pyx_n_s_Future;
   PyObject *__pyx_n_s_ImportError;
   PyObject *__pyx_kp_s_Incompatible_checksums_0x_x_vs_0;
   PyObject *__pyx_n_s_List;
@@ -3415,19 +3402,19 @@ typedef struct {
   PyObject *__pyx_kp_u_Merge_operation_already_in_progr;
   PyObject *__pyx_kp_u_Merged;
   PyObject *__pyx_n_s_Optional;
-  PyObject *__pyx_n_s_OrderedDict;
   PyObject *__pyx_n_s_ParquetFile;
   PyObject *__pyx_n_s_Path;
   PyObject *__pyx_n_s_PickleError;
   PyObject *__pyx_n_s_Series;
   PyObject *__pyx_n_s_Table;
   PyObject *__pyx_n_s_ThreadPoolExecutor;
-  PyObject *__pyx_n_s_Tuple;
   PyObject *__pyx_n_s_Union;
   PyObject *__pyx_kp_s_Union_List_Dict_pd_DataFrame_pd;
   PyObject *__pyx_kp_s_Union_Optional_List_str_str;
+  PyObject *__pyx_kp_s_Union_np_ndarray_ArrayView;
   PyObject *__pyx_kp_s_Union_pd_DataFrame_dict;
   PyObject *__pyx_n_s_ValueError;
+  PyObject *__pyx_n_s_VecStorage;
   PyObject *__pyx_kp_u__12;
   PyObject *__pyx_n_s__13;
   PyObject *__pyx_n_s__41;
@@ -3443,7 +3430,6 @@ typedef struct {
   PyObject *__pyx_n_s_cline_in_traceback;
   PyObject *__pyx_n_s_close;
   PyObject *__pyx_n_s_col;
-  PyObject *__pyx_n_s_collections;
   PyObject *__pyx_n_s_column_name;
   PyObject *__pyx_n_s_columns;
   PyObject *__pyx_n_s_compression;
@@ -3482,11 +3468,11 @@ typedef struct {
   PyObject *__pyx_n_s_initializing;
   PyObject *__pyx_n_s_inplace;
   PyObject *__pyx_n_s_int;
-  PyObject *__pyx_n_s_io;
   PyObject *__pyx_n_s_is_coroutine;
   PyObject *__pyx_kp_u_isenabled;
   PyObject *__pyx_n_s_local;
   PyObject *__pyx_n_s_logging;
+  PyObject *__pyx_kp_u_ly;
   PyObject *__pyx_n_s_lyfile_storage_lyfile;
   PyObject *__pyx_kp_s_lyfile_storage_lyfile_pyx;
   PyObject *__pyx_n_s_main;
@@ -3508,7 +3494,6 @@ typedef struct {
   PyObject *__pyx_n_s_new_partitions;
   PyObject *__pyx_n_s_new_path;
   PyObject *__pyx_n_s_np;
-  PyObject *__pyx_kp_s_np_ndarray;
   PyObject *__pyx_n_s_num_rows;
   PyObject *__pyx_n_s_numpy;
   PyObject *__pyx_kp_u_numpy_core_multiarray_failed_to;
@@ -3521,13 +3506,12 @@ typedef struct {
   PyObject *__pyx_n_s_pandas;
   PyObject *__pyx_n_s_parent;
   PyObject *__pyx_n_s_parents;
-  PyObject *__pyx_kp_u_parquet;
-  PyObject *__pyx_n_s_parquet_2;
+  PyObject *__pyx_n_s_parquet;
   PyObject *__pyx_n_s_parquet_file;
   PyObject *__pyx_n_s_parquet_path;
   PyObject *__pyx_kp_u_part;
-  PyObject *__pyx_kp_u_part_00000_parquet;
-  PyObject *__pyx_kp_u_part_parquet;
+  PyObject *__pyx_kp_u_part_00000_ly;
+  PyObject *__pyx_kp_u_part_ly;
   PyObject *__pyx_n_s_partition;
   PyObject *__pyx_n_s_partition_files;
   PyObject *__pyx_n_s_partition_id;
@@ -3567,7 +3551,7 @@ typedef struct {
   PyObject *__pyx_n_s_return;
   PyObject *__pyx_n_s_rmtree;
   PyObject *__pyx_n_u_rows;
-  PyObject *__pyx_n_s_save_nnp;
+  PyObject *__pyx_n_s_save_vec;
   PyObject *__pyx_n_s_schema;
   PyObject *__pyx_n_s_self;
   PyObject *__pyx_n_s_send;
@@ -3584,7 +3568,6 @@ typedef struct {
   PyObject *__pyx_n_s_state;
   PyObject *__pyx_n_s_str;
   PyObject *__pyx_kp_s_stringsource;
-  PyObject *__pyx_n_s_struct;
   PyObject *__pyx_n_s_submit;
   PyObject *__pyx_n_s_table;
   PyObject *__pyx_n_s_tables;
@@ -3603,12 +3586,12 @@ typedef struct {
   PyObject *__pyx_n_s_use_dictionary;
   PyObject *__pyx_n_s_use_setstate;
   PyObject *__pyx_n_s_utils;
-  PyObject *__pyx_n_s_utils_nnp;
+  PyObject *__pyx_n_s_utils_array;
   PyObject *__pyx_n_s_values;
   PyObject *__pyx_kp_u_vec;
-  PyObject *__pyx_n_s_vec_filename;
+  PyObject *__pyx_n_u_vec_data;
+  PyObject *__pyx_n_s_vec_storage;
   PyObject *__pyx_n_s_vector_columns;
-  PyObject *__pyx_n_s_vectors_array;
   PyObject *__pyx_n_s_version;
   PyObject *__pyx_n_s_vstack;
   PyObject *__pyx_n_s_wait;
@@ -3730,11 +3713,10 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_u_05d);
   Py_CLEAR(clear_module_state->__pyx_kp_u_2_0);
   Py_CLEAR(clear_module_state->__pyx_kp_u_2_6);
-  Py_CLEAR(clear_module_state->__pyx_n_s_BytesIO);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ArrayView);
   Py_CLEAR(clear_module_state->__pyx_n_s_DataFrame);
   Py_CLEAR(clear_module_state->__pyx_n_s_Dict);
   Py_CLEAR(clear_module_state->__pyx_kp_u_Error_during_partition_merge);
-  Py_CLEAR(clear_module_state->__pyx_n_s_Future);
   Py_CLEAR(clear_module_state->__pyx_n_s_ImportError);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0);
   Py_CLEAR(clear_module_state->__pyx_n_s_List);
@@ -3756,19 +3738,19 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_u_Merge_operation_already_in_progr);
   Py_CLEAR(clear_module_state->__pyx_kp_u_Merged);
   Py_CLEAR(clear_module_state->__pyx_n_s_Optional);
-  Py_CLEAR(clear_module_state->__pyx_n_s_OrderedDict);
   Py_CLEAR(clear_module_state->__pyx_n_s_ParquetFile);
   Py_CLEAR(clear_module_state->__pyx_n_s_Path);
   Py_CLEAR(clear_module_state->__pyx_n_s_PickleError);
   Py_CLEAR(clear_module_state->__pyx_n_s_Series);
   Py_CLEAR(clear_module_state->__pyx_n_s_Table);
   Py_CLEAR(clear_module_state->__pyx_n_s_ThreadPoolExecutor);
-  Py_CLEAR(clear_module_state->__pyx_n_s_Tuple);
   Py_CLEAR(clear_module_state->__pyx_n_s_Union);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Union_List_Dict_pd_DataFrame_pd);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Union_Optional_List_str_str);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_Union_np_ndarray_ArrayView);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Union_pd_DataFrame_dict);
   Py_CLEAR(clear_module_state->__pyx_n_s_ValueError);
+  Py_CLEAR(clear_module_state->__pyx_n_s_VecStorage);
   Py_CLEAR(clear_module_state->__pyx_kp_u__12);
   Py_CLEAR(clear_module_state->__pyx_n_s__13);
   Py_CLEAR(clear_module_state->__pyx_n_s__41);
@@ -3784,7 +3766,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
   Py_CLEAR(clear_module_state->__pyx_n_s_close);
   Py_CLEAR(clear_module_state->__pyx_n_s_col);
-  Py_CLEAR(clear_module_state->__pyx_n_s_collections);
   Py_CLEAR(clear_module_state->__pyx_n_s_column_name);
   Py_CLEAR(clear_module_state->__pyx_n_s_columns);
   Py_CLEAR(clear_module_state->__pyx_n_s_compression);
@@ -3823,11 +3804,11 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_initializing);
   Py_CLEAR(clear_module_state->__pyx_n_s_inplace);
   Py_CLEAR(clear_module_state->__pyx_n_s_int);
-  Py_CLEAR(clear_module_state->__pyx_n_s_io);
   Py_CLEAR(clear_module_state->__pyx_n_s_is_coroutine);
   Py_CLEAR(clear_module_state->__pyx_kp_u_isenabled);
   Py_CLEAR(clear_module_state->__pyx_n_s_local);
   Py_CLEAR(clear_module_state->__pyx_n_s_logging);
+  Py_CLEAR(clear_module_state->__pyx_kp_u_ly);
   Py_CLEAR(clear_module_state->__pyx_n_s_lyfile_storage_lyfile);
   Py_CLEAR(clear_module_state->__pyx_kp_s_lyfile_storage_lyfile_pyx);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
@@ -3849,7 +3830,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_new_partitions);
   Py_CLEAR(clear_module_state->__pyx_n_s_new_path);
   Py_CLEAR(clear_module_state->__pyx_n_s_np);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_np_ndarray);
   Py_CLEAR(clear_module_state->__pyx_n_s_num_rows);
   Py_CLEAR(clear_module_state->__pyx_n_s_numpy);
   Py_CLEAR(clear_module_state->__pyx_kp_u_numpy_core_multiarray_failed_to);
@@ -3862,13 +3842,12 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_pandas);
   Py_CLEAR(clear_module_state->__pyx_n_s_parent);
   Py_CLEAR(clear_module_state->__pyx_n_s_parents);
-  Py_CLEAR(clear_module_state->__pyx_kp_u_parquet);
-  Py_CLEAR(clear_module_state->__pyx_n_s_parquet_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_parquet);
   Py_CLEAR(clear_module_state->__pyx_n_s_parquet_file);
   Py_CLEAR(clear_module_state->__pyx_n_s_parquet_path);
   Py_CLEAR(clear_module_state->__pyx_kp_u_part);
-  Py_CLEAR(clear_module_state->__pyx_kp_u_part_00000_parquet);
-  Py_CLEAR(clear_module_state->__pyx_kp_u_part_parquet);
+  Py_CLEAR(clear_module_state->__pyx_kp_u_part_00000_ly);
+  Py_CLEAR(clear_module_state->__pyx_kp_u_part_ly);
   Py_CLEAR(clear_module_state->__pyx_n_s_partition);
   Py_CLEAR(clear_module_state->__pyx_n_s_partition_files);
   Py_CLEAR(clear_module_state->__pyx_n_s_partition_id);
@@ -3908,7 +3887,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_return);
   Py_CLEAR(clear_module_state->__pyx_n_s_rmtree);
   Py_CLEAR(clear_module_state->__pyx_n_u_rows);
-  Py_CLEAR(clear_module_state->__pyx_n_s_save_nnp);
+  Py_CLEAR(clear_module_state->__pyx_n_s_save_vec);
   Py_CLEAR(clear_module_state->__pyx_n_s_schema);
   Py_CLEAR(clear_module_state->__pyx_n_s_self);
   Py_CLEAR(clear_module_state->__pyx_n_s_send);
@@ -3925,7 +3904,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_state);
   Py_CLEAR(clear_module_state->__pyx_n_s_str);
   Py_CLEAR(clear_module_state->__pyx_kp_s_stringsource);
-  Py_CLEAR(clear_module_state->__pyx_n_s_struct);
   Py_CLEAR(clear_module_state->__pyx_n_s_submit);
   Py_CLEAR(clear_module_state->__pyx_n_s_table);
   Py_CLEAR(clear_module_state->__pyx_n_s_tables);
@@ -3944,12 +3922,12 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_use_dictionary);
   Py_CLEAR(clear_module_state->__pyx_n_s_use_setstate);
   Py_CLEAR(clear_module_state->__pyx_n_s_utils);
-  Py_CLEAR(clear_module_state->__pyx_n_s_utils_nnp);
+  Py_CLEAR(clear_module_state->__pyx_n_s_utils_array);
   Py_CLEAR(clear_module_state->__pyx_n_s_values);
   Py_CLEAR(clear_module_state->__pyx_kp_u_vec);
-  Py_CLEAR(clear_module_state->__pyx_n_s_vec_filename);
+  Py_CLEAR(clear_module_state->__pyx_n_u_vec_data);
+  Py_CLEAR(clear_module_state->__pyx_n_s_vec_storage);
   Py_CLEAR(clear_module_state->__pyx_n_s_vector_columns);
-  Py_CLEAR(clear_module_state->__pyx_n_s_vectors_array);
   Py_CLEAR(clear_module_state->__pyx_n_s_version);
   Py_CLEAR(clear_module_state->__pyx_n_s_vstack);
   Py_CLEAR(clear_module_state->__pyx_n_s_wait);
@@ -4049,11 +4027,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_u_05d);
   Py_VISIT(traverse_module_state->__pyx_kp_u_2_0);
   Py_VISIT(traverse_module_state->__pyx_kp_u_2_6);
-  Py_VISIT(traverse_module_state->__pyx_n_s_BytesIO);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ArrayView);
   Py_VISIT(traverse_module_state->__pyx_n_s_DataFrame);
   Py_VISIT(traverse_module_state->__pyx_n_s_Dict);
   Py_VISIT(traverse_module_state->__pyx_kp_u_Error_during_partition_merge);
-  Py_VISIT(traverse_module_state->__pyx_n_s_Future);
   Py_VISIT(traverse_module_state->__pyx_n_s_ImportError);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0);
   Py_VISIT(traverse_module_state->__pyx_n_s_List);
@@ -4075,19 +4052,19 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_u_Merge_operation_already_in_progr);
   Py_VISIT(traverse_module_state->__pyx_kp_u_Merged);
   Py_VISIT(traverse_module_state->__pyx_n_s_Optional);
-  Py_VISIT(traverse_module_state->__pyx_n_s_OrderedDict);
   Py_VISIT(traverse_module_state->__pyx_n_s_ParquetFile);
   Py_VISIT(traverse_module_state->__pyx_n_s_Path);
   Py_VISIT(traverse_module_state->__pyx_n_s_PickleError);
   Py_VISIT(traverse_module_state->__pyx_n_s_Series);
   Py_VISIT(traverse_module_state->__pyx_n_s_Table);
   Py_VISIT(traverse_module_state->__pyx_n_s_ThreadPoolExecutor);
-  Py_VISIT(traverse_module_state->__pyx_n_s_Tuple);
   Py_VISIT(traverse_module_state->__pyx_n_s_Union);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Union_List_Dict_pd_DataFrame_pd);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Union_Optional_List_str_str);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_Union_np_ndarray_ArrayView);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Union_pd_DataFrame_dict);
   Py_VISIT(traverse_module_state->__pyx_n_s_ValueError);
+  Py_VISIT(traverse_module_state->__pyx_n_s_VecStorage);
   Py_VISIT(traverse_module_state->__pyx_kp_u__12);
   Py_VISIT(traverse_module_state->__pyx_n_s__13);
   Py_VISIT(traverse_module_state->__pyx_n_s__41);
@@ -4103,7 +4080,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
   Py_VISIT(traverse_module_state->__pyx_n_s_close);
   Py_VISIT(traverse_module_state->__pyx_n_s_col);
-  Py_VISIT(traverse_module_state->__pyx_n_s_collections);
   Py_VISIT(traverse_module_state->__pyx_n_s_column_name);
   Py_VISIT(traverse_module_state->__pyx_n_s_columns);
   Py_VISIT(traverse_module_state->__pyx_n_s_compression);
@@ -4142,11 +4118,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_initializing);
   Py_VISIT(traverse_module_state->__pyx_n_s_inplace);
   Py_VISIT(traverse_module_state->__pyx_n_s_int);
-  Py_VISIT(traverse_module_state->__pyx_n_s_io);
   Py_VISIT(traverse_module_state->__pyx_n_s_is_coroutine);
   Py_VISIT(traverse_module_state->__pyx_kp_u_isenabled);
   Py_VISIT(traverse_module_state->__pyx_n_s_local);
   Py_VISIT(traverse_module_state->__pyx_n_s_logging);
+  Py_VISIT(traverse_module_state->__pyx_kp_u_ly);
   Py_VISIT(traverse_module_state->__pyx_n_s_lyfile_storage_lyfile);
   Py_VISIT(traverse_module_state->__pyx_kp_s_lyfile_storage_lyfile_pyx);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
@@ -4168,7 +4144,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_new_partitions);
   Py_VISIT(traverse_module_state->__pyx_n_s_new_path);
   Py_VISIT(traverse_module_state->__pyx_n_s_np);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_np_ndarray);
   Py_VISIT(traverse_module_state->__pyx_n_s_num_rows);
   Py_VISIT(traverse_module_state->__pyx_n_s_numpy);
   Py_VISIT(traverse_module_state->__pyx_kp_u_numpy_core_multiarray_failed_to);
@@ -4181,13 +4156,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_pandas);
   Py_VISIT(traverse_module_state->__pyx_n_s_parent);
   Py_VISIT(traverse_module_state->__pyx_n_s_parents);
-  Py_VISIT(traverse_module_state->__pyx_kp_u_parquet);
-  Py_VISIT(traverse_module_state->__pyx_n_s_parquet_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_parquet);
   Py_VISIT(traverse_module_state->__pyx_n_s_parquet_file);
   Py_VISIT(traverse_module_state->__pyx_n_s_parquet_path);
   Py_VISIT(traverse_module_state->__pyx_kp_u_part);
-  Py_VISIT(traverse_module_state->__pyx_kp_u_part_00000_parquet);
-  Py_VISIT(traverse_module_state->__pyx_kp_u_part_parquet);
+  Py_VISIT(traverse_module_state->__pyx_kp_u_part_00000_ly);
+  Py_VISIT(traverse_module_state->__pyx_kp_u_part_ly);
   Py_VISIT(traverse_module_state->__pyx_n_s_partition);
   Py_VISIT(traverse_module_state->__pyx_n_s_partition_files);
   Py_VISIT(traverse_module_state->__pyx_n_s_partition_id);
@@ -4227,7 +4201,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_return);
   Py_VISIT(traverse_module_state->__pyx_n_s_rmtree);
   Py_VISIT(traverse_module_state->__pyx_n_u_rows);
-  Py_VISIT(traverse_module_state->__pyx_n_s_save_nnp);
+  Py_VISIT(traverse_module_state->__pyx_n_s_save_vec);
   Py_VISIT(traverse_module_state->__pyx_n_s_schema);
   Py_VISIT(traverse_module_state->__pyx_n_s_self);
   Py_VISIT(traverse_module_state->__pyx_n_s_send);
@@ -4244,7 +4218,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_state);
   Py_VISIT(traverse_module_state->__pyx_n_s_str);
   Py_VISIT(traverse_module_state->__pyx_kp_s_stringsource);
-  Py_VISIT(traverse_module_state->__pyx_n_s_struct);
   Py_VISIT(traverse_module_state->__pyx_n_s_submit);
   Py_VISIT(traverse_module_state->__pyx_n_s_table);
   Py_VISIT(traverse_module_state->__pyx_n_s_tables);
@@ -4263,12 +4236,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_use_dictionary);
   Py_VISIT(traverse_module_state->__pyx_n_s_use_setstate);
   Py_VISIT(traverse_module_state->__pyx_n_s_utils);
-  Py_VISIT(traverse_module_state->__pyx_n_s_utils_nnp);
+  Py_VISIT(traverse_module_state->__pyx_n_s_utils_array);
   Py_VISIT(traverse_module_state->__pyx_n_s_values);
   Py_VISIT(traverse_module_state->__pyx_kp_u_vec);
-  Py_VISIT(traverse_module_state->__pyx_n_s_vec_filename);
+  Py_VISIT(traverse_module_state->__pyx_n_u_vec_data);
+  Py_VISIT(traverse_module_state->__pyx_n_s_vec_storage);
   Py_VISIT(traverse_module_state->__pyx_n_s_vector_columns);
-  Py_VISIT(traverse_module_state->__pyx_n_s_vectors_array);
   Py_VISIT(traverse_module_state->__pyx_n_s_version);
   Py_VISIT(traverse_module_state->__pyx_n_s_vstack);
   Py_VISIT(traverse_module_state->__pyx_n_s_wait);
@@ -4359,8 +4332,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 #if CYTHON_USE_MODULE_STATE
 #endif
-#if CYTHON_USE_MODULE_STATE
-#endif
 #define __pyx_ptype_7cpython_4type_type __pyx_mstate_global->__pyx_ptype_7cpython_4type_type
 #if CYTHON_USE_MODULE_STATE
 #endif
@@ -4400,11 +4371,10 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_u_05d __pyx_mstate_global->__pyx_kp_u_05d
 #define __pyx_kp_u_2_0 __pyx_mstate_global->__pyx_kp_u_2_0
 #define __pyx_kp_u_2_6 __pyx_mstate_global->__pyx_kp_u_2_6
-#define __pyx_n_s_BytesIO __pyx_mstate_global->__pyx_n_s_BytesIO
+#define __pyx_n_s_ArrayView __pyx_mstate_global->__pyx_n_s_ArrayView
 #define __pyx_n_s_DataFrame __pyx_mstate_global->__pyx_n_s_DataFrame
 #define __pyx_n_s_Dict __pyx_mstate_global->__pyx_n_s_Dict
 #define __pyx_kp_u_Error_during_partition_merge __pyx_mstate_global->__pyx_kp_u_Error_during_partition_merge
-#define __pyx_n_s_Future __pyx_mstate_global->__pyx_n_s_Future
 #define __pyx_n_s_ImportError __pyx_mstate_global->__pyx_n_s_ImportError
 #define __pyx_kp_s_Incompatible_checksums_0x_x_vs_0 __pyx_mstate_global->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0
 #define __pyx_n_s_List __pyx_mstate_global->__pyx_n_s_List
@@ -4426,19 +4396,19 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_u_Merge_operation_already_in_progr __pyx_mstate_global->__pyx_kp_u_Merge_operation_already_in_progr
 #define __pyx_kp_u_Merged __pyx_mstate_global->__pyx_kp_u_Merged
 #define __pyx_n_s_Optional __pyx_mstate_global->__pyx_n_s_Optional
-#define __pyx_n_s_OrderedDict __pyx_mstate_global->__pyx_n_s_OrderedDict
 #define __pyx_n_s_ParquetFile __pyx_mstate_global->__pyx_n_s_ParquetFile
 #define __pyx_n_s_Path __pyx_mstate_global->__pyx_n_s_Path
 #define __pyx_n_s_PickleError __pyx_mstate_global->__pyx_n_s_PickleError
 #define __pyx_n_s_Series __pyx_mstate_global->__pyx_n_s_Series
 #define __pyx_n_s_Table __pyx_mstate_global->__pyx_n_s_Table
 #define __pyx_n_s_ThreadPoolExecutor __pyx_mstate_global->__pyx_n_s_ThreadPoolExecutor
-#define __pyx_n_s_Tuple __pyx_mstate_global->__pyx_n_s_Tuple
 #define __pyx_n_s_Union __pyx_mstate_global->__pyx_n_s_Union
 #define __pyx_kp_s_Union_List_Dict_pd_DataFrame_pd __pyx_mstate_global->__pyx_kp_s_Union_List_Dict_pd_DataFrame_pd
 #define __pyx_kp_s_Union_Optional_List_str_str __pyx_mstate_global->__pyx_kp_s_Union_Optional_List_str_str
+#define __pyx_kp_s_Union_np_ndarray_ArrayView __pyx_mstate_global->__pyx_kp_s_Union_np_ndarray_ArrayView
 #define __pyx_kp_s_Union_pd_DataFrame_dict __pyx_mstate_global->__pyx_kp_s_Union_pd_DataFrame_dict
 #define __pyx_n_s_ValueError __pyx_mstate_global->__pyx_n_s_ValueError
+#define __pyx_n_s_VecStorage __pyx_mstate_global->__pyx_n_s_VecStorage
 #define __pyx_kp_u__12 __pyx_mstate_global->__pyx_kp_u__12
 #define __pyx_n_s__13 __pyx_mstate_global->__pyx_n_s__13
 #define __pyx_n_s__41 __pyx_mstate_global->__pyx_n_s__41
@@ -4454,7 +4424,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
 #define __pyx_n_s_close __pyx_mstate_global->__pyx_n_s_close
 #define __pyx_n_s_col __pyx_mstate_global->__pyx_n_s_col
-#define __pyx_n_s_collections __pyx_mstate_global->__pyx_n_s_collections
 #define __pyx_n_s_column_name __pyx_mstate_global->__pyx_n_s_column_name
 #define __pyx_n_s_columns __pyx_mstate_global->__pyx_n_s_columns
 #define __pyx_n_s_compression __pyx_mstate_global->__pyx_n_s_compression
@@ -4493,11 +4462,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_initializing __pyx_mstate_global->__pyx_n_s_initializing
 #define __pyx_n_s_inplace __pyx_mstate_global->__pyx_n_s_inplace
 #define __pyx_n_s_int __pyx_mstate_global->__pyx_n_s_int
-#define __pyx_n_s_io __pyx_mstate_global->__pyx_n_s_io
 #define __pyx_n_s_is_coroutine __pyx_mstate_global->__pyx_n_s_is_coroutine
 #define __pyx_kp_u_isenabled __pyx_mstate_global->__pyx_kp_u_isenabled
 #define __pyx_n_s_local __pyx_mstate_global->__pyx_n_s_local
 #define __pyx_n_s_logging __pyx_mstate_global->__pyx_n_s_logging
+#define __pyx_kp_u_ly __pyx_mstate_global->__pyx_kp_u_ly
 #define __pyx_n_s_lyfile_storage_lyfile __pyx_mstate_global->__pyx_n_s_lyfile_storage_lyfile
 #define __pyx_kp_s_lyfile_storage_lyfile_pyx __pyx_mstate_global->__pyx_kp_s_lyfile_storage_lyfile_pyx
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
@@ -4519,7 +4488,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_new_partitions __pyx_mstate_global->__pyx_n_s_new_partitions
 #define __pyx_n_s_new_path __pyx_mstate_global->__pyx_n_s_new_path
 #define __pyx_n_s_np __pyx_mstate_global->__pyx_n_s_np
-#define __pyx_kp_s_np_ndarray __pyx_mstate_global->__pyx_kp_s_np_ndarray
 #define __pyx_n_s_num_rows __pyx_mstate_global->__pyx_n_s_num_rows
 #define __pyx_n_s_numpy __pyx_mstate_global->__pyx_n_s_numpy
 #define __pyx_kp_u_numpy_core_multiarray_failed_to __pyx_mstate_global->__pyx_kp_u_numpy_core_multiarray_failed_to
@@ -4532,13 +4500,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_pandas __pyx_mstate_global->__pyx_n_s_pandas
 #define __pyx_n_s_parent __pyx_mstate_global->__pyx_n_s_parent
 #define __pyx_n_s_parents __pyx_mstate_global->__pyx_n_s_parents
-#define __pyx_kp_u_parquet __pyx_mstate_global->__pyx_kp_u_parquet
-#define __pyx_n_s_parquet_2 __pyx_mstate_global->__pyx_n_s_parquet_2
+#define __pyx_n_s_parquet __pyx_mstate_global->__pyx_n_s_parquet
 #define __pyx_n_s_parquet_file __pyx_mstate_global->__pyx_n_s_parquet_file
 #define __pyx_n_s_parquet_path __pyx_mstate_global->__pyx_n_s_parquet_path
 #define __pyx_kp_u_part __pyx_mstate_global->__pyx_kp_u_part
-#define __pyx_kp_u_part_00000_parquet __pyx_mstate_global->__pyx_kp_u_part_00000_parquet
-#define __pyx_kp_u_part_parquet __pyx_mstate_global->__pyx_kp_u_part_parquet
+#define __pyx_kp_u_part_00000_ly __pyx_mstate_global->__pyx_kp_u_part_00000_ly
+#define __pyx_kp_u_part_ly __pyx_mstate_global->__pyx_kp_u_part_ly
 #define __pyx_n_s_partition __pyx_mstate_global->__pyx_n_s_partition
 #define __pyx_n_s_partition_files __pyx_mstate_global->__pyx_n_s_partition_files
 #define __pyx_n_s_partition_id __pyx_mstate_global->__pyx_n_s_partition_id
@@ -4578,7 +4545,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_return __pyx_mstate_global->__pyx_n_s_return
 #define __pyx_n_s_rmtree __pyx_mstate_global->__pyx_n_s_rmtree
 #define __pyx_n_u_rows __pyx_mstate_global->__pyx_n_u_rows
-#define __pyx_n_s_save_nnp __pyx_mstate_global->__pyx_n_s_save_nnp
+#define __pyx_n_s_save_vec __pyx_mstate_global->__pyx_n_s_save_vec
 #define __pyx_n_s_schema __pyx_mstate_global->__pyx_n_s_schema
 #define __pyx_n_s_self __pyx_mstate_global->__pyx_n_s_self
 #define __pyx_n_s_send __pyx_mstate_global->__pyx_n_s_send
@@ -4595,7 +4562,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_state __pyx_mstate_global->__pyx_n_s_state
 #define __pyx_n_s_str __pyx_mstate_global->__pyx_n_s_str
 #define __pyx_kp_s_stringsource __pyx_mstate_global->__pyx_kp_s_stringsource
-#define __pyx_n_s_struct __pyx_mstate_global->__pyx_n_s_struct
 #define __pyx_n_s_submit __pyx_mstate_global->__pyx_n_s_submit
 #define __pyx_n_s_table __pyx_mstate_global->__pyx_n_s_table
 #define __pyx_n_s_tables __pyx_mstate_global->__pyx_n_s_tables
@@ -4614,12 +4580,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_use_dictionary __pyx_mstate_global->__pyx_n_s_use_dictionary
 #define __pyx_n_s_use_setstate __pyx_mstate_global->__pyx_n_s_use_setstate
 #define __pyx_n_s_utils __pyx_mstate_global->__pyx_n_s_utils
-#define __pyx_n_s_utils_nnp __pyx_mstate_global->__pyx_n_s_utils_nnp
+#define __pyx_n_s_utils_array __pyx_mstate_global->__pyx_n_s_utils_array
 #define __pyx_n_s_values __pyx_mstate_global->__pyx_n_s_values
 #define __pyx_kp_u_vec __pyx_mstate_global->__pyx_kp_u_vec
-#define __pyx_n_s_vec_filename __pyx_mstate_global->__pyx_n_s_vec_filename
+#define __pyx_n_u_vec_data __pyx_mstate_global->__pyx_n_u_vec_data
+#define __pyx_n_s_vec_storage __pyx_mstate_global->__pyx_n_s_vec_storage
 #define __pyx_n_s_vector_columns __pyx_mstate_global->__pyx_n_s_vector_columns
-#define __pyx_n_s_vectors_array __pyx_mstate_global->__pyx_n_s_vectors_array
 #define __pyx_n_s_version __pyx_mstate_global->__pyx_n_s_version
 #define __pyx_n_s_vstack __pyx_mstate_global->__pyx_n_s_vstack
 #define __pyx_n_s_wait __pyx_mstate_global->__pyx_n_s_wait
@@ -5936,7 +5902,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":56
+/* "lyfile/storage/lyfile.pyx":52
  *         public object _merge_lock
  * 
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,             # <<<<<<<<<<<<<<
@@ -5979,7 +5945,7 @@ static int __pyx_pw_6lyfile_7storage_6lyfile_6LyFile_1__init__(PyObject *__pyx_v
     values[3] = __Pyx_Arg_NewRef_VARARGS(__pyx_k__4);
     values[4] = __Pyx_Arg_NewRef_VARARGS(__pyx_k__5);
 
-    /* "lyfile/storage/lyfile.pyx":58
+    /* "lyfile/storage/lyfile.pyx":54
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,
  *                  partition_size: int = 100000, max_partitions: int = 10,
  *                  min_partition_size: int = 10000, overwrite: bool = False):             # <<<<<<<<<<<<<<
@@ -6012,47 +5978,47 @@ static int __pyx_pw_6lyfile_7storage_6lyfile_6LyFile_1__init__(PyObject *__pyx_v
           (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_thread_count);
           if (value) { values[1] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_partition_size);
           if (value) { values[2] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_max_partitions);
           if (value) { values[3] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_min_partition_size);
           if (value) { values[4] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_overwrite);
           if (value) { values[5] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 52, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 52, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -6080,7 +6046,7 @@ static int __pyx_pw_6lyfile_7storage_6lyfile_6LyFile_1__init__(PyObject *__pyx_v
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 6, __pyx_nargs); __PYX_ERR(0, 56, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 6, __pyx_nargs); __PYX_ERR(0, 52, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6094,13 +6060,13 @@ static int __pyx_pw_6lyfile_7storage_6lyfile_6LyFile_1__init__(PyObject *__pyx_v
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_thread_count), (&PyInt_Type), 1, "thread_count", 1))) __PYX_ERR(0, 56, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_partition_size), (&PyInt_Type), 0, "partition_size", 1))) __PYX_ERR(0, 57, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_max_partitions), (&PyInt_Type), 0, "max_partitions", 1))) __PYX_ERR(0, 57, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_min_partition_size), (&PyInt_Type), 0, "min_partition_size", 1))) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_thread_count), (&PyInt_Type), 1, "thread_count", 1))) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_partition_size), (&PyInt_Type), 0, "partition_size", 1))) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_max_partitions), (&PyInt_Type), 0, "max_partitions", 1))) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_min_partition_size), (&PyInt_Type), 0, "min_partition_size", 1))) __PYX_ERR(0, 54, __pyx_L1_error)
   __pyx_r = __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(((struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self), __pyx_v_filepath, __pyx_v_thread_count, __pyx_v_partition_size, __pyx_v_max_partitions, __pyx_v_min_partition_size, __pyx_v_overwrite);
 
-  /* "lyfile/storage/lyfile.pyx":56
+  /* "lyfile/storage/lyfile.pyx":52
  *         public object _merge_lock
  * 
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,             # <<<<<<<<<<<<<<
@@ -6141,14 +6107,14 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 1);
 
-  /* "lyfile/storage/lyfile.pyx":60
+  /* "lyfile/storage/lyfile.pyx":56
  *                  min_partition_size: int = 10000, overwrite: bool = False):
  *         """Initialize the LyFile."""
  *         self.folder_path = Path(filepath)             # <<<<<<<<<<<<<<
  * 
  *         if self.folder_path.exists() and overwrite:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -6168,7 +6134,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
     PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_filepath};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -6178,14 +6144,14 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   __pyx_v_self->folder_path = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":62
+  /* "lyfile/storage/lyfile.pyx":58
  *         self.folder_path = Path(filepath)
  * 
  *         if self.folder_path.exists() and overwrite:             # <<<<<<<<<<<<<<
  *             shutil.rmtree(self.folder_path)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->folder_path, __pyx_n_s_exists); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->folder_path, __pyx_n_s_exists); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -6205,32 +6171,32 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_6) {
   } else {
     __pyx_t_5 = __pyx_t_6;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_overwrite); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_overwrite); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 58, __pyx_L1_error)
   __pyx_t_5 = __pyx_t_6;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "lyfile/storage/lyfile.pyx":63
+    /* "lyfile/storage/lyfile.pyx":59
  * 
  *         if self.folder_path.exists() and overwrite:
  *             shutil.rmtree(self.folder_path)             # <<<<<<<<<<<<<<
  * 
  *         self.folder_path.mkdir(parents=True, exist_ok=True)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_shutil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_shutil); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -6251,13 +6217,13 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
       PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_self->folder_path};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":62
+    /* "lyfile/storage/lyfile.pyx":58
  *         self.folder_path = Path(filepath)
  * 
  *         if self.folder_path.exists() and overwrite:             # <<<<<<<<<<<<<<
@@ -6266,201 +6232,223 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":65
+  /* "lyfile/storage/lyfile.pyx":61
  *             shutil.rmtree(self.folder_path)
  * 
  *         self.folder_path.mkdir(parents=True, exist_ok=True)             # <<<<<<<<<<<<<<
- * 
- *         # :
+ *         #  vec_data
+ *         (self.folder_path / "vec_data").mkdir(parents=True, exist_ok=True)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->folder_path, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->folder_path, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_parents, Py_True) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_parents, Py_True) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":68
+  /* "lyfile/storage/lyfile.pyx":63
+ *         self.folder_path.mkdir(parents=True, exist_ok=True)
+ *         #  vec_data
+ *         (self.folder_path / "vec_data").mkdir(parents=True, exist_ok=True)             # <<<<<<<<<<<<<<
+ * 
+ *         # :
+ */
+  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_n_u_vec_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_parents, Py_True) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "lyfile/storage/lyfile.pyx":66
  * 
  *         # :
  *         self._parquet_folder = self.folder_path / "data"             # <<<<<<<<<<<<<<
  *         self._parquet_folder.mkdir(exist_ok=True)
  *         self.filepath = self._parquet_folder
  */
-  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_n_u_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_n_u_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->_parquet_folder);
   __Pyx_DECREF(__pyx_v_self->_parquet_folder);
-  __pyx_v_self->_parquet_folder = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_v_self->_parquet_folder = __pyx_t_1;
+  __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":69
+  /* "lyfile/storage/lyfile.pyx":67
  *         # :
  *         self._parquet_folder = self.folder_path / "data"
  *         self._parquet_folder.mkdir(exist_ok=True)             # <<<<<<<<<<<<<<
  *         self.filepath = self._parquet_folder
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":70
+  /* "lyfile/storage/lyfile.pyx":68
  *         self._parquet_folder = self.folder_path / "data"
  *         self._parquet_folder.mkdir(exist_ok=True)
  *         self.filepath = self._parquet_folder             # <<<<<<<<<<<<<<
  * 
  *         self.thread_count = thread_count or min(8, os.cpu_count() * 2)
  */
-  __pyx_t_1 = __pyx_v_self->_parquet_folder;
-  __Pyx_INCREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_3 = __pyx_v_self->_parquet_folder;
+  __Pyx_INCREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_3);
   __Pyx_GOTREF(__pyx_v_self->filepath);
   __Pyx_DECREF(__pyx_v_self->filepath);
-  __pyx_v_self->filepath = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_self->filepath = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":72
+  /* "lyfile/storage/lyfile.pyx":70
  *         self.filepath = self._parquet_folder
  * 
  *         self.thread_count = thread_count or min(8, os.cpu_count() * 2)             # <<<<<<<<<<<<<<
  *         self._executor = ThreadPoolExecutor(max_workers=self.thread_count)
  *         self._thread_local = threading.local()
  */
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_thread_count); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_v_thread_count); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 70, __pyx_L1_error)
   if (!__pyx_t_5) {
   } else {
-    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_thread_count); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_thread_count); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_8;
     goto __pyx_L6_bool_binop_done;
   }
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_os); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_cpu_count); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_os); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_cpu_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
   __pyx_t_4 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+  if (unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
       __pyx_t_4 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 70, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
-  __pyx_t_2 = __Pyx_PyInt_MultiplyObjC(__pyx_t_1, __pyx_int_2, 2, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_9 = 8;
-  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_10 = PyObject_RichCompare(__pyx_t_2, __pyx_t_3, Py_LT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_MultiplyObjC(__pyx_t_3, __pyx_int_2, 2, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_9 = 8;
+  __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_10 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (__pyx_t_5) {
-    __Pyx_INCREF(__pyx_t_2);
-    __pyx_t_1 = __pyx_t_2;
+    __Pyx_INCREF(__pyx_t_1);
+    __pyx_t_3 = __pyx_t_1;
   } else {
-    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 72, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 70, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_1 = __pyx_t_10;
+    __pyx_t_3 = __pyx_t_10;
     __pyx_t_10 = 0;
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __pyx_t_1;
-  __Pyx_INCREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __pyx_t_3;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
   __pyx_t_7 = __pyx_t_8;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_L6_bool_binop_done:;
   __pyx_v_self->thread_count = __pyx_t_7;
 
-  /* "lyfile/storage/lyfile.pyx":73
+  /* "lyfile/storage/lyfile.pyx":71
  * 
  *         self.thread_count = thread_count or min(8, os.cpu_count() * 2)
  *         self._executor = ThreadPoolExecutor(max_workers=self.thread_count)             # <<<<<<<<<<<<<<
  *         self._thread_local = threading.local()
  *         self._vector_columns = {}
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_10 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_max_workers, __pyx_t_10) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_max_workers, __pyx_t_10) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_GIVEREF(__pyx_t_10);
   __Pyx_GOTREF(__pyx_v_self->_executor);
   __Pyx_DECREF(__pyx_v_self->_executor);
   __pyx_v_self->_executor = __pyx_t_10;
   __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":74
+  /* "lyfile/storage/lyfile.pyx":72
  *         self.thread_count = thread_count or min(8, os.cpu_count() * 2)
  *         self._executor = ThreadPoolExecutor(max_workers=self.thread_count)
  *         self._thread_local = threading.local()             # <<<<<<<<<<<<<<
  *         self._vector_columns = {}
  *         self._column_order = []
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_threading); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_threading); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_local); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_local); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_1);
+  if (unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
       __pyx_t_4 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
-    __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 74, __pyx_L1_error)
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+    __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 72, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_GIVEREF(__pyx_t_10);
   __Pyx_GOTREF(__pyx_v_self->_thread_local);
@@ -6468,14 +6456,14 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   __pyx_v_self->_thread_local = __pyx_t_10;
   __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":75
+  /* "lyfile/storage/lyfile.pyx":73
  *         self._executor = ThreadPoolExecutor(max_workers=self.thread_count)
  *         self._thread_local = threading.local()
  *         self._vector_columns = {}             # <<<<<<<<<<<<<<
  *         self._column_order = []
  *         self.n_rows = 0
  */
-  __pyx_t_10 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_10);
   __Pyx_GOTREF(__pyx_v_self->_vector_columns);
@@ -6483,14 +6471,14 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   __pyx_v_self->_vector_columns = ((PyObject*)__pyx_t_10);
   __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":76
+  /* "lyfile/storage/lyfile.pyx":74
  *         self._thread_local = threading.local()
  *         self._vector_columns = {}
  *         self._column_order = []             # <<<<<<<<<<<<<<
  *         self.n_rows = 0
  *         self._partition_size = partition_size
  */
-  __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_10);
   __Pyx_GOTREF(__pyx_v_self->_column_order);
@@ -6498,7 +6486,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   __pyx_v_self->_column_order = ((PyObject*)__pyx_t_10);
   __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":77
+  /* "lyfile/storage/lyfile.pyx":75
  *         self._vector_columns = {}
  *         self._column_order = []
  *         self.n_rows = 0             # <<<<<<<<<<<<<<
@@ -6507,59 +6495,59 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
  */
   __pyx_v_self->n_rows = 0;
 
-  /* "lyfile/storage/lyfile.pyx":78
+  /* "lyfile/storage/lyfile.pyx":76
  *         self._column_order = []
  *         self.n_rows = 0
  *         self._partition_size = partition_size             # <<<<<<<<<<<<<<
  *         self._max_partitions = max_partitions
  *         self._min_partition_size = min_partition_size
  */
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_partition_size); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_partition_size); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
   __pyx_v_self->_partition_size = __pyx_t_7;
 
-  /* "lyfile/storage/lyfile.pyx":79
+  /* "lyfile/storage/lyfile.pyx":77
  *         self.n_rows = 0
  *         self._partition_size = partition_size
  *         self._max_partitions = max_partitions             # <<<<<<<<<<<<<<
  *         self._min_partition_size = min_partition_size
  * 
  */
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_max_partitions); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_max_partitions); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L1_error)
   __pyx_v_self->_max_partitions = __pyx_t_7;
 
-  /* "lyfile/storage/lyfile.pyx":80
+  /* "lyfile/storage/lyfile.pyx":78
  *         self._partition_size = partition_size
  *         self._max_partitions = max_partitions
  *         self._min_partition_size = min_partition_size             # <<<<<<<<<<<<<<
  * 
  *         self._merge_executor = ThreadPoolExecutor(max_workers=1)
  */
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_min_partition_size); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_min_partition_size); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
   __pyx_v_self->_min_partition_size = __pyx_t_7;
 
-  /* "lyfile/storage/lyfile.pyx":82
+  /* "lyfile/storage/lyfile.pyx":80
  *         self._min_partition_size = min_partition_size
  * 
  *         self._merge_executor = ThreadPoolExecutor(max_workers=1)             # <<<<<<<<<<<<<<
  *         self._merge_future = None
  *         self._merge_lock = threading.Lock()
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_max_workers, __pyx_int_1) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_max_workers, __pyx_int_1) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_GIVEREF(__pyx_t_3);
   __Pyx_GOTREF(__pyx_v_self->_merge_executor);
   __Pyx_DECREF(__pyx_v_self->_merge_executor);
-  __pyx_v_self->_merge_executor = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_self->_merge_executor = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":83
+  /* "lyfile/storage/lyfile.pyx":81
  * 
  *         self._merge_executor = ThreadPoolExecutor(max_workers=1)
  *         self._merge_future = None             # <<<<<<<<<<<<<<
@@ -6572,26 +6560,26 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   __Pyx_DECREF(__pyx_v_self->_merge_future);
   __pyx_v_self->_merge_future = Py_None;
 
-  /* "lyfile/storage/lyfile.pyx":84
+  /* "lyfile/storage/lyfile.pyx":82
  *         self._merge_executor = ThreadPoolExecutor(max_workers=1)
  *         self._merge_future = None
  *         self._merge_lock = threading.Lock()             # <<<<<<<<<<<<<<
  * 
  *         if self._parquet_folder.exists():
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_threading); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_Lock); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_threading); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Lock); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = NULL;
   __pyx_t_4 = 0;
   #if CYTHON_UNPACK_METHODS
   if (unlikely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
-    if (likely(__pyx_t_2)) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_10);
+    if (likely(__pyx_t_1)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_10, function);
       __pyx_t_4 = 1;
@@ -6599,36 +6587,36 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_3);
   __Pyx_GOTREF(__pyx_v_self->_merge_lock);
   __Pyx_DECREF(__pyx_v_self->_merge_lock);
-  __pyx_v_self->_merge_lock = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_v_self->_merge_lock = __pyx_t_3;
+  __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":86
+  /* "lyfile/storage/lyfile.pyx":84
  *         self._merge_lock = threading.Lock()
  * 
  *         if self._parquet_folder.exists():             # <<<<<<<<<<<<<<
  *             self._init_metadata()
  * 
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = NULL;
+  __pyx_t_1 = NULL;
   __pyx_t_4 = 0;
   #if CYTHON_UNPACK_METHODS
   if (likely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
-    if (likely(__pyx_t_2)) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_10);
+    if (likely(__pyx_t_1)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_1);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_10, function);
       __pyx_t_4 = 1;
@@ -6636,27 +6624,27 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
+    PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
+    __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 86, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_5) {
 
-    /* "lyfile/storage/lyfile.pyx":87
+    /* "lyfile/storage/lyfile.pyx":85
  * 
  *         if self._parquet_folder.exists():
  *             self._init_metadata()             # <<<<<<<<<<<<<<
  * 
  *     cdef void _init_metadata(self):
  */
-    ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+    ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
 
-    /* "lyfile/storage/lyfile.pyx":86
+    /* "lyfile/storage/lyfile.pyx":84
  *         self._merge_lock = threading.Lock()
  * 
  *         if self._parquet_folder.exists():             # <<<<<<<<<<<<<<
@@ -6665,7 +6653,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":56
+  /* "lyfile/storage/lyfile.pyx":52
  *         public object _merge_lock
  * 
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,             # <<<<<<<<<<<<<<
@@ -6688,7 +6676,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile___init__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":89
+/* "lyfile/storage/lyfile.pyx":87
  *             self._init_metadata()
  * 
  *     cdef void _init_metadata(self):             # <<<<<<<<<<<<<<
@@ -6715,19 +6703,22 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   int __pyx_t_8;
   Py_ssize_t __pyx_t_9;
   int __pyx_t_10;
+  PyObject *__pyx_t_11 = NULL;
+  Py_ssize_t __pyx_t_12;
+  PyObject *(*__pyx_t_13)(PyObject *);
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_init_metadata", 1);
 
-  /* "lyfile/storage/lyfile.pyx":91
+  /* "lyfile/storage/lyfile.pyx":89
  *     cdef void _init_metadata(self):
  *         """Initialize metadata from existing parquet files."""
  *         if not self._parquet_folder.exists():             # <<<<<<<<<<<<<<
  *             return
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -6747,16 +6738,16 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = (!__pyx_t_5);
   if (__pyx_t_6) {
 
-    /* "lyfile/storage/lyfile.pyx":92
+    /* "lyfile/storage/lyfile.pyx":90
  *         """Initialize metadata from existing parquet files."""
  *         if not self._parquet_folder.exists():
  *             return             # <<<<<<<<<<<<<<
@@ -6765,7 +6756,7 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
  */
     goto __pyx_L0;
 
-    /* "lyfile/storage/lyfile.pyx":91
+    /* "lyfile/storage/lyfile.pyx":89
  *     cdef void _init_metadata(self):
  *         """Initialize metadata from existing parquet files."""
  *         if not self._parquet_folder.exists():             # <<<<<<<<<<<<<<
@@ -6774,7 +6765,7 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":95
+  /* "lyfile/storage/lyfile.pyx":93
  * 
  *         #
  *         self.n_rows = 0             # <<<<<<<<<<<<<<
@@ -6783,14 +6774,14 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
  */
   __pyx_v_self->n_rows = 0;
 
-  /* "lyfile/storage/lyfile.pyx":96
+  /* "lyfile/storage/lyfile.pyx":94
  *         #
  *         self.n_rows = 0
  *         self._column_order = []             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->_column_order);
@@ -6798,14 +6789,14 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   __pyx_v_self->_column_order = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":99
+  /* "lyfile/storage/lyfile.pyx":97
  * 
  *         #
- *         parquet_files = sorted(self._parquet_folder.glob("part-*.parquet"))             # <<<<<<<<<<<<<<
+ *         parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))             # <<<<<<<<<<<<<<
  *         if not parquet_files:
  *             return
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = NULL;
   __pyx_t_4 = 0;
@@ -6822,25 +6813,25 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_kp_u_part_parquet};
+    PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_kp_u_part_ly};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_1 = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_8 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_8 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_v_parquet_files = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":100
+  /* "lyfile/storage/lyfile.pyx":98
  *         #
- *         parquet_files = sorted(self._parquet_folder.glob("part-*.parquet"))
+ *         parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))
  *         if not parquet_files:             # <<<<<<<<<<<<<<
  *             return
  * 
@@ -6849,8 +6840,8 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   __pyx_t_5 = (!__pyx_t_6);
   if (__pyx_t_5) {
 
-    /* "lyfile/storage/lyfile.pyx":101
- *         parquet_files = sorted(self._parquet_folder.glob("part-*.parquet"))
+    /* "lyfile/storage/lyfile.pyx":99
+ *         parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))
  *         if not parquet_files:
  *             return             # <<<<<<<<<<<<<<
  * 
@@ -6858,28 +6849,28 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
  */
     goto __pyx_L0;
 
-    /* "lyfile/storage/lyfile.pyx":100
+    /* "lyfile/storage/lyfile.pyx":98
  *         #
- *         parquet_files = sorted(self._parquet_folder.glob("part-*.parquet"))
+ *         parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))
  *         if not parquet_files:             # <<<<<<<<<<<<<<
  *             return
  * 
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":104
+  /* "lyfile/storage/lyfile.pyx":102
  * 
  *         #  schema
  *         first_file = pq.ParquetFile(parquet_files[0])             # <<<<<<<<<<<<<<
  *         self._column_order = first_file.schema.names
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ParquetFile); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ParquetFile); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_parquet_files, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_parquet_files, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = NULL;
   __pyx_t_4 = 0;
@@ -6900,33 +6891,33 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_first_file = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":105
+  /* "lyfile/storage/lyfile.pyx":103
  *         #  schema
  *         first_file = pq.ParquetFile(parquet_files[0])
  *         self._column_order = first_file.schema.names             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_file, __pyx_n_s_schema); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_file, __pyx_n_s_schema); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_names); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_names); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_2))) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->_column_order);
   __Pyx_DECREF(__pyx_v_self->_column_order);
   __pyx_v_self->_column_order = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":108
+  /* "lyfile/storage/lyfile.pyx":106
  * 
  *         #
  *         for parquet_file in parquet_files:             # <<<<<<<<<<<<<<
@@ -6939,29 +6930,29 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 108, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 106, __pyx_L1_error)
       #endif
       if (__pyx_t_9 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely((0 < 0))) __PYX_ERR(0, 108, __pyx_L1_error)
+    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely((0 < 0))) __PYX_ERR(0, 106, __pyx_L1_error)
     #else
-    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_parquet_file, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":109
+    /* "lyfile/storage/lyfile.pyx":107
  *         #
  *         for parquet_file in parquet_files:
  *             metadata = pq.read_metadata(parquet_file)             # <<<<<<<<<<<<<<
  *             self.n_rows += metadata.num_rows
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_read_metadata); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 109, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_read_metadata); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -6982,33 +6973,33 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_parquet_file};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
     __Pyx_XDECREF_SET(__pyx_v_metadata, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":110
+    /* "lyfile/storage/lyfile.pyx":108
  *         for parquet_file in parquet_files:
  *             metadata = pq.read_metadata(parquet_file)
  *             self.n_rows += metadata.num_rows             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_metadata, __pyx_n_s_num_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_metadata, __pyx_n_s_num_rows); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_3 = PyNumber_InPlaceAdd(__pyx_t_1, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_self->n_rows = __pyx_t_10;
 
-    /* "lyfile/storage/lyfile.pyx":108
+    /* "lyfile/storage/lyfile.pyx":106
  * 
  *         #
  *         for parquet_file in parquet_files:             # <<<<<<<<<<<<<<
@@ -7018,16 +7009,16 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":113
+  /* "lyfile/storage/lyfile.pyx":111
  * 
  *         #
  *         for col in self._column_order:             # <<<<<<<<<<<<<<
- *             vec_path = self.folder_path / f"{col}.vec"
- *             if vec_path.exists():
+ *             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
+ *             #
  */
   if (unlikely(__pyx_v_self->_column_order == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 113, __pyx_L1_error)
+    __PYX_ERR(0, 111, __pyx_L1_error)
   }
   __pyx_t_2 = __pyx_v_self->_column_order; __Pyx_INCREF(__pyx_t_2);
   __pyx_t_9 = 0;
@@ -7035,142 +7026,231 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 113, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 111, __pyx_L1_error)
       #endif
       if (__pyx_t_9 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely((0 < 0))) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_3); __pyx_t_9++; if (unlikely((0 < 0))) __PYX_ERR(0, 111, __pyx_L1_error)
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 111, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_col, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":114
+    /* "lyfile/storage/lyfile.pyx":112
  *         #
  *         for col in self._column_order:
- *             vec_path = self.folder_path / f"{col}.vec"             # <<<<<<<<<<<<<<
- *             if vec_path.exists():
- *                 relative_path = vec_path.relative_to(self.folder_path)
+ *             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")             # <<<<<<<<<<<<<<
+ *             #
+ *             for vec_path in vec_path:
  */
-    __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_v_col, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_3, __pyx_kp_u_vec); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_vec_path, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "lyfile/storage/lyfile.pyx":115
- *         for col in self._column_order:
- *             vec_path = self.folder_path / f"{col}.vec"
- *             if vec_path.exists():             # <<<<<<<<<<<<<<
- *                 relative_path = vec_path.relative_to(self.folder_path)
- *                 self._vector_columns[col] = str(relative_path)
- */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_vec_path, __pyx_n_s_exists); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = NULL;
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_Path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_11 = NULL;
     __pyx_t_4 = 0;
     #if CYTHON_UNPACK_METHODS
-    if (likely(PyMethod_Check(__pyx_t_7))) {
-      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
-      if (likely(__pyx_t_1)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-        __Pyx_INCREF(__pyx_t_1);
+    if (unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_11)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_11);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_7, function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
         __pyx_t_4 = 1;
       }
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
-      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-      __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      PyObject *__pyx_callargs[2] = {__pyx_t_11, __pyx_v_self->folder_path};
+      __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+      __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (__pyx_t_5) {
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_glob); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = __Pyx_PyObject_FormatSimple(__pyx_v_col, __pyx_empty_unicode); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_11 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_7, __pyx_kp_u_vec); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = NULL;
+    __pyx_t_4 = 0;
+    #if CYTHON_UNPACK_METHODS
+    if (likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+        __pyx_t_4 = 1;
+      }
+    }
+    #endif
+    {
+      PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_11};
+      __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    }
+    __Pyx_XDECREF_SET(__pyx_v_vec_path, __pyx_t_3);
+    __pyx_t_3 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":116
- *             vec_path = self.folder_path / f"{col}.vec"
- *             if vec_path.exists():
+    /* "lyfile/storage/lyfile.pyx":114
+ *             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
+ *             #
+ *             for vec_path in vec_path:             # <<<<<<<<<<<<<<
+ *                 relative_path = vec_path.relative_to(self.folder_path)
+ *                 self._vector_columns[col] = str(relative_path)
+ */
+    if (likely(PyList_CheckExact(__pyx_v_vec_path)) || PyTuple_CheckExact(__pyx_v_vec_path)) {
+      __pyx_t_3 = __pyx_v_vec_path; __Pyx_INCREF(__pyx_t_3);
+      __pyx_t_12 = 0;
+      __pyx_t_13 = NULL;
+    } else {
+      __pyx_t_12 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_vec_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_13 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 114, __pyx_L1_error)
+    }
+    for (;;) {
+      if (likely(!__pyx_t_13)) {
+        if (likely(PyList_CheckExact(__pyx_t_3))) {
+          {
+            Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
+            #if !CYTHON_ASSUME_SAFE_MACROS
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 114, __pyx_L1_error)
+            #endif
+            if (__pyx_t_12 >= __pyx_temp) break;
+          }
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 114, __pyx_L1_error)
+          #else
+          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        } else {
+          {
+            Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
+            #if !CYTHON_ASSUME_SAFE_MACROS
+            if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 114, __pyx_L1_error)
+            #endif
+            if (__pyx_t_12 >= __pyx_temp) break;
+          }
+          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_1); __pyx_t_12++; if (unlikely((0 < 0))) __PYX_ERR(0, 114, __pyx_L1_error)
+          #else
+          __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_1);
+          #endif
+        }
+      } else {
+        __pyx_t_1 = __pyx_t_13(__pyx_t_3);
+        if (unlikely(!__pyx_t_1)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else __PYX_ERR(0, 114, __pyx_L1_error)
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_1);
+      }
+      __Pyx_DECREF_SET(__pyx_v_vec_path, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "lyfile/storage/lyfile.pyx":115
+ *             #
+ *             for vec_path in vec_path:
  *                 relative_path = vec_path.relative_to(self.folder_path)             # <<<<<<<<<<<<<<
  *                 self._vector_columns[col] = str(relative_path)
- * 
+ *                 break
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_vec_path, __pyx_n_s_relative_to); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 116, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_1 = NULL;
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_vec_path, __pyx_n_s_relative_to); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 115, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_7 = NULL;
       __pyx_t_4 = 0;
       #if CYTHON_UNPACK_METHODS
-      if (likely(PyMethod_Check(__pyx_t_7))) {
-        __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
-        if (likely(__pyx_t_1)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-          __Pyx_INCREF(__pyx_t_1);
+      if (likely(PyMethod_Check(__pyx_t_11))) {
+        __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_11);
+        if (likely(__pyx_t_7)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+          __Pyx_INCREF(__pyx_t_7);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_7, function);
+          __Pyx_DECREF_SET(__pyx_t_11, function);
           __pyx_t_4 = 1;
         }
       }
       #endif
       {
-        PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_self->folder_path};
-        __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
-        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 116, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_v_self->folder_path};
+        __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_11, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+        __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       }
-      __Pyx_XDECREF_SET(__pyx_v_relative_path, __pyx_t_3);
-      __pyx_t_3 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_relative_path, __pyx_t_1);
+      __pyx_t_1 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":117
- *             if vec_path.exists():
+      /* "lyfile/storage/lyfile.pyx":116
+ *             for vec_path in vec_path:
  *                 relative_path = vec_path.relative_to(self.folder_path)
  *                 self._vector_columns[col] = str(relative_path)             # <<<<<<<<<<<<<<
+ *                 break
+ * 
+ */
+      __pyx_t_1 = __Pyx_PyObject_Unicode(__pyx_v_relative_path); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (unlikely(__pyx_v_self->_vector_columns == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 116, __pyx_L1_error)
+      }
+      if (unlikely((PyDict_SetItem(__pyx_v_self->_vector_columns, __pyx_v_col, __pyx_t_1) < 0))) __PYX_ERR(0, 116, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "lyfile/storage/lyfile.pyx":117
+ *                 relative_path = vec_path.relative_to(self.folder_path)
+ *                 self._vector_columns[col] = str(relative_path)
+ *                 break             # <<<<<<<<<<<<<<
  * 
  *     def write(self, data: Union[pd.DataFrame, dict]):
  */
-      __pyx_t_3 = __Pyx_PyObject_Unicode(__pyx_v_relative_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 117, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      if (unlikely(__pyx_v_self->_vector_columns == Py_None)) {
-        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 117, __pyx_L1_error)
-      }
-      if (unlikely((PyDict_SetItem(__pyx_v_self->_vector_columns, __pyx_v_col, __pyx_t_3) < 0))) __PYX_ERR(0, 117, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      goto __pyx_L11_break;
 
-      /* "lyfile/storage/lyfile.pyx":115
- *         for col in self._column_order:
- *             vec_path = self.folder_path / f"{col}.vec"
- *             if vec_path.exists():             # <<<<<<<<<<<<<<
+      /* "lyfile/storage/lyfile.pyx":114
+ *             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
+ *             #
+ *             for vec_path in vec_path:             # <<<<<<<<<<<<<<
  *                 relative_path = vec_path.relative_to(self.folder_path)
  *                 self._vector_columns[col] = str(relative_path)
  */
     }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    goto __pyx_L12_for_end;
+    __pyx_L11_break:;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    goto __pyx_L12_for_end;
+    __pyx_L12_for_end:;
 
-    /* "lyfile/storage/lyfile.pyx":113
+    /* "lyfile/storage/lyfile.pyx":111
  * 
  *         #
  *         for col in self._column_order:             # <<<<<<<<<<<<<<
- *             vec_path = self.folder_path / f"{col}.vec"
- *             if vec_path.exists():
+ *             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
+ *             #
  */
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":89
+  /* "lyfile/storage/lyfile.pyx":87
  *             self._init_metadata()
  * 
  *     cdef void _init_metadata(self):             # <<<<<<<<<<<<<<
@@ -7185,6 +7265,7 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_11);
   __Pyx_AddTraceback("lyfile.storage.lyfile.LyFile._init_metadata", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_parquet_files);
@@ -7198,7 +7279,7 @@ static void __pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata(struct __pyx
 }
 
 /* "lyfile/storage/lyfile.pyx":119
- *                 self._vector_columns[col] = str(relative_path)
+ *                 break
  * 
  *     def write(self, data: Union[pd.DataFrame, dict]):             # <<<<<<<<<<<<<<
  *         """"""
@@ -7307,8 +7388,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   PyObject *__pyx_v_vector_columns = NULL;
   PyObject *__pyx_v_regular_columns = NULL;
   PyObject *__pyx_v_col = NULL;
-  PyObject *__pyx_v_vec_filename = NULL;
-  PyObject *__pyx_v_vectors_array = NULL;
+  PyObject *__pyx_v_vec_storage = NULL;
   PyObject *__pyx_v_table = NULL;
   PyObject *__pyx_v_parquet_path = NULL;
   PyObject *__pyx_r = NULL;
@@ -7322,6 +7402,8 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   PyObject *(*__pyx_t_7)(PyObject *);
   PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
+  PyObject *__pyx_t_10 = NULL;
+  PyObject *__pyx_t_11 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7594,98 +7676,105 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
       /* "lyfile/storage/lyfile.pyx":137
  * 
  *                 #
- *                 vec_filename = self.folder_path / f"{col}.vec"             # <<<<<<<<<<<<<<
- *                 vectors_array = np.vstack(vector_columns[col])
- *                 save_nnp(str(vec_filename), vectors_array)
+ *                 vec_storage = VecStorage(self.folder_path / "vec_data", col)             # <<<<<<<<<<<<<<
+ *                 vec_storage.save_vec(np.vstack(vector_columns[col]))
+ * 
  */
-      __pyx_t_9 = __Pyx_PyObject_FormatSimple(__pyx_v_col, __pyx_empty_unicode); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 137, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_8 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_9, __pyx_kp_u_vec); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 137, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_VecStorage); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 137, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 137, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_vec_filename, __pyx_t_9);
+      __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_n_u_vec_data); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_3 = NULL;
+      __pyx_t_5 = 0;
+      #if CYTHON_UNPACK_METHODS
+      if (unlikely(PyMethod_Check(__pyx_t_8))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_8);
+        if (likely(__pyx_t_3)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+          __Pyx_INCREF(__pyx_t_3);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_8, function);
+          __pyx_t_5 = 1;
+        }
+      }
+      #endif
+      {
+        PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_t_2, __pyx_v_col};
+        __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
+        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 137, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      }
+      __Pyx_XDECREF_SET(__pyx_v_vec_storage, __pyx_t_9);
       __pyx_t_9 = 0;
 
       /* "lyfile/storage/lyfile.pyx":138
  *                 #
- *                 vec_filename = self.folder_path / f"{col}.vec"
- *                 vectors_array = np.vstack(vector_columns[col])             # <<<<<<<<<<<<<<
- *                 save_nnp(str(vec_filename), vectors_array)
- * 
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 138, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_vstack); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __pyx_t_8 = __Pyx_PyDict_GetItem(__pyx_v_vector_columns, __pyx_v_col); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 138, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = NULL;
-      __pyx_t_5 = 0;
-      #if CYTHON_UNPACK_METHODS
-      if (unlikely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-        if (likely(__pyx_t_3)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_3);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
-          __pyx_t_5 = 1;
-        }
-      }
-      #endif
-      {
-        PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_8};
-        __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
-        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 138, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_9);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      }
-      __Pyx_XDECREF_SET(__pyx_v_vectors_array, __pyx_t_9);
-      __pyx_t_9 = 0;
-
-      /* "lyfile/storage/lyfile.pyx":139
- *                 vec_filename = self.folder_path / f"{col}.vec"
- *                 vectors_array = np.vstack(vector_columns[col])
- *                 save_nnp(str(vec_filename), vectors_array)             # <<<<<<<<<<<<<<
+ *                 vec_storage = VecStorage(self.folder_path / "vec_data", col)
+ *                 vec_storage.save_vec(np.vstack(vector_columns[col]))             # <<<<<<<<<<<<<<
  * 
  *                 #
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_save_nnp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyObject_Unicode(__pyx_v_vec_filename); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 139, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_vec_storage, __pyx_n_s_save_vec); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 138, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
-      __pyx_t_3 = NULL;
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_vstack); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_vector_columns, __pyx_v_col); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_11 = NULL;
       __pyx_t_5 = 0;
       #if CYTHON_UNPACK_METHODS
-      if (unlikely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-        if (likely(__pyx_t_3)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_3);
+      if (unlikely(PyMethod_Check(__pyx_t_10))) {
+        __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_10);
+        if (likely(__pyx_t_11)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+          __Pyx_INCREF(__pyx_t_11);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
+          __Pyx_DECREF_SET(__pyx_t_10, function);
           __pyx_t_5 = 1;
         }
       }
       #endif
       {
-        PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_t_8, __pyx_v_vectors_array};
-        __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
-        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 139, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_9);
+        PyObject *__pyx_callargs[2] = {__pyx_t_11, __pyx_t_3};
+        __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      }
+      __pyx_t_10 = NULL;
+      __pyx_t_5 = 0;
+      #if CYTHON_UNPACK_METHODS
+      if (likely(PyMethod_Check(__pyx_t_8))) {
+        __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_8);
+        if (likely(__pyx_t_10)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+          __Pyx_INCREF(__pyx_t_10);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_8, function);
+          __pyx_t_5 = 1;
+        }
+      }
+      #endif
+      {
+        PyObject *__pyx_callargs[2] = {__pyx_t_10, __pyx_t_2};
+        __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
+        __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 138, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       }
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":142
+      /* "lyfile/storage/lyfile.pyx":141
  * 
  *                 #
  *                 self._vector_columns[col] = col  #             # <<<<<<<<<<<<<<
@@ -7694,9 +7783,9 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
  */
       if (unlikely(__pyx_v_self->_vector_columns == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 142, __pyx_L1_error)
+        __PYX_ERR(0, 141, __pyx_L1_error)
       }
-      if (unlikely((PyDict_SetItem(__pyx_v_self->_vector_columns, __pyx_v_col, __pyx_v_col) < 0))) __PYX_ERR(0, 142, __pyx_L1_error)
+      if (unlikely((PyDict_SetItem(__pyx_v_self->_vector_columns, __pyx_v_col, __pyx_v_col) < 0))) __PYX_ERR(0, 141, __pyx_L1_error)
 
       /* "lyfile/storage/lyfile.pyx":132
  * 
@@ -7717,29 +7806,29 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":145
+  /* "lyfile/storage/lyfile.pyx":144
  * 
  *         #  parquet
  *         table = pa.Table.from_pandas(regular_columns)             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_pa); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_pa); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_Table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 145, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_Table); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_from_pandas); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_from_pandas); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = NULL;
   __pyx_t_5 = 0;
   #if CYTHON_UNPACK_METHODS
   if (likely(PyMethod_Check(__pyx_t_9))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_9);
-    if (likely(__pyx_t_2)) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_9);
+    if (likely(__pyx_t_8)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
-      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_9, function);
       __pyx_t_5 = 1;
@@ -7747,123 +7836,123 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_regular_columns};
+    PyObject *__pyx_callargs[2] = {__pyx_t_8, __pyx_v_regular_columns};
     __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 145, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
   __pyx_v_table = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":148
+  /* "lyfile/storage/lyfile.pyx":147
  * 
  *         #
- *         parquet_path = self._parquet_folder / "part-00000.parquet"             # <<<<<<<<<<<<<<
+ *         parquet_path = self._parquet_folder / "part-00000.ly"             # <<<<<<<<<<<<<<
  *         pq.write_table(
  *             table,
  */
-  __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_v_self->_parquet_folder, __pyx_kp_u_part_00000_parquet); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_v_self->_parquet_folder, __pyx_kp_u_part_00000_ly); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_v_parquet_path = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":149
+  /* "lyfile/storage/lyfile.pyx":148
  *         #
- *         parquet_path = self._parquet_folder / "part-00000.parquet"
+ *         parquet_path = self._parquet_folder / "part-00000.ly"
  *         pq.write_table(             # <<<<<<<<<<<<<<
  *             table,
  *             parquet_path,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pq); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pq); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_write_table); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_write_table); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":151
+  /* "lyfile/storage/lyfile.pyx":150
  *         pq.write_table(
  *             table,
  *             parquet_path,             # <<<<<<<<<<<<<<
  *             compression='snappy',
  *             use_dictionary=True,
  */
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 149, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_v_table);
   __Pyx_GIVEREF(__pyx_v_table);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_table)) __PYX_ERR(0, 149, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_table)) __PYX_ERR(0, 148, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_parquet_path);
   __Pyx_GIVEREF(__pyx_v_parquet_path);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_parquet_path)) __PYX_ERR(0, 149, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_parquet_path)) __PYX_ERR(0, 148, __pyx_L1_error);
 
-  /* "lyfile/storage/lyfile.pyx":152
+  /* "lyfile/storage/lyfile.pyx":151
  *             table,
  *             parquet_path,
  *             compression='snappy',             # <<<<<<<<<<<<<<
  *             use_dictionary=True,
  *             version='2.6',
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":153
+  /* "lyfile/storage/lyfile.pyx":152
  *             parquet_path,
  *             compression='snappy',
  *             use_dictionary=True,             # <<<<<<<<<<<<<<
  *             version='2.6',
  *             data_page_version='2.0'
  */
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 152, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":149
+  /* "lyfile/storage/lyfile.pyx":148
  *         #
- *         parquet_path = self._parquet_folder / "part-00000.parquet"
+ *         parquet_path = self._parquet_folder / "part-00000.ly"
  *         pq.write_table(             # <<<<<<<<<<<<<<
  *             table,
  *             parquet_path,
  */
-  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 149, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_4, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":159
+  /* "lyfile/storage/lyfile.pyx":158
  * 
  *         #
  *         self._column_order = list(df.columns)  #             # <<<<<<<<<<<<<<
  *         self.n_rows = len(df)
  * 
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 159, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_2 = __Pyx_PySequence_ListKeepNew(__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 158, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_GIVEREF(__pyx_t_2);
+  __pyx_t_8 = __Pyx_PySequence_ListKeepNew(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 158, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_GIVEREF(__pyx_t_8);
   __Pyx_GOTREF(__pyx_v_self->_column_order);
   __Pyx_DECREF(__pyx_v_self->_column_order);
-  __pyx_v_self->_column_order = ((PyObject*)__pyx_t_2);
-  __pyx_t_2 = 0;
+  __pyx_v_self->_column_order = ((PyObject*)__pyx_t_8);
+  __pyx_t_8 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":160
+  /* "lyfile/storage/lyfile.pyx":159
  *         #
  *         self._column_order = list(df.columns)  #
  *         self.n_rows = len(df)             # <<<<<<<<<<<<<<
  * 
  *     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):
  */
-  __pyx_t_6 = PyObject_Length(__pyx_v_df); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_6 = PyObject_Length(__pyx_v_df); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 159, __pyx_L1_error)
   __pyx_v_self->n_rows = __pyx_t_6;
 
   /* "lyfile/storage/lyfile.pyx":119
- *                 self._vector_columns[col] = str(relative_path)
+ *                 break
  * 
  *     def write(self, data: Union[pd.DataFrame, dict]):             # <<<<<<<<<<<<<<
  *         """"""
@@ -7879,6 +7968,8 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_11);
   __Pyx_AddTraceback("lyfile.storage.lyfile.LyFile.write", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -7886,8 +7977,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   __Pyx_XDECREF(__pyx_v_vector_columns);
   __Pyx_XDECREF(__pyx_v_regular_columns);
   __Pyx_XDECREF(__pyx_v_col);
-  __Pyx_XDECREF(__pyx_v_vec_filename);
-  __Pyx_XDECREF(__pyx_v_vectors_array);
+  __Pyx_XDECREF(__pyx_v_vec_storage);
   __Pyx_XDECREF(__pyx_v_table);
   __Pyx_XDECREF(__pyx_v_parquet_path);
   __Pyx_XGIVEREF(__pyx_r);
@@ -7895,7 +7985,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_2write(struct __pyx_o
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":162
+/* "lyfile/storage/lyfile.pyx":161
  *         self.n_rows = len(df)
  * 
  *     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):             # <<<<<<<<<<<<<<
@@ -7957,12 +8047,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 162, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 161, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "append") < 0)) __PYX_ERR(0, 162, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "append") < 0)) __PYX_ERR(0, 161, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -7973,7 +8063,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("append", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 162, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("append", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 161, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8005,8 +8095,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   PyObject *__pyx_v_vector_columns = NULL;
   PyObject *__pyx_v_regular_columns = NULL;
   PyObject *__pyx_v_col = NULL;
-  PyObject *__pyx_v_vec_filename = NULL;
-  PyObject *__pyx_v_vectors_array = NULL;
+  PyObject *__pyx_v_vec_storage = NULL;
   PyObject *__pyx_v_table = NULL;
   PyObject *__pyx_v_partition_files = NULL;
   Py_ssize_t __pyx_v_partition_id;
@@ -8023,27 +8112,29 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   PyObject *(*__pyx_t_8)(PyObject *);
   PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  Py_UCS4 __pyx_t_11;
+  PyObject *__pyx_t_11 = NULL;
+  PyObject *__pyx_t_12 = NULL;
+  Py_UCS4 __pyx_t_13;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("append", 1);
 
-  /* "lyfile/storage/lyfile.pyx":165
+  /* "lyfile/storage/lyfile.pyx":164
  *         """Append data to the file."""
  *         #  DataFrame
  *         if isinstance(data, (pd.Series, pa.Table)):             # <<<<<<<<<<<<<<
  *             df = pd.DataFrame(data)
  *         elif isinstance(data, list):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Series); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Series); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pa); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pa); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Table); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = PyObject_IsInstance(__pyx_v_data, __pyx_t_2); 
@@ -8059,16 +8150,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "lyfile/storage/lyfile.pyx":166
+    /* "lyfile/storage/lyfile.pyx":165
  *         #  DataFrame
  *         if isinstance(data, (pd.Series, pa.Table)):
  *             df = pd.DataFrame(data)             # <<<<<<<<<<<<<<
  *         elif isinstance(data, list):
  *             df = pd.DataFrame(data)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pd); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pd); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 165, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -8089,14 +8180,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_data};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
     __pyx_v_df = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":165
+    /* "lyfile/storage/lyfile.pyx":164
  *         """Append data to the file."""
  *         #  DataFrame
  *         if isinstance(data, (pd.Series, pa.Table)):             # <<<<<<<<<<<<<<
@@ -8106,7 +8197,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
     goto __pyx_L3;
   }
 
-  /* "lyfile/storage/lyfile.pyx":167
+  /* "lyfile/storage/lyfile.pyx":166
  *         if isinstance(data, (pd.Series, pa.Table)):
  *             df = pd.DataFrame(data)
  *         elif isinstance(data, list):             # <<<<<<<<<<<<<<
@@ -8116,16 +8207,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   __pyx_t_4 = PyList_Check(__pyx_v_data); 
   if (__pyx_t_4) {
 
-    /* "lyfile/storage/lyfile.pyx":168
+    /* "lyfile/storage/lyfile.pyx":167
  *             df = pd.DataFrame(data)
  *         elif isinstance(data, list):
  *             df = pd.DataFrame(data)             # <<<<<<<<<<<<<<
  *         else:
  *             df = data.copy()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -8146,14 +8237,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
       PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_data};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 168, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_v_df = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":167
+    /* "lyfile/storage/lyfile.pyx":166
  *         if isinstance(data, (pd.Series, pa.Table)):
  *             df = pd.DataFrame(data)
  *         elif isinstance(data, list):             # <<<<<<<<<<<<<<
@@ -8163,7 +8254,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
     goto __pyx_L3;
   }
 
-  /* "lyfile/storage/lyfile.pyx":170
+  /* "lyfile/storage/lyfile.pyx":169
  *             df = pd.DataFrame(data)
  *         else:
  *             df = data.copy()             # <<<<<<<<<<<<<<
@@ -8171,7 +8262,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
  *         #
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_data, __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_data, __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = NULL;
     __pyx_t_6 = 0;
@@ -8191,7 +8282,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
       PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -8200,7 +8291,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   }
   __pyx_L3:;
 
-  /* "lyfile/storage/lyfile.pyx":173
+  /* "lyfile/storage/lyfile.pyx":172
  * 
  *         #
  *         if self._column_order and set(df.columns) != set(self._column_order):             # <<<<<<<<<<<<<<
@@ -8213,36 +8304,36 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
     __pyx_t_4 = __pyx_t_5;
     goto __pyx_L7_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_3 = PySet_New(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PySet_New(__pyx_v_self->_column_order); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_2 = PySet_New(__pyx_v_self->_column_order); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 172, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = __pyx_t_5;
   __pyx_L7_bool_binop_done:;
   if (unlikely(__pyx_t_4)) {
 
-    /* "lyfile/storage/lyfile.pyx":174
+    /* "lyfile/storage/lyfile.pyx":173
  *         #
  *         if self._column_order and set(df.columns) != set(self._column_order):
  *             raise ValueError("")             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 174, __pyx_L1_error)
+    __PYX_ERR(0, 173, __pyx_L1_error)
 
-    /* "lyfile/storage/lyfile.pyx":173
+    /* "lyfile/storage/lyfile.pyx":172
  * 
  *         #
  *         if self._column_order and set(df.columns) != set(self._column_order):             # <<<<<<<<<<<<<<
@@ -8251,26 +8342,26 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":177
+  /* "lyfile/storage/lyfile.pyx":176
  * 
  *         #
  *         vector_columns = {}             # <<<<<<<<<<<<<<
  *         regular_columns = df.copy()
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_vector_columns = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":178
+  /* "lyfile/storage/lyfile.pyx":177
  *         #
  *         vector_columns = {}
  *         regular_columns = df.copy()             # <<<<<<<<<<<<<<
  * 
  *         for col in df.columns:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_copy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_6 = 0;
@@ -8290,30 +8381,30 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_regular_columns = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":180
+  /* "lyfile/storage/lyfile.pyx":179
  *         regular_columns = df.copy()
  * 
  *         for col in df.columns:             # <<<<<<<<<<<<<<
  *             if isinstance(df[col].iloc[0], np.ndarray):
  *                 vector_columns[col] = df[col].values
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_df, __pyx_n_s_columns); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2);
     __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 180, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 179, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -8322,28 +8413,28 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
         {
           Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 180, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
           #endif
           if (__pyx_t_7 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         {
           Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_2);
           #if !CYTHON_ASSUME_SAFE_MACROS
-          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 180, __pyx_L1_error)
+          if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
           #endif
           if (__pyx_t_7 >= __pyx_temp) break;
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 179, __pyx_L1_error)
         #else
-        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -8353,7 +8444,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 180, __pyx_L1_error)
+          else __PYX_ERR(0, 179, __pyx_L1_error)
         }
         break;
       }
@@ -8362,153 +8453,167 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
     __Pyx_XDECREF_SET(__pyx_v_col, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":181
+    /* "lyfile/storage/lyfile.pyx":180
  * 
  *         for col in df.columns:
  *             if isinstance(df[col].iloc[0], np.ndarray):             # <<<<<<<<<<<<<<
  *                 vector_columns[col] = df[col].values
  *                 regular_columns.drop(col, axis=1, inplace=True)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_df, __pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_df, __pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_iloc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_iloc); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_4 = __Pyx_TypeCheck(__pyx_t_1, __pyx_ptype_5numpy_ndarray); 
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_4) {
 
-      /* "lyfile/storage/lyfile.pyx":182
+      /* "lyfile/storage/lyfile.pyx":181
  *         for col in df.columns:
  *             if isinstance(df[col].iloc[0], np.ndarray):
  *                 vector_columns[col] = df[col].values             # <<<<<<<<<<<<<<
  *                 regular_columns.drop(col, axis=1, inplace=True)
  * 
  */
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_df, __pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_df, __pyx_v_col); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_values); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_values); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (unlikely((PyDict_SetItem(__pyx_v_vector_columns, __pyx_v_col, __pyx_t_3) < 0))) __PYX_ERR(0, 182, __pyx_L1_error)
+      if (unlikely((PyDict_SetItem(__pyx_v_vector_columns, __pyx_v_col, __pyx_t_3) < 0))) __PYX_ERR(0, 181, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":183
+      /* "lyfile/storage/lyfile.pyx":182
  *             if isinstance(df[col].iloc[0], np.ndarray):
  *                 vector_columns[col] = df[col].values
  *                 regular_columns.drop(col, axis=1, inplace=True)             # <<<<<<<<<<<<<<
  * 
  *                 #
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_regular_columns, __pyx_n_s_drop); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_regular_columns, __pyx_n_s_drop); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_col);
       __Pyx_GIVEREF(__pyx_v_col);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_col)) __PYX_ERR(0, 183, __pyx_L1_error);
-      __pyx_t_9 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 183, __pyx_L1_error)
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_col)) __PYX_ERR(0, 182, __pyx_L1_error);
+      __pyx_t_9 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 183, __pyx_L1_error)
-      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_inplace, Py_True) < 0) __PYX_ERR(0, 183, __pyx_L1_error)
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 183, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_axis, __pyx_int_1) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_inplace, Py_True) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 182, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":186
+      /* "lyfile/storage/lyfile.pyx":185
  * 
  *                 #
- *                 vec_filename = self.folder_path / f"{col}.vec"             # <<<<<<<<<<<<<<
- *                 vectors_array = np.vstack(vector_columns[col])
- *                 save_nnp(str(vec_filename), vectors_array, append=True)
- */
-      __pyx_t_10 = __Pyx_PyObject_FormatSimple(__pyx_v_col, __pyx_empty_unicode); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 186, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_9 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_10, __pyx_kp_u_vec); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 186, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 186, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_XDECREF_SET(__pyx_v_vec_filename, __pyx_t_10);
-      __pyx_t_10 = 0;
-
-      /* "lyfile/storage/lyfile.pyx":187
- *                 #
- *                 vec_filename = self.folder_path / f"{col}.vec"
- *                 vectors_array = np.vstack(vector_columns[col])             # <<<<<<<<<<<<<<
- *                 save_nnp(str(vec_filename), vectors_array, append=True)
+ *                 vec_storage = VecStorage(self.folder_path / "vec_data", col)             # <<<<<<<<<<<<<<
+ *                 vec_storage.save_vec(np.vstack(vector_columns[col]))
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_VecStorage); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 185, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_vstack); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_self->folder_path, __pyx_n_u_vec_data); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_vector_columns, __pyx_v_col); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 187, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_9);
       __pyx_t_3 = NULL;
       __pyx_t_6 = 0;
       #if CYTHON_UNPACK_METHODS
-      if (unlikely(PyMethod_Check(__pyx_t_1))) {
-        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
+      if (unlikely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_9);
         if (likely(__pyx_t_3)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
           __Pyx_INCREF(__pyx_t_3);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_1, function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
           __pyx_t_6 = 1;
         }
       }
       #endif
       {
-        PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_t_9};
-        __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+        PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_t_1, __pyx_v_col};
+        __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_6, 2+__pyx_t_6);
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 187, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 185, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
-      __Pyx_XDECREF_SET(__pyx_v_vectors_array, __pyx_t_10);
+      __Pyx_XDECREF_SET(__pyx_v_vec_storage, __pyx_t_10);
       __pyx_t_10 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":188
- *                 vec_filename = self.folder_path / f"{col}.vec"
- *                 vectors_array = np.vstack(vector_columns[col])
- *                 save_nnp(str(vec_filename), vectors_array, append=True)             # <<<<<<<<<<<<<<
+      /* "lyfile/storage/lyfile.pyx":186
+ *                 #
+ *                 vec_storage = VecStorage(self.folder_path / "vec_data", col)
+ *                 vec_storage.save_vec(np.vstack(vector_columns[col]))             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_save_nnp); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 188, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_1 = __Pyx_PyObject_Unicode(__pyx_v_vec_filename); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_9 = PyTuple_New(2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 188, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_vec_storage, __pyx_n_s_save_vec); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 186, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_GIVEREF(__pyx_t_1);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error);
-      __Pyx_INCREF(__pyx_v_vectors_array);
-      __Pyx_GIVEREF(__pyx_v_vectors_array);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_v_vectors_array)) __PYX_ERR(0, 188, __pyx_L1_error);
-      __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_append, Py_True) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_vstack); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_vector_columns, __pyx_v_col); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_12 = NULL;
+      __pyx_t_6 = 0;
+      #if CYTHON_UNPACK_METHODS
+      if (unlikely(PyMethod_Check(__pyx_t_11))) {
+        __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_11);
+        if (likely(__pyx_t_12)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+          __Pyx_INCREF(__pyx_t_12);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_11, function);
+          __pyx_t_6 = 1;
+        }
+      }
+      #endif
+      {
+        PyObject *__pyx_callargs[2] = {__pyx_t_12, __pyx_t_3};
+        __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_11, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+        __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      }
+      __pyx_t_11 = NULL;
+      __pyx_t_6 = 0;
+      #if CYTHON_UNPACK_METHODS
+      if (likely(PyMethod_Check(__pyx_t_9))) {
+        __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_9);
+        if (likely(__pyx_t_11)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_11);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_9, function);
+          __pyx_t_6 = 1;
+        }
+      }
+      #endif
+      {
+        PyObject *__pyx_callargs[2] = {__pyx_t_11, __pyx_t_1};
+        __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 186, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":181
+      /* "lyfile/storage/lyfile.pyx":180
  * 
  *         for col in df.columns:
  *             if isinstance(df[col].iloc[0], np.ndarray):             # <<<<<<<<<<<<<<
@@ -8517,7 +8622,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
  */
     }
 
-    /* "lyfile/storage/lyfile.pyx":180
+    /* "lyfile/storage/lyfile.pyx":179
  *         regular_columns = df.copy()
  * 
  *         for col in df.columns:             # <<<<<<<<<<<<<<
@@ -8527,235 +8632,235 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":191
+  /* "lyfile/storage/lyfile.pyx":189
  * 
  *         #
  *         table = pa.Table.from_pandas(regular_columns)             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pa); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Table); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_from_pandas); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_pa); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_Table); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_from_pandas); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __pyx_t_9 = NULL;
   __pyx_t_6 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_1);
+  if (likely(PyMethod_Check(__pyx_t_10))) {
+    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_10);
+    if (likely(__pyx_t_9)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+      __Pyx_INCREF(__pyx_t_9);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_10, function);
       __pyx_t_6 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_regular_columns};
-    __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
+    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_v_regular_columns};
+    __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
   __pyx_v_table = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":194
+  /* "lyfile/storage/lyfile.pyx":192
  * 
  *         #
- *         partition_files = list(self._parquet_folder.glob("part-*.parquet"))             # <<<<<<<<<<<<<<
+ *         partition_files = list(self._parquet_folder.glob("part-*.ly"))             # <<<<<<<<<<<<<<
  *         partition_id = len(partition_files)
- *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.parquet"
+ *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.ly"
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = NULL;
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_9 = NULL;
   __pyx_t_6 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_1)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_1);
+  if (likely(PyMethod_Check(__pyx_t_10))) {
+    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_10);
+    if (likely(__pyx_t_9)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+      __Pyx_INCREF(__pyx_t_9);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_10, function);
       __pyx_t_6 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_kp_u_part_parquet};
-    __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
+    PyObject *__pyx_callargs[2] = {__pyx_t_9, __pyx_kp_u_part_ly};
+    __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 192, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
-  __pyx_t_3 = __Pyx_PySequence_ListKeepNew(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_10 = __Pyx_PySequence_ListKeepNew(__pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_partition_files = ((PyObject*)__pyx_t_3);
-  __pyx_t_3 = 0;
+  __pyx_v_partition_files = ((PyObject*)__pyx_t_10);
+  __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":195
+  /* "lyfile/storage/lyfile.pyx":193
  *         #
- *         partition_files = list(self._parquet_folder.glob("part-*.parquet"))
+ *         partition_files = list(self._parquet_folder.glob("part-*.ly"))
  *         partition_id = len(partition_files)             # <<<<<<<<<<<<<<
- *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.parquet"
+ *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.ly"
  * 
  */
-  __pyx_t_7 = __Pyx_PyList_GET_SIZE(__pyx_v_partition_files); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyList_GET_SIZE(__pyx_v_partition_files); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 193, __pyx_L1_error)
   __pyx_v_partition_id = __pyx_t_7;
 
-  /* "lyfile/storage/lyfile.pyx":196
- *         partition_files = list(self._parquet_folder.glob("part-*.parquet"))
+  /* "lyfile/storage/lyfile.pyx":194
+ *         partition_files = list(self._parquet_folder.glob("part-*.ly"))
  *         partition_id = len(partition_files)
- *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.parquet"             # <<<<<<<<<<<<<<
+ *         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.ly"             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_10 = PyTuple_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __pyx_t_7 = 0;
-  __pyx_t_11 = 127;
+  __pyx_t_13 = 127;
   __Pyx_INCREF(__pyx_kp_u_part);
   __pyx_t_7 += 5;
   __Pyx_GIVEREF(__pyx_kp_u_part);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_kp_u_part);
-  __pyx_t_2 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_v_partition_id, 5, '0', 'd'); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
+  PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_kp_u_part);
+  __pyx_t_2 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_v_partition_id, 5, '0', 'd'); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_7 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_2);
   __pyx_t_2 = 0;
-  __Pyx_INCREF(__pyx_kp_u_parquet);
-  __pyx_t_7 += 8;
-  __Pyx_GIVEREF(__pyx_kp_u_parquet);
-  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_kp_u_parquet);
-  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_3, 3, __pyx_t_7, __pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 196, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_kp_u_ly);
+  __pyx_t_7 += 3;
+  __Pyx_GIVEREF(__pyx_kp_u_ly);
+  PyTuple_SET_ITEM(__pyx_t_10, 2, __pyx_kp_u_ly);
+  __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_10, 3, __pyx_t_7, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_v_self->_parquet_folder, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_v_self->_parquet_folder, __pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_parquet_path = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __pyx_v_parquet_path = __pyx_t_10;
+  __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":199
+  /* "lyfile/storage/lyfile.pyx":197
  * 
  *         #
  *         pq.write_table(             # <<<<<<<<<<<<<<
  *             table,
  *             parquet_path,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pq); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_write_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_pq); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_write_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":201
+  /* "lyfile/storage/lyfile.pyx":199
  *         pq.write_table(
  *             table,
  *             parquet_path,             # <<<<<<<<<<<<<<
  *             compression='snappy',
  *             use_dictionary=True,
  */
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
   __Pyx_INCREF(__pyx_v_table);
   __Pyx_GIVEREF(__pyx_v_table);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_table)) __PYX_ERR(0, 199, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_table)) __PYX_ERR(0, 197, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_parquet_path);
   __Pyx_GIVEREF(__pyx_v_parquet_path);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_parquet_path)) __PYX_ERR(0, 199, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_v_parquet_path)) __PYX_ERR(0, 197, __pyx_L1_error);
 
-  /* "lyfile/storage/lyfile.pyx":202
+  /* "lyfile/storage/lyfile.pyx":200
  *             table,
  *             parquet_path,
  *             compression='snappy',             # <<<<<<<<<<<<<<
  *             use_dictionary=True,
  *             version='2.6',
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":203
+  /* "lyfile/storage/lyfile.pyx":201
  *             parquet_path,
  *             compression='snappy',
  *             use_dictionary=True,             # <<<<<<<<<<<<<<
  *             version='2.6',
  *             data_page_version='2.0'
  */
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 202, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 200, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":199
+  /* "lyfile/storage/lyfile.pyx":197
  * 
  *         #
  *         pq.write_table(             # <<<<<<<<<<<<<<
  *             table,
  *             parquet_path,
  */
-  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, __pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":209
+  /* "lyfile/storage/lyfile.pyx":207
  * 
  *         #
  *         self._init_metadata()             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 209, __pyx_L1_error)
+  ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":212
+  /* "lyfile/storage/lyfile.pyx":210
  * 
  *         #
  *         self.trigger_merge()             # <<<<<<<<<<<<<<
  * 
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_trigger_merge); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = NULL;
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_trigger_merge); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 210, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_10 = NULL;
   __pyx_t_6 = 0;
   #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_3);
+  if (likely(PyMethod_Check(__pyx_t_9))) {
+    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_9);
+    if (likely(__pyx_t_10)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
+      __Pyx_INCREF(__pyx_t_10);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __Pyx_DECREF_SET(__pyx_t_9, function);
       __pyx_t_6 = 1;
     }
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
-    __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 212, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    PyObject *__pyx_callargs[2] = {__pyx_t_10, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_9, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":162
+  /* "lyfile/storage/lyfile.pyx":161
  *         self.n_rows = len(df)
  * 
  *     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):             # <<<<<<<<<<<<<<
@@ -8772,6 +8877,8 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_12);
   __Pyx_AddTraceback("lyfile.storage.lyfile.LyFile.append", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -8779,8 +8886,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   __Pyx_XDECREF(__pyx_v_vector_columns);
   __Pyx_XDECREF(__pyx_v_regular_columns);
   __Pyx_XDECREF(__pyx_v_col);
-  __Pyx_XDECREF(__pyx_v_vec_filename);
-  __Pyx_XDECREF(__pyx_v_vectors_array);
+  __Pyx_XDECREF(__pyx_v_vec_storage);
   __Pyx_XDECREF(__pyx_v_table);
   __Pyx_XDECREF(__pyx_v_partition_files);
   __Pyx_XDECREF(__pyx_v_parquet_path);
@@ -8789,7 +8895,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_4append(struct __pyx_
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":214
+/* "lyfile/storage/lyfile.pyx":212
  *         self.trigger_merge()
  * 
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:             # <<<<<<<<<<<<<<
@@ -8851,12 +8957,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_columns);
           if (value) { values[0] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 214, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 212, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read") < 0)) __PYX_ERR(0, 214, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read") < 0)) __PYX_ERR(0, 212, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -8870,7 +8976,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("read", 0, 0, 1, __pyx_nargs); __PYX_ERR(0, 214, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("read", 0, 0, 1, __pyx_nargs); __PYX_ERR(0, 212, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8910,14 +9016,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_ob
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("read", 1);
 
-  /* "lyfile/storage/lyfile.pyx":216
+  /* "lyfile/storage/lyfile.pyx":214
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:
  *         """"""
  *         reader = self.mmap_reader()             # <<<<<<<<<<<<<<
  *         return reader.read(columns)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -8937,22 +9043,22 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_ob
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":217
+  /* "lyfile/storage/lyfile.pyx":215
  *         """"""
  *         reader = self.mmap_reader()
  *         return reader.read(columns)             # <<<<<<<<<<<<<<
  * 
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_reader, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_reader, __pyx_n_s_read); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 215, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -8972,7 +9078,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_ob
     PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_columns};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -8980,7 +9086,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_ob
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":214
+  /* "lyfile/storage/lyfile.pyx":212
  *         self.trigger_merge()
  * 
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:             # <<<<<<<<<<<<<<
@@ -9002,16 +9108,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6read(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":219
+/* "lyfile/storage/lyfile.pyx":217
  *         return reader.read(columns)
  * 
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:             # <<<<<<<<<<<<<<
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
 
 /* Python wrapper */
-static PyArrayObject *__pyx_pw_6lyfile_7storage_6lyfile_6LyFile_9read_vec(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_6lyfile_7storage_6lyfile_6LyFile_9read_vec(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -9020,7 +9126,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ); /*proto*/
 PyDoc_STRVAR(__pyx_doc_6lyfile_7storage_6lyfile_6LyFile_8read_vec, "\350\257\273\345\217\226\345\220\221\351\207\217\346\225\260\346\215\256");
 static PyMethodDef __pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_9read_vec = {"read_vec", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6lyfile_7storage_6lyfile_6LyFile_9read_vec, __Pyx_METH_FASTCALL|METH_KEYWORDS, __pyx_doc_6lyfile_7storage_6lyfile_6LyFile_8read_vec};
-static PyArrayObject *__pyx_pw_6lyfile_7storage_6lyfile_6LyFile_9read_vec(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_6lyfile_7storage_6lyfile_6LyFile_9read_vec(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -9037,7 +9143,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  PyArrayObject *__pyx_r = 0;
+  PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("read_vec (wrapper)", 0);
   #if !CYTHON_METH_FASTCALL
@@ -9068,19 +9174,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 219, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_mmap_mode);
           if (value) { values[1] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 219, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 217, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read_vec") < 0)) __PYX_ERR(0, 219, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read_vec") < 0)) __PYX_ERR(0, 217, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -9096,7 +9202,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("read_vec", 0, 1, 2, __pyx_nargs); __PYX_ERR(0, 219, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("read_vec", 0, 1, 2, __pyx_nargs); __PYX_ERR(0, 217, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9110,7 +9216,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_column_name), (&PyUnicode_Type), 0, "column_name", 1))) __PYX_ERR(0, 219, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_column_name), (&PyUnicode_Type), 0, "column_name", 1))) __PYX_ERR(0, 217, __pyx_L1_error)
   __pyx_r = __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(((struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self), __pyx_v_column_name, __pyx_v_mmap_mode);
 
   /* function exit code */
@@ -9128,9 +9234,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_column_name, PyObject *__pyx_v_mmap_mode) {
+static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self, PyObject *__pyx_v_column_name, PyObject *__pyx_v_mmap_mode) {
   PyObject *__pyx_v_reader = NULL;
-  PyArrayObject *__pyx_r = NULL;
+  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -9141,14 +9247,14 @@ static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("read_vec", 1);
 
-  /* "lyfile/storage/lyfile.pyx":221
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:
+  /* "lyfile/storage/lyfile.pyx":219
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:
  *         """"""
  *         reader = self.mmap_reader()             # <<<<<<<<<<<<<<
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -9168,22 +9274,22 @@ static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":222
+  /* "lyfile/storage/lyfile.pyx":220
  *         """"""
  *         reader = self.mmap_reader()
  *         return reader.read_vec(column_name, mmap_mode)             # <<<<<<<<<<<<<<
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):
  */
-  __Pyx_XDECREF((PyObject *)__pyx_r);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_reader, __pyx_n_s_read_vec); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_reader, __pyx_n_s_read_vec); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -9203,19 +9309,18 @@ static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct
     PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_v_column_name, __pyx_v_mmap_mode};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 222, __pyx_L1_error)
-  __pyx_r = ((PyArrayObject *)__pyx_t_1);
+  __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":219
+  /* "lyfile/storage/lyfile.pyx":217
  *         return reader.read(columns)
  * 
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:             # <<<<<<<<<<<<<<
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
@@ -9229,13 +9334,13 @@ static PyArrayObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8read_vec(struct
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_reader);
-  __Pyx_XGIVEREF((PyObject *)__pyx_r);
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lyfile/storage/lyfile.pyx":224
+/* "lyfile/storage/lyfile.pyx":222
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):             # <<<<<<<<<<<<<<
@@ -9301,19 +9406,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_batch_size);
           if (value) { values[0] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 222, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_columns);
           if (value) { values[1] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 222, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read_batch") < 0)) __PYX_ERR(0, 224, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "read_batch") < 0)) __PYX_ERR(0, 222, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -9330,7 +9435,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("read_batch", 0, 0, 2, __pyx_nargs); __PYX_ERR(0, 224, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("read_batch", 0, 0, 2, __pyx_nargs); __PYX_ERR(0, 222, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9344,7 +9449,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_batch_size), (&PyInt_Type), 0, "batch_size", 1))) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_batch_size), (&PyInt_Type), 0, "batch_size", 1))) __PYX_ERR(0, 222, __pyx_L1_error)
   __pyx_r = __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_10read_batch(((struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *)__pyx_v_self), __pyx_v_batch_size, __pyx_v_columns);
 
   /* function exit code */
@@ -9374,7 +9479,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_10read_batch(struct _
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 224, __pyx_L1_error)
+    __PYX_ERR(0, 222, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -9388,7 +9493,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_10read_batch(struct _
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_columns);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_columns);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator, __pyx_codeobj__9, (PyObject *) __pyx_cur_scope, __pyx_n_s_read_batch, __pyx_n_s_LyFile_read_batch, __pyx_n_s_lyfile_storage_lyfile); if (unlikely(!gen)) __PYX_ERR(0, 224, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator, __pyx_codeobj__9, (PyObject *) __pyx_cur_scope, __pyx_n_s_read_batch, __pyx_n_s_LyFile_read_batch, __pyx_n_s_lyfile_storage_lyfile); if (unlikely(!gen)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -9425,16 +9530,16 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 222, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":226
+  /* "lyfile/storage/lyfile.pyx":224
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):
  *         """"""
  *         reader = self.mmap_reader()             # <<<<<<<<<<<<<<
  *         yield from reader.read_batch(batch_size, columns)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -9454,7 +9559,7 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 226, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -9462,14 +9567,14 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
   __pyx_cur_scope->__pyx_v_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":227
+  /* "lyfile/storage/lyfile.pyx":225
  *         """"""
  *         reader = self.mmap_reader()
  *         yield from reader.read_batch(batch_size, columns)             # <<<<<<<<<<<<<<
  * 
  *     def __getitem__(self, key):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_reader, __pyx_n_s_read_batch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_reader, __pyx_n_s_read_batch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 225, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -9489,7 +9594,7 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
     PyObject *__pyx_callargs[3] = {__pyx_t_3, __pyx_cur_scope->__pyx_v_batch_size, __pyx_cur_scope->__pyx_v_columns};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 2+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
@@ -9504,17 +9609,17 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
     __pyx_generator->resume_label = 1;
     return __pyx_r;
     __pyx_L4_resume_from_yield_from:;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 227, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 225, __pyx_L1_error)
   } else {
     PyObject* exc_type = __Pyx_PyErr_CurrentExceptionType();
     if (exc_type) {
       if (likely(exc_type == PyExc_StopIteration || (exc_type != PyExc_GeneratorExit && __Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration)))) PyErr_Clear();
-      else __PYX_ERR(0, 227, __pyx_L1_error)
+      else __PYX_ERR(0, 225, __pyx_L1_error)
     }
   }
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "lyfile/storage/lyfile.pyx":224
+  /* "lyfile/storage/lyfile.pyx":222
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):             # <<<<<<<<<<<<<<
@@ -9542,7 +9647,7 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_12generator(__pyx_Cor
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":229
+/* "lyfile/storage/lyfile.pyx":227
  *         yield from reader.read_batch(batch_size, columns)
  * 
  *     def __getitem__(self, key):             # <<<<<<<<<<<<<<
@@ -9582,14 +9687,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13__getitem__(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 1);
 
-  /* "lyfile/storage/lyfile.pyx":231
+  /* "lyfile/storage/lyfile.pyx":229
  *     def __getitem__(self, key):
  *         """"""
  *         reader = self.mmap_reader()             # <<<<<<<<<<<<<<
  *         return reader[key]
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_mmap_reader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -9609,14 +9714,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13__getitem__(struct 
     PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_reader = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":232
+  /* "lyfile/storage/lyfile.pyx":230
  *         """"""
  *         reader = self.mmap_reader()
  *         return reader[key]             # <<<<<<<<<<<<<<
@@ -9624,13 +9729,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13__getitem__(struct 
  *     def __len__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_reader, __pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_reader, __pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":229
+  /* "lyfile/storage/lyfile.pyx":227
  *         yield from reader.read_batch(batch_size, columns)
  * 
  *     def __getitem__(self, key):             # <<<<<<<<<<<<<<
@@ -9652,7 +9757,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13__getitem__(struct 
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":234
+/* "lyfile/storage/lyfile.pyx":232
  *         return reader[key]
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -9682,7 +9787,7 @@ static Py_ssize_t __pyx_pw_6lyfile_7storage_6lyfile_6LyFile_16__len__(PyObject *
 static Py_ssize_t __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15__len__(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *__pyx_v_self) {
   Py_ssize_t __pyx_r;
 
-  /* "lyfile/storage/lyfile.pyx":236
+  /* "lyfile/storage/lyfile.pyx":234
  *     def __len__(self):
  *         """"""
  *         return self.n_rows             # <<<<<<<<<<<<<<
@@ -9692,7 +9797,7 @@ static Py_ssize_t __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15__len__(struct __p
   __pyx_r = __pyx_v_self->n_rows;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":234
+  /* "lyfile/storage/lyfile.pyx":232
  *         return reader[key]
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
@@ -9705,7 +9810,7 @@ static Py_ssize_t __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15__len__(struct __p
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":238
+/* "lyfile/storage/lyfile.pyx":236
  *         return self.n_rows
  * 
  *     def mmap_reader(self) -> MMapReader:             # <<<<<<<<<<<<<<
@@ -9767,7 +9872,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_17mmap_reader(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("mmap_reader", 1);
 
-  /* "lyfile/storage/lyfile.pyx":240
+  /* "lyfile/storage/lyfile.pyx":238
  *     def mmap_reader(self) -> MMapReader:
  *         """"""
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)             # <<<<<<<<<<<<<<
@@ -9775,20 +9880,20 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_17mmap_reader(struct 
  *     def _merge_small_partitions(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_MMapReader); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_MMapReader); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_self->_parquet_folder);
   __Pyx_GIVEREF(__pyx_v_self->_parquet_folder);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->_parquet_folder)) __PYX_ERR(0, 240, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->_parquet_folder)) __PYX_ERR(0, 238, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_thread_count, __pyx_t_4) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_thread_count, __pyx_t_4) < 0) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -9797,7 +9902,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_17mmap_reader(struct 
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":238
+  /* "lyfile/storage/lyfile.pyx":236
  *         return self.n_rows
  * 
  *     def mmap_reader(self) -> MMapReader:             # <<<<<<<<<<<<<<
@@ -9819,7 +9924,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_17mmap_reader(struct 
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":242
+/* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
@@ -9870,7 +9975,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 }
 static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partitions_2generator1(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lyfile/storage/lyfile.pyx":259
+/* "lyfile/storage/lyfile.pyx":257
  *         #
  *         if (len(partitions) > self._max_partitions or
  *             any(p['rows'] < self._min_partition_size for p in partitions)):             # <<<<<<<<<<<<<<
@@ -9890,7 +9995,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partit
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 259, __pyx_L1_error)
+    __PYX_ERR(0, 257, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -9901,7 +10006,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partit
   __Pyx_INCREF(__pyx_cur_scope->__pyx_genexpr_arg_0);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_genexpr_arg_0);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partitions_2generator1, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_merge_small_partitions_locals_g, __pyx_n_s_lyfile_storage_lyfile); if (unlikely(!gen)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partitions_2generator1, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_merge_small_partitions_locals_g, __pyx_n_s_lyfile_storage_lyfile); if (unlikely(!gen)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -9939,37 +10044,37 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partit
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 259, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_genexpr_arg_0)) { __Pyx_RaiseUnboundLocalError(".0"); __PYX_ERR(0, 259, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 257, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_genexpr_arg_0)) { __Pyx_RaiseUnboundLocalError(".0"); __PYX_ERR(0, 257, __pyx_L1_error) }
   __pyx_t_1 = __pyx_cur_scope->__pyx_genexpr_arg_0; __Pyx_INCREF(__pyx_t_1);
   __pyx_t_2 = 0;
   for (;;) {
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 259, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 257, __pyx_L1_error)
       #endif
       if (__pyx_t_2 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_2); __Pyx_INCREF(__pyx_t_3); __pyx_t_2++; if (unlikely((0 < 0))) __PYX_ERR(0, 257, __pyx_L1_error)
     #else
-    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_2); __pyx_t_2++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     #endif
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_p);
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_p, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_cur_scope->__pyx_v_p, __pyx_n_u_rows); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Dict_GetItem(__pyx_cur_scope->__pyx_v_p, __pyx_n_u_rows); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 259, __pyx_L1_error) }
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->_min_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 259, __pyx_L1_error)
+    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 257, __pyx_L1_error) }
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->_min_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_3, __pyx_t_4, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 259, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_6) {
       __Pyx_XDECREF(__pyx_r);
@@ -10008,7 +10113,7 @@ static PyObject *__pyx_gb_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partit
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":242
+/* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
@@ -10066,7 +10171,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 242, __pyx_L1_error)
+    __PYX_ERR(0, 240, __pyx_L1_error)
   } else {
     __Pyx_GOTREF((PyObject *)__pyx_cur_scope);
   }
@@ -10074,26 +10179,26 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
 
-  /* "lyfile/storage/lyfile.pyx":245
+  /* "lyfile/storage/lyfile.pyx":243
  *         """"""
  *         #
  *         partitions = []             # <<<<<<<<<<<<<<
- *         for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):
+ *         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):
  *             metadata = pq.read_metadata(parquet_file)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_partitions = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":246
+  /* "lyfile/storage/lyfile.pyx":244
  *         #
  *         partitions = []
- *         for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):             # <<<<<<<<<<<<<<
+ *         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):             # <<<<<<<<<<<<<<
  *             metadata = pq.read_metadata(parquet_file)
  *             partitions.append({
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 246, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_glob); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -10110,19 +10215,19 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
   }
   #endif
   {
-    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_kp_u_part_parquet};
+    PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_kp_u_part_ly};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 246, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 246, __pyx_L1_error)
+  __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_1 = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_6 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 246, __pyx_L1_error)
+  __pyx_t_6 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 244, __pyx_L1_error)
   __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3);
   __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -10130,29 +10235,29 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     {
       Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
       #if !CYTHON_ASSUME_SAFE_MACROS
-      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 246, __pyx_L1_error)
+      if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 244, __pyx_L1_error)
       #endif
       if (__pyx_t_7 >= __pyx_temp) break;
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 246, __pyx_L1_error)
+    __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_1); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 244, __pyx_L1_error)
     #else
-    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 246, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     #endif
     __Pyx_XDECREF_SET(__pyx_v_parquet_file, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":247
+    /* "lyfile/storage/lyfile.pyx":245
  *         partitions = []
- *         for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):
+ *         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):
  *             metadata = pq.read_metadata(parquet_file)             # <<<<<<<<<<<<<<
  *             partitions.append({
  *                 'path': parquet_file,
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 245, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_read_metadata); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_read_metadata); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 245, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = NULL;
@@ -10173,44 +10278,44 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_parquet_file};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
     __Pyx_XDECREF_SET(__pyx_v_metadata, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":249
+    /* "lyfile/storage/lyfile.pyx":247
  *             metadata = pq.read_metadata(parquet_file)
  *             partitions.append({
  *                 'path': parquet_file,             # <<<<<<<<<<<<<<
  *                 'rows': metadata.num_rows,
  *                 'size': parquet_file.stat().st_size
  */
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_path, __pyx_v_parquet_file) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_path, __pyx_v_parquet_file) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
 
-    /* "lyfile/storage/lyfile.pyx":250
+    /* "lyfile/storage/lyfile.pyx":248
  *             partitions.append({
  *                 'path': parquet_file,
  *                 'rows': metadata.num_rows,             # <<<<<<<<<<<<<<
  *                 'size': parquet_file.stat().st_size
  *             })
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_metadata, __pyx_n_s_num_rows); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_metadata, __pyx_n_s_num_rows); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_rows, __pyx_t_4) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_rows, __pyx_t_4) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":251
+    /* "lyfile/storage/lyfile.pyx":249
  *                 'path': parquet_file,
  *                 'rows': metadata.num_rows,
  *                 'size': parquet_file.stat().st_size             # <<<<<<<<<<<<<<
  *             })
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_parquet_file, __pyx_n_s_stat); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_parquet_file, __pyx_n_s_stat); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_8 = NULL;
     __pyx_t_5 = 0;
@@ -10230,37 +10335,37 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 251, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_st_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_st_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_size, __pyx_t_2) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_size, __pyx_t_2) < 0) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":248
- *         for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):
+    /* "lyfile/storage/lyfile.pyx":246
+ *         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):
  *             metadata = pq.read_metadata(parquet_file)
  *             partitions.append({             # <<<<<<<<<<<<<<
  *                 'path': parquet_file,
  *                 'rows': metadata.num_rows,
  */
-    __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_partitions, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_partitions, __pyx_t_1); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 246, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":246
+    /* "lyfile/storage/lyfile.pyx":244
  *         #
  *         partitions = []
- *         for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):             # <<<<<<<<<<<<<<
+ *         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):             # <<<<<<<<<<<<<<
  *             metadata = pq.read_metadata(parquet_file)
  *             partitions.append({
  */
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":254
+  /* "lyfile/storage/lyfile.pyx":252
  *             })
  * 
  *         if not partitions:             # <<<<<<<<<<<<<<
@@ -10271,7 +10376,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
   __pyx_t_10 = (!__pyx_t_9);
   if (__pyx_t_10) {
 
-    /* "lyfile/storage/lyfile.pyx":255
+    /* "lyfile/storage/lyfile.pyx":253
  * 
  *         if not partitions:
  *             return             # <<<<<<<<<<<<<<
@@ -10282,7 +10387,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "lyfile/storage/lyfile.pyx":254
+    /* "lyfile/storage/lyfile.pyx":252
  *             })
  * 
  *         if not partitions:             # <<<<<<<<<<<<<<
@@ -10291,14 +10396,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":258
+  /* "lyfile/storage/lyfile.pyx":256
  * 
  *         #
  *         if (len(partitions) > self._max_partitions or             # <<<<<<<<<<<<<<
  *             any(p['rows'] < self._min_partition_size for p in partitions)):
  * 
  */
-  __pyx_t_7 = __Pyx_PyList_GET_SIZE(__pyx_v_partitions); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyList_GET_SIZE(__pyx_v_partitions); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 256, __pyx_L1_error)
   __pyx_t_9 = (__pyx_t_7 > __pyx_cur_scope->__pyx_v_self->_max_partitions);
   if (!__pyx_t_9) {
   } else {
@@ -10306,24 +10411,24 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     goto __pyx_L8_bool_binop_done;
   }
 
-  /* "lyfile/storage/lyfile.pyx":259
+  /* "lyfile/storage/lyfile.pyx":257
  *         #
  *         if (len(partitions) > self._max_partitions or
  *             any(p['rows'] < self._min_partition_size for p in partitions)):             # <<<<<<<<<<<<<<
  * 
  *             #
  */
-  __pyx_t_3 = __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partitions_genexpr(((PyObject*)__pyx_cur_scope), __pyx_v_partitions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_3 = __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23_merge_small_partitions_genexpr(((PyObject*)__pyx_cur_scope), __pyx_v_partitions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_Generator_Next(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Generator_Next(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_10 = __pyx_t_9;
   __pyx_L8_bool_binop_done:;
 
-  /* "lyfile/storage/lyfile.pyx":258
+  /* "lyfile/storage/lyfile.pyx":256
  * 
  *         #
  *         if (len(partitions) > self._max_partitions or             # <<<<<<<<<<<<<<
@@ -10332,19 +10437,19 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  */
   if (__pyx_t_10) {
 
-    /* "lyfile/storage/lyfile.pyx":262
+    /* "lyfile/storage/lyfile.pyx":260
  * 
  *             #
  *             tables = []             # <<<<<<<<<<<<<<
  *             for partition in partitions:
  *                 # parquet
  */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_v_tables = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":263
+    /* "lyfile/storage/lyfile.pyx":261
  *             #
  *             tables = []
  *             for partition in partitions:             # <<<<<<<<<<<<<<
@@ -10357,32 +10462,32 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       {
         Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_1);
         #if !CYTHON_ASSUME_SAFE_MACROS
-        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 263, __pyx_L1_error)
+        if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 261, __pyx_L1_error)
         #endif
         if (__pyx_t_7 >= __pyx_temp) break;
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_3); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 263, __pyx_L1_error)
+      __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_7); __Pyx_INCREF(__pyx_t_3); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 261, __pyx_L1_error)
       #else
-      __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PySequence_ITEM(__pyx_t_1, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_partition, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":265
+      /* "lyfile/storage/lyfile.pyx":263
  *             for partition in partitions:
  *                 # parquet
  *                 table = pq.read_table(partition['path'])             # <<<<<<<<<<<<<<
  *                 tables.append(table)
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_read_table); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_read_table); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_partition, __pyx_n_u_path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 265, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_partition, __pyx_n_u_path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 263, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_8 = NULL;
       __pyx_t_5 = 0;
@@ -10403,23 +10508,23 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 265, __pyx_L1_error)
+        if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 263, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
       __Pyx_XDECREF_SET(__pyx_v_table, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":266
+      /* "lyfile/storage/lyfile.pyx":264
  *                 # parquet
  *                 table = pq.read_table(partition['path'])
  *                 tables.append(table)             # <<<<<<<<<<<<<<
  * 
  *             #
  */
-      __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_tables, __pyx_v_table); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 266, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_tables, __pyx_v_table); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 264, __pyx_L1_error)
 
-      /* "lyfile/storage/lyfile.pyx":263
+      /* "lyfile/storage/lyfile.pyx":261
  *             #
  *             tables = []
  *             for partition in partitions:             # <<<<<<<<<<<<<<
@@ -10429,16 +10534,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":269
+    /* "lyfile/storage/lyfile.pyx":267
  * 
  *             #
  *             merged_table = pa.concat_tables(tables)             # <<<<<<<<<<<<<<
  * 
  *             #
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pa); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 269, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pa); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 267, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_concat_tables); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 269, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_concat_tables); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 267, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -10459,56 +10564,56 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_tables};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 269, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 267, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
     __pyx_v_merged_table = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":272
+    /* "lyfile/storage/lyfile.pyx":270
  * 
  *             #
  *             temp_folder = self._parquet_folder.parent / f"{self._parquet_folder.name}_temp"             # <<<<<<<<<<<<<<
  *             temp_folder.mkdir(exist_ok=True)
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_parent); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 272, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_parent); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 270, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 272, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_n_s_name); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_4, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_FormatSimple(__pyx_t_4, __pyx_empty_unicode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_3, __pyx_n_u_temp); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 272, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyUnicode_ConcatInPlace(__pyx_t_3, __pyx_n_u_temp); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 270, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 270, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_temp_folder = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":273
+    /* "lyfile/storage/lyfile.pyx":271
  *             #
  *             temp_folder = self._parquet_folder.parent / f"{self._parquet_folder.name}_temp"
  *             temp_folder.mkdir(exist_ok=True)             # <<<<<<<<<<<<<<
  * 
  *             try:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_mkdir); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 273, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 273, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_exist_ok, Py_True) < 0) __PYX_ERR(0, 271, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":275
+    /* "lyfile/storage/lyfile.pyx":273
  *             temp_folder.mkdir(exist_ok=True)
  * 
  *             try:             # <<<<<<<<<<<<<<
@@ -10517,51 +10622,51 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  */
     /*try:*/ {
 
-      /* "lyfile/storage/lyfile.pyx":277
+      /* "lyfile/storage/lyfile.pyx":275
  *             try:
  *                 #
  *                 total_rows = len(merged_table)             # <<<<<<<<<<<<<<
  *                 new_partitions = []
  *                 for i in range(0, total_rows, self._partition_size):
  */
-      __pyx_t_7 = PyObject_Length(__pyx_v_merged_table); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 277, __pyx_L14_error)
+      __pyx_t_7 = PyObject_Length(__pyx_v_merged_table); if (unlikely(__pyx_t_7 == ((Py_ssize_t)-1))) __PYX_ERR(0, 275, __pyx_L14_error)
       __pyx_v_total_rows = __pyx_t_7;
 
-      /* "lyfile/storage/lyfile.pyx":278
+      /* "lyfile/storage/lyfile.pyx":276
  *                 #
  *                 total_rows = len(merged_table)
  *                 new_partitions = []             # <<<<<<<<<<<<<<
  *                 for i in range(0, total_rows, self._partition_size):
  *                     end_idx = min(i + self._partition_size, total_rows)
  */
-      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L14_error)
+      __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 276, __pyx_L14_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_v_new_partitions = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":279
+      /* "lyfile/storage/lyfile.pyx":277
  *                 total_rows = len(merged_table)
  *                 new_partitions = []
  *                 for i in range(0, total_rows, self._partition_size):             # <<<<<<<<<<<<<<
  *                     end_idx = min(i + self._partition_size, total_rows)
  *                     partition_table = merged_table.slice(i, end_idx - i)
  */
-      __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_total_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L14_error)
+      __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_total_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 277, __pyx_L14_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error)
+      __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L14_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L14_error)
+      __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L14_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_int_0);
       __Pyx_GIVEREF(__pyx_int_0);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_int_0)) __PYX_ERR(0, 279, __pyx_L14_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_int_0)) __PYX_ERR(0, 277, __pyx_L14_error);
       __Pyx_GIVEREF(__pyx_t_1);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1)) __PYX_ERR(0, 279, __pyx_L14_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1)) __PYX_ERR(0, 277, __pyx_L14_error);
       __Pyx_GIVEREF(__pyx_t_4);
-      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error);
+      if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_4)) __PYX_ERR(0, 277, __pyx_L14_error);
       __pyx_t_1 = 0;
       __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L14_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
@@ -10569,9 +10674,9 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __pyx_t_7 = 0;
         __pyx_t_11 = NULL;
       } else {
-        __pyx_t_7 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 279, __pyx_L14_error)
+        __pyx_t_7 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_11 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 279, __pyx_L14_error)
+        __pyx_t_11 = __Pyx_PyObject_GetIterNextFunc(__pyx_t_3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 277, __pyx_L14_error)
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       for (;;) {
@@ -10580,28 +10685,28 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             {
               Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 279, __pyx_L14_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 277, __pyx_L14_error)
               #endif
               if (__pyx_t_7 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 279, __pyx_L14_error)
+            __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 277, __pyx_L14_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L14_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           } else {
             {
               Py_ssize_t __pyx_temp = __Pyx_PyTuple_GET_SIZE(__pyx_t_3);
               #if !CYTHON_ASSUME_SAFE_MACROS
-              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 279, __pyx_L14_error)
+              if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 277, __pyx_L14_error)
               #endif
               if (__pyx_t_7 >= __pyx_temp) break;
             }
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 279, __pyx_L14_error)
+            __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_4); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 277, __pyx_L14_error)
             #else
-            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error)
+            __pyx_t_4 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L14_error)
             __Pyx_GOTREF(__pyx_t_4);
             #endif
           }
@@ -10611,7 +10716,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 279, __pyx_L14_error)
+              else __PYX_ERR(0, 277, __pyx_L14_error)
             }
             break;
           }
@@ -10620,7 +10725,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":280
+        /* "lyfile/storage/lyfile.pyx":278
  *                 new_partitions = []
  *                 for i in range(0, total_rows, self._partition_size):
  *                     end_idx = min(i + self._partition_size, total_rows)             # <<<<<<<<<<<<<<
@@ -10628,19 +10733,19 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  * 
  */
         __pyx_t_12 = __pyx_v_total_rows;
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 280, __pyx_L14_error)
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_1 = PyNumber_Add(__pyx_v_i, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 280, __pyx_L14_error)
+        __pyx_t_1 = PyNumber_Add(__pyx_v_i, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 278, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 280, __pyx_L14_error)
+        __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 278, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 280, __pyx_L14_error)
+        __pyx_t_8 = PyObject_RichCompare(__pyx_t_2, __pyx_t_1, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L14_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(0, 280, __pyx_L14_error)
+        __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(0, 278, __pyx_L14_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         if (__pyx_t_10) {
-          __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 280, __pyx_L14_error)
+          __pyx_t_8 = PyInt_FromSsize_t(__pyx_t_12); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 278, __pyx_L14_error)
           __Pyx_GOTREF(__pyx_t_8);
           __pyx_t_4 = __pyx_t_8;
           __pyx_t_8 = 0;
@@ -10655,16 +10760,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __Pyx_XDECREF_SET(__pyx_v_end_idx, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":281
+        /* "lyfile/storage/lyfile.pyx":279
  *                 for i in range(0, total_rows, self._partition_size):
  *                     end_idx = min(i + self._partition_size, total_rows)
  *                     partition_table = merged_table.slice(i, end_idx - i)             # <<<<<<<<<<<<<<
  * 
  *                     #
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_merged_table, __pyx_n_s_slice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 281, __pyx_L14_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_merged_table, __pyx_n_s_slice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 279, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = PyNumber_Subtract(__pyx_v_end_idx, __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 281, __pyx_L14_error)
+        __pyx_t_8 = PyNumber_Subtract(__pyx_v_end_idx, __pyx_v_i); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 279, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_8);
         __pyx_t_2 = NULL;
         __pyx_t_5 = 0;
@@ -10685,21 +10790,21 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
           __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
           __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 281, __pyx_L14_error)
+          if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 279, __pyx_L14_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         }
         __Pyx_XDECREF_SET(__pyx_v_partition_table, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":284
+        /* "lyfile/storage/lyfile.pyx":282
  * 
  *                     #
- *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.parquet"             # <<<<<<<<<<<<<<
+ *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.ly"             # <<<<<<<<<<<<<<
  *                     pq.write_table(
  *                         partition_table,
  */
-        __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_12 = 0;
         __pyx_t_13 = 127;
@@ -10707,12 +10812,12 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __pyx_t_12 += 5;
         __Pyx_GIVEREF(__pyx_kp_u_part);
         PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_kp_u_part);
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = PyNumber_FloorDivide(__pyx_v_i, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __pyx_t_8 = PyNumber_FloorDivide(__pyx_v_i, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Format(__pyx_t_8, __pyx_kp_u_05d); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __pyx_t_4 = __Pyx_PyObject_Format(__pyx_t_8, __pyx_kp_u_05d); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __pyx_t_13 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_13) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_13;
@@ -10720,94 +10825,94 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_4);
         __pyx_t_4 = 0;
-        __Pyx_INCREF(__pyx_kp_u_parquet);
-        __pyx_t_12 += 8;
-        __Pyx_GIVEREF(__pyx_kp_u_parquet);
-        PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_parquet);
-        __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 3, __pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __Pyx_INCREF(__pyx_kp_u_ly);
+        __pyx_t_12 += 3;
+        __Pyx_GIVEREF(__pyx_kp_u_ly);
+        PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_ly);
+        __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_1, 3, __pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_temp_folder, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 284, __pyx_L14_error)
+        __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_v_temp_folder, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 282, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_XDECREF_SET(__pyx_v_new_path, __pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":285
+        /* "lyfile/storage/lyfile.pyx":283
  *                     #
- *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.parquet"
+ *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.ly"
  *                     pq.write_table(             # <<<<<<<<<<<<<<
  *                         partition_table,
  *                         new_path,
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L14_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_write_table); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 285, __pyx_L14_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_write_table); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 283, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":287
+        /* "lyfile/storage/lyfile.pyx":285
  *                     pq.write_table(
  *                         partition_table,
  *                         new_path,             # <<<<<<<<<<<<<<
  *                         compression='snappy',
  *                         use_dictionary=True,
  */
-        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 285, __pyx_L14_error)
+        __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 283, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_v_partition_table);
         __Pyx_GIVEREF(__pyx_v_partition_table);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_partition_table)) __PYX_ERR(0, 285, __pyx_L14_error);
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_partition_table)) __PYX_ERR(0, 283, __pyx_L14_error);
         __Pyx_INCREF(__pyx_v_new_path);
         __Pyx_GIVEREF(__pyx_v_new_path);
-        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_new_path)) __PYX_ERR(0, 285, __pyx_L14_error);
+        if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_new_path)) __PYX_ERR(0, 283, __pyx_L14_error);
 
-        /* "lyfile/storage/lyfile.pyx":288
+        /* "lyfile/storage/lyfile.pyx":286
  *                         partition_table,
  *                         new_path,
  *                         compression='snappy',             # <<<<<<<<<<<<<<
  *                         use_dictionary=True,
  *                         version='2.6',
  */
-        __pyx_t_8 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 288, __pyx_L14_error)
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 286, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_8);
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 288, __pyx_L14_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_compression, __pyx_n_u_snappy) < 0) __PYX_ERR(0, 286, __pyx_L14_error)
 
-        /* "lyfile/storage/lyfile.pyx":289
+        /* "lyfile/storage/lyfile.pyx":287
  *                         new_path,
  *                         compression='snappy',
  *                         use_dictionary=True,             # <<<<<<<<<<<<<<
  *                         version='2.6',
  *                         data_page_version='2.0'
  */
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 288, __pyx_L14_error)
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 288, __pyx_L14_error)
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 288, __pyx_L14_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_use_dictionary, Py_True) < 0) __PYX_ERR(0, 286, __pyx_L14_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_version, __pyx_kp_u_2_6) < 0) __PYX_ERR(0, 286, __pyx_L14_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_data_page_version, __pyx_kp_u_2_0) < 0) __PYX_ERR(0, 286, __pyx_L14_error)
 
-        /* "lyfile/storage/lyfile.pyx":285
+        /* "lyfile/storage/lyfile.pyx":283
  *                     #
- *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.parquet"
+ *                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.ly"
  *                     pq.write_table(             # <<<<<<<<<<<<<<
  *                         partition_table,
  *                         new_path,
  */
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 285, __pyx_L14_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":293
+        /* "lyfile/storage/lyfile.pyx":291
  *                         data_page_version='2.0'
  *                     )
  *                     new_partitions.append(new_path)             # <<<<<<<<<<<<<<
  * 
  *                 #
  */
-        __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_new_partitions, __pyx_v_new_path); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 293, __pyx_L14_error)
+        __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_new_partitions, __pyx_v_new_path); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 291, __pyx_L14_error)
 
-        /* "lyfile/storage/lyfile.pyx":279
+        /* "lyfile/storage/lyfile.pyx":277
  *                 total_rows = len(merged_table)
  *                 new_partitions = []
  *                 for i in range(0, total_rows, self._partition_size):             # <<<<<<<<<<<<<<
@@ -10817,7 +10922,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":296
+      /* "lyfile/storage/lyfile.pyx":294
  * 
  *                 #
  *                 with self._merge_lock:             # <<<<<<<<<<<<<<
@@ -10825,9 +10930,9 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  *                     for partition in partitions:
  */
       /*with:*/ {
-        __pyx_t_14 = __Pyx_PyObject_LookupSpecial(__pyx_cur_scope->__pyx_v_self->_merge_lock, __pyx_n_s_exit); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 296, __pyx_L14_error)
+        __pyx_t_14 = __Pyx_PyObject_LookupSpecial(__pyx_cur_scope->__pyx_v_self->_merge_lock, __pyx_n_s_exit); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 294, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_14);
-        __pyx_t_2 = __Pyx_PyObject_LookupSpecial(__pyx_cur_scope->__pyx_v_self->_merge_lock, __pyx_n_s_enter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L19_error)
+        __pyx_t_2 = __Pyx_PyObject_LookupSpecial(__pyx_cur_scope->__pyx_v_self->_merge_lock, __pyx_n_s_enter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 294, __pyx_L19_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_8 = NULL;
         __pyx_t_5 = 0;
@@ -10847,7 +10952,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
           PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
           __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
           __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 296, __pyx_L19_error)
+          if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 294, __pyx_L19_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
@@ -10862,7 +10967,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             __Pyx_XGOTREF(__pyx_t_17);
             /*try:*/ {
 
-              /* "lyfile/storage/lyfile.pyx":298
+              /* "lyfile/storage/lyfile.pyx":296
  *                 with self._merge_lock:
  *                     #
  *                     for partition in partitions:             # <<<<<<<<<<<<<<
@@ -10875,29 +10980,29 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
                 {
                   Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
                   #if !CYTHON_ASSUME_SAFE_MACROS
-                  if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 298, __pyx_L23_error)
+                  if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 296, __pyx_L23_error)
                   #endif
                   if (__pyx_t_7 >= __pyx_temp) break;
                 }
                 #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 298, __pyx_L23_error)
+                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 296, __pyx_L23_error)
                 #else
-                __pyx_t_2 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 298, __pyx_L23_error)
+                __pyx_t_2 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 296, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 #endif
                 __Pyx_XDECREF_SET(__pyx_v_partition, __pyx_t_2);
                 __pyx_t_2 = 0;
 
-                /* "lyfile/storage/lyfile.pyx":299
+                /* "lyfile/storage/lyfile.pyx":297
  *                     #
  *                     for partition in partitions:
  *                         partition['path'].unlink()             # <<<<<<<<<<<<<<
  * 
  *                     #
  */
-                __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_partition, __pyx_n_u_path); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 299, __pyx_L23_error)
+                __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_partition, __pyx_n_u_path); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 297, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_8);
-                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_unlink); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 299, __pyx_L23_error)
+                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_unlink); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 297, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
                 __pyx_t_8 = NULL;
@@ -10918,13 +11023,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
                   PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
                   __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
                   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-                  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 299, __pyx_L23_error)
+                  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 297, __pyx_L23_error)
                   __Pyx_GOTREF(__pyx_t_2);
                   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 }
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                /* "lyfile/storage/lyfile.pyx":298
+                /* "lyfile/storage/lyfile.pyx":296
  *                 with self._merge_lock:
  *                     #
  *                     for partition in partitions:             # <<<<<<<<<<<<<<
@@ -10934,7 +11039,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
               }
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "lyfile/storage/lyfile.pyx":302
+              /* "lyfile/storage/lyfile.pyx":300
  * 
  *                     #
  *                     for new_path in new_partitions:             # <<<<<<<<<<<<<<
@@ -10947,42 +11052,42 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
                 {
                   Py_ssize_t __pyx_temp = __Pyx_PyList_GET_SIZE(__pyx_t_3);
                   #if !CYTHON_ASSUME_SAFE_MACROS
-                  if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 302, __pyx_L23_error)
+                  if (unlikely((__pyx_temp < 0))) __PYX_ERR(0, 300, __pyx_L23_error)
                   #endif
                   if (__pyx_t_7 >= __pyx_temp) break;
                 }
                 #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 302, __pyx_L23_error)
+                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely((0 < 0))) __PYX_ERR(0, 300, __pyx_L23_error)
                 #else
-                __pyx_t_2 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L23_error)
+                __pyx_t_2 = __Pyx_PySequence_ITEM(__pyx_t_3, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 300, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 #endif
                 __Pyx_XDECREF_SET(__pyx_v_new_path, __pyx_t_2);
                 __pyx_t_2 = 0;
 
-                /* "lyfile/storage/lyfile.pyx":303
+                /* "lyfile/storage/lyfile.pyx":301
  *                     #
  *                     for new_path in new_partitions:
  *                         target_path = self._parquet_folder / new_path.name             # <<<<<<<<<<<<<<
  *                         new_path.rename(target_path)
  * 
  */
-                __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_path, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 303, __pyx_L23_error)
+                __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_path, __pyx_n_s_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 301, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_2);
-                __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 303, __pyx_L23_error)
+                __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_self->_parquet_folder, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 301, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_XDECREF_SET(__pyx_v_target_path, __pyx_t_1);
                 __pyx_t_1 = 0;
 
-                /* "lyfile/storage/lyfile.pyx":304
+                /* "lyfile/storage/lyfile.pyx":302
  *                     for new_path in new_partitions:
  *                         target_path = self._parquet_folder / new_path.name
  *                         new_path.rename(target_path)             # <<<<<<<<<<<<<<
  * 
  *                     #
  */
-                __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_path, __pyx_n_s_rename); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L23_error)
+                __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_path, __pyx_n_s_rename); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 302, __pyx_L23_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __pyx_t_8 = NULL;
                 __pyx_t_5 = 0;
@@ -11002,13 +11107,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
                   PyObject *__pyx_callargs[2] = {__pyx_t_8, __pyx_v_target_path};
                   __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
                   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-                  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 304, __pyx_L23_error)
+                  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 302, __pyx_L23_error)
                   __Pyx_GOTREF(__pyx_t_1);
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 }
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                /* "lyfile/storage/lyfile.pyx":302
+                /* "lyfile/storage/lyfile.pyx":300
  * 
  *                     #
  *                     for new_path in new_partitions:             # <<<<<<<<<<<<<<
@@ -11018,16 +11123,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
               }
               __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-              /* "lyfile/storage/lyfile.pyx":307
+              /* "lyfile/storage/lyfile.pyx":305
  * 
  *                     #
  *                     self._init_metadata()             # <<<<<<<<<<<<<<
  * 
  *             finally:
  */
-              ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_cur_scope->__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 307, __pyx_L23_error)
+              ((struct __pyx_vtabstruct_6lyfile_7storage_6lyfile_LyFile *)__pyx_cur_scope->__pyx_v_self->__pyx_vtab)->_init_metadata(__pyx_cur_scope->__pyx_v_self); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 305, __pyx_L23_error)
 
-              /* "lyfile/storage/lyfile.pyx":296
+              /* "lyfile/storage/lyfile.pyx":294
  * 
  *                 #
  *                 with self._merge_lock:             # <<<<<<<<<<<<<<
@@ -11047,20 +11152,20 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
             /*except:*/ {
               __Pyx_AddTraceback("lyfile.storage.lyfile.LyFile._merge_small_partitions", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_1, &__pyx_t_2) < 0) __PYX_ERR(0, 296, __pyx_L25_except_error)
+              if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_1, &__pyx_t_2) < 0) __PYX_ERR(0, 294, __pyx_L25_except_error)
               __Pyx_XGOTREF(__pyx_t_3);
               __Pyx_XGOTREF(__pyx_t_1);
               __Pyx_XGOTREF(__pyx_t_2);
-              __pyx_t_8 = PyTuple_Pack(3, __pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 296, __pyx_L25_except_error)
+              __pyx_t_8 = PyTuple_Pack(3, __pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 294, __pyx_L25_except_error)
               __Pyx_GOTREF(__pyx_t_8);
               __pyx_t_18 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_t_8, NULL);
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
               __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-              if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 296, __pyx_L25_except_error)
+              if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 294, __pyx_L25_except_error)
               __Pyx_GOTREF(__pyx_t_18);
               __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (__pyx_t_10 < 0) __PYX_ERR(0, 296, __pyx_L25_except_error)
+              if (__pyx_t_10 < 0) __PYX_ERR(0, 294, __pyx_L25_except_error)
               __pyx_t_9 = (!__pyx_t_10);
               if (unlikely(__pyx_t_9)) {
                 __Pyx_GIVEREF(__pyx_t_3);
@@ -11068,7 +11173,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
                 __Pyx_XGIVEREF(__pyx_t_2);
                 __Pyx_ErrRestoreWithState(__pyx_t_3, __pyx_t_1, __pyx_t_2);
                 __pyx_t_3 = 0; __pyx_t_1 = 0; __pyx_t_2 = 0; 
-                __PYX_ERR(0, 296, __pyx_L25_except_error)
+                __PYX_ERR(0, 294, __pyx_L25_except_error)
               }
               __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
               __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -11094,7 +11199,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             if (__pyx_t_14) {
               __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_14, __pyx_tuple__10, NULL);
               __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-              if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 296, __pyx_L14_error)
+              if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 294, __pyx_L14_error)
               __Pyx_GOTREF(__pyx_t_17);
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
             }
@@ -11110,7 +11215,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       }
     }
 
-    /* "lyfile/storage/lyfile.pyx":311
+    /* "lyfile/storage/lyfile.pyx":309
  *             finally:
  *                 #
  *                 if temp_folder.exists():             # <<<<<<<<<<<<<<
@@ -11119,7 +11224,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  */
     /*finally:*/ {
       /*normal exit:*/{
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 311, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 309, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_3 = NULL;
         __pyx_t_5 = 0;
@@ -11139,24 +11244,24 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
           PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
           __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         }
-        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 311, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 309, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_9) {
 
-          /* "lyfile/storage/lyfile.pyx":312
+          /* "lyfile/storage/lyfile.pyx":310
  *                 #
  *                 if temp_folder.exists():
  *                     shutil.rmtree(temp_folder)             # <<<<<<<<<<<<<<
  * 
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  */
-          __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_shutil); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
+          __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_shutil); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 310, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_1 = NULL;
@@ -11177,13 +11282,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_temp_folder};
             __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
             __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
+            if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 310, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           }
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "lyfile/storage/lyfile.pyx":311
+          /* "lyfile/storage/lyfile.pyx":309
  *             finally:
  *                 #
  *                 if temp_folder.exists():             # <<<<<<<<<<<<<<
@@ -11213,7 +11318,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
         __Pyx_XGOTREF(__pyx_t_22);
         __pyx_t_19 = __pyx_lineno; __pyx_t_20 = __pyx_clineno; __pyx_t_21 = __pyx_filename;
         {
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 311, __pyx_L41_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp_folder, __pyx_n_s_exists); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 309, __pyx_L41_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_1 = NULL;
           __pyx_t_5 = 0;
@@ -11233,24 +11338,24 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
             PyObject *__pyx_callargs[2] = {__pyx_t_1, NULL};
             __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
             __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 311, __pyx_L41_error)
+            if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 309, __pyx_L41_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           }
-          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 311, __pyx_L41_error)
+          __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(0, 309, __pyx_L41_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           if (__pyx_t_9) {
 
-            /* "lyfile/storage/lyfile.pyx":312
+            /* "lyfile/storage/lyfile.pyx":310
  *                 #
  *                 if temp_folder.exists():
  *                     shutil.rmtree(temp_folder)             # <<<<<<<<<<<<<<
  * 
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  */
-            __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_shutil); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L41_error)
+            __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_shutil); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 310, __pyx_L41_error)
             __Pyx_GOTREF(__pyx_t_3);
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L41_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_rmtree); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 310, __pyx_L41_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __pyx_t_3 = NULL;
@@ -11271,13 +11376,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
               PyObject *__pyx_callargs[2] = {__pyx_t_3, __pyx_v_temp_folder};
               __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
               __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-              if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L41_error)
+              if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 310, __pyx_L41_error)
               __Pyx_GOTREF(__pyx_t_2);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             }
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "lyfile/storage/lyfile.pyx":311
+            /* "lyfile/storage/lyfile.pyx":309
  *             finally:
  *                 #
  *                 if temp_folder.exists():             # <<<<<<<<<<<<<<
@@ -11315,19 +11420,19 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       __pyx_L15:;
     }
 
-    /* "lyfile/storage/lyfile.pyx":314
+    /* "lyfile/storage/lyfile.pyx":312
  *                     shutil.rmtree(temp_folder)
  * 
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")             # <<<<<<<<<<<<<<
  * 
  *     def _async_merge(self):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_logging); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = 0;
     __pyx_t_13 = 127;
@@ -11335,8 +11440,8 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     __pyx_t_7 += 7;
     __Pyx_GIVEREF(__pyx_kp_u_Merged);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_kp_u_Merged);
-    __pyx_t_12 = __Pyx_PyList_GET_SIZE(__pyx_v_partitions); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 314, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_12, 0, ' ', 'd'); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyList_GET_SIZE(__pyx_v_partitions); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 312, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_12, 0, ' ', 'd'); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_8);
@@ -11346,8 +11451,8 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     __pyx_t_7 += 17;
     __Pyx_GIVEREF(__pyx_kp_u_partitions_into);
     PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_kp_u_partitions_into);
-    __pyx_t_12 = __Pyx_PyList_GET_SIZE(__pyx_v_new_partitions); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 314, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_12, 0, ' ', 'd'); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyList_GET_SIZE(__pyx_v_new_partitions); if (unlikely(__pyx_t_12 == ((Py_ssize_t)-1))) __PYX_ERR(0, 312, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyUnicode_From_Py_ssize_t(__pyx_t_12, 0, ' ', 'd'); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_7 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_8);
@@ -11357,7 +11462,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
     __pyx_t_7 += 11;
     __Pyx_GIVEREF(__pyx_kp_u_partitions);
     PyTuple_SET_ITEM(__pyx_t_1, 4, __pyx_kp_u_partitions);
-    __pyx_t_8 = __Pyx_PyUnicode_Join(__pyx_t_1, 5, __pyx_t_7, __pyx_t_13); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 314, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyUnicode_Join(__pyx_t_1, 5, __pyx_t_7, __pyx_t_13); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 312, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = NULL;
@@ -11379,13 +11484,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":258
+    /* "lyfile/storage/lyfile.pyx":256
  * 
  *         #
  *         if (len(partitions) > self._max_partitions or             # <<<<<<<<<<<<<<
@@ -11394,7 +11499,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":242
+  /* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
@@ -11435,7 +11540,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_merge_small_partit
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":316
+/* "lyfile/storage/lyfile.pyx":314
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  * 
  *     def _async_merge(self):             # <<<<<<<<<<<<<<
@@ -11514,7 +11619,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_async_merge", 1);
 
-  /* "lyfile/storage/lyfile.pyx":318
+  /* "lyfile/storage/lyfile.pyx":316
  *     def _async_merge(self):
  *         """"""
  *         try:             # <<<<<<<<<<<<<<
@@ -11530,14 +11635,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "lyfile/storage/lyfile.pyx":319
+      /* "lyfile/storage/lyfile.pyx":317
  *         """"""
  *         try:
  *             self._merge_small_partitions()             # <<<<<<<<<<<<<<
  *         except Exception as e:
  *             logging.error(f"Error during partition merge: {e}")
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_merge_small_partitions); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 319, __pyx_L3_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_merge_small_partitions); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 317, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_6 = NULL;
       __pyx_t_7 = 0;
@@ -11557,13 +11662,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
         PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
         __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_7, 0+__pyx_t_7);
         __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 319, __pyx_L3_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 317, __pyx_L3_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "lyfile/storage/lyfile.pyx":318
+      /* "lyfile/storage/lyfile.pyx":316
  *     def _async_merge(self):
  *         """"""
  *         try:             # <<<<<<<<<<<<<<
@@ -11580,7 +11685,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":320
+    /* "lyfile/storage/lyfile.pyx":318
  *         try:
  *             self._merge_small_partitions()
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -11590,7 +11695,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
     __pyx_t_8 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
     if (__pyx_t_8) {
       __Pyx_AddTraceback("lyfile.storage.lyfile.LyFile._async_merge", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_6) < 0) __PYX_ERR(0, 320, __pyx_L5_except_error)
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_6) < 0) __PYX_ERR(0, 318, __pyx_L5_except_error)
       __Pyx_XGOTREF(__pyx_t_4);
       __Pyx_XGOTREF(__pyx_t_5);
       __Pyx_XGOTREF(__pyx_t_6);
@@ -11598,21 +11703,21 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
       __pyx_v_e = __pyx_t_5;
       /*try:*/ {
 
-        /* "lyfile/storage/lyfile.pyx":321
+        /* "lyfile/storage/lyfile.pyx":319
  *             self._merge_small_partitions()
  *         except Exception as e:
  *             logging.error(f"Error during partition merge: {e}")             # <<<<<<<<<<<<<<
  *             raise
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_logging); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L14_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_logging); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 319, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_error); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 321, __pyx_L14_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_error); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 319, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_10 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L14_error)
+        __pyx_t_10 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 319, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_during_partition_merge, __pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 321, __pyx_L14_error)
+        __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_during_partition_merge, __pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 319, __pyx_L14_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __pyx_t_10 = NULL;
@@ -11634,13 +11739,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
           __pyx_t_9 = __Pyx_PyObject_FastCall(__pyx_t_11, __pyx_callargs+1-__pyx_t_7, 1+__pyx_t_7);
           __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-          if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 321, __pyx_L14_error)
+          if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 319, __pyx_L14_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         }
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-        /* "lyfile/storage/lyfile.pyx":322
+        /* "lyfile/storage/lyfile.pyx":320
  *         except Exception as e:
  *             logging.error(f"Error during partition merge: {e}")
  *             raise             # <<<<<<<<<<<<<<
@@ -11652,10 +11757,10 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
         __Pyx_XGIVEREF(__pyx_t_6);
         __Pyx_ErrRestoreWithState(__pyx_t_4, __pyx_t_5, __pyx_t_6);
         __pyx_t_4 = 0; __pyx_t_5 = 0; __pyx_t_6 = 0; 
-        __PYX_ERR(0, 322, __pyx_L14_error)
+        __PYX_ERR(0, 320, __pyx_L14_error)
       }
 
-      /* "lyfile/storage/lyfile.pyx":320
+      /* "lyfile/storage/lyfile.pyx":318
  *         try:
  *             self._merge_small_partitions()
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -11702,7 +11807,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
     }
     goto __pyx_L5_except_error;
 
-    /* "lyfile/storage/lyfile.pyx":318
+    /* "lyfile/storage/lyfile.pyx":316
  *     def _async_merge(self):
  *         """"""
  *         try:             # <<<<<<<<<<<<<<
@@ -11718,7 +11823,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
     __pyx_L8_try_end:;
   }
 
-  /* "lyfile/storage/lyfile.pyx":316
+  /* "lyfile/storage/lyfile.pyx":314
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  * 
  *     def _async_merge(self):             # <<<<<<<<<<<<<<
@@ -11746,7 +11851,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_21_async_merge(struct
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":324
+/* "lyfile/storage/lyfile.pyx":322
  *             raise
  * 
  *     def trigger_merge(self):             # <<<<<<<<<<<<<<
@@ -11812,20 +11917,20 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("trigger_merge", 1);
 
-  /* "lyfile/storage/lyfile.pyx":327
+  /* "lyfile/storage/lyfile.pyx":325
  *         """"""
  *         #
  *         if self._merge_future and not self._merge_future.done():             # <<<<<<<<<<<<<<
  *             logging.info("Merge operation already in progress")
  *             return False
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_self->_merge_future); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_self->_merge_future); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 325, __pyx_L1_error)
   if (__pyx_t_2) {
   } else {
     __pyx_t_1 = __pyx_t_2;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_future, __pyx_n_s_done); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_future, __pyx_n_s_done); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   __pyx_t_6 = 0;
@@ -11845,27 +11950,27 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
     PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_6, 0+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 327, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_7 = (!__pyx_t_2);
   __pyx_t_1 = __pyx_t_7;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "lyfile/storage/lyfile.pyx":328
+    /* "lyfile/storage/lyfile.pyx":326
  *         #
  *         if self._merge_future and not self._merge_future.done():
  *             logging.info("Merge operation already in progress")             # <<<<<<<<<<<<<<
  *             return False
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_logging); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_logging); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_info); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_info); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -11886,13 +11991,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
       PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_kp_u_Merge_operation_already_in_progr};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 328, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":329
+    /* "lyfile/storage/lyfile.pyx":327
  *         if self._merge_future and not self._merge_future.done():
  *             logging.info("Merge operation already in progress")
  *             return False             # <<<<<<<<<<<<<<
@@ -11904,7 +12009,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "lyfile/storage/lyfile.pyx":327
+    /* "lyfile/storage/lyfile.pyx":325
  *         """"""
  *         #
  *         if self._merge_future and not self._merge_future.done():             # <<<<<<<<<<<<<<
@@ -11913,16 +12018,16 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":332
+  /* "lyfile/storage/lyfile.pyx":330
  * 
  *         #
  *         self._merge_future = self._merge_executor.submit(self._async_merge)             # <<<<<<<<<<<<<<
  *         return True
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_executor, __pyx_n_s_submit); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_executor, __pyx_n_s_submit); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 330, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_async_merge); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_async_merge); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 330, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_8 = NULL;
   __pyx_t_6 = 0;
@@ -11943,7 +12048,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
     __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_6, 1+__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 332, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
@@ -11953,7 +12058,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
   __pyx_v_self->_merge_future = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":333
+  /* "lyfile/storage/lyfile.pyx":331
  *         #
  *         self._merge_future = self._merge_executor.submit(self._async_merge)
  *         return True             # <<<<<<<<<<<<<<
@@ -11965,7 +12070,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "lyfile/storage/lyfile.pyx":324
+  /* "lyfile/storage/lyfile.pyx":322
  *             raise
  * 
  *     def trigger_merge(self):             # <<<<<<<<<<<<<<
@@ -11987,7 +12092,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_23trigger_merge(struc
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":335
+/* "lyfile/storage/lyfile.pyx":333
  *         return True
  * 
  *     def optimize(self, wait: bool = True):             # <<<<<<<<<<<<<<
@@ -12049,12 +12154,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_wait);
           if (value) { values[0] = __Pyx_Arg_NewRef_FASTCALL(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 335, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 333, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "optimize") < 0)) __PYX_ERR(0, 335, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "optimize") < 0)) __PYX_ERR(0, 333, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -12068,7 +12173,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("optimize", 0, 0, 1, __pyx_nargs); __PYX_ERR(0, 335, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("optimize", 0, 0, 1, __pyx_nargs); __PYX_ERR(0, 333, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -12109,14 +12214,14 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_25optimize(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("optimize", 1);
 
-  /* "lyfile/storage/lyfile.pyx":341
+  /* "lyfile/storage/lyfile.pyx":339
  *             wait:
  *         """
  *         if self.trigger_merge() and wait:             # <<<<<<<<<<<<<<
  *             self._merge_future.result()  #
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_trigger_merge); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_trigger_merge); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -12136,30 +12241,30 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_25optimize(struct __p
     PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
     __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 341, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_6) {
   } else {
     __pyx_t_1 = __pyx_t_6;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_wait); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 341, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_v_wait); if (unlikely((__pyx_t_6 < 0))) __PYX_ERR(0, 339, __pyx_L1_error)
   __pyx_t_1 = __pyx_t_6;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "lyfile/storage/lyfile.pyx":342
+    /* "lyfile/storage/lyfile.pyx":340
  *         """
  *         if self.trigger_merge() and wait:
  *             self._merge_future.result()  #             # <<<<<<<<<<<<<<
  * 
  *     def __del__(self):
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_future, __pyx_n_s_result); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_future, __pyx_n_s_result); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 340, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -12179,13 +12284,13 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_25optimize(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 342, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":341
+    /* "lyfile/storage/lyfile.pyx":339
  *             wait:
  *         """
  *         if self.trigger_merge() and wait:             # <<<<<<<<<<<<<<
@@ -12194,7 +12299,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_25optimize(struct __p
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":335
+  /* "lyfile/storage/lyfile.pyx":333
  *         return True
  * 
  *     def optimize(self, wait: bool = True):             # <<<<<<<<<<<<<<
@@ -12217,7 +12322,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_25optimize(struct __p
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":344
+/* "lyfile/storage/lyfile.pyx":342
  *             self._merge_future.result()  #
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -12253,32 +12358,32 @@ static void __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_27__del__(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__del__", 1);
 
-  /* "lyfile/storage/lyfile.pyx":346
+  /* "lyfile/storage/lyfile.pyx":344
  *     def __del__(self):
  *         """"""
  *         if self._merge_executor:             # <<<<<<<<<<<<<<
  *             self._merge_executor.shutdown(wait=True)
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->_merge_executor); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 346, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->_merge_executor); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 344, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "lyfile/storage/lyfile.pyx":347
+    /* "lyfile/storage/lyfile.pyx":345
  *         """"""
  *         if self._merge_executor:
  *             self._merge_executor.shutdown(wait=True)             # <<<<<<<<<<<<<<
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_executor, __pyx_n_s_shutdown); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 347, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->_merge_executor, __pyx_n_s_shutdown); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 347, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_wait, Py_True) < 0) __PYX_ERR(0, 347, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 347, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_wait, Py_True) < 0) __PYX_ERR(0, 345, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 345, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "lyfile/storage/lyfile.pyx":346
+    /* "lyfile/storage/lyfile.pyx":344
  *     def __del__(self):
  *         """"""
  *         if self._merge_executor:             # <<<<<<<<<<<<<<
@@ -12286,7 +12391,7 @@ static void __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_27__del__(struct __pyx_obj
  */
   }
 
-  /* "lyfile/storage/lyfile.pyx":344
+  /* "lyfile/storage/lyfile.pyx":342
  *             self._merge_future.result()  #
  * 
  *     def __del__(self):             # <<<<<<<<<<<<<<
@@ -12305,7 +12410,7 @@ static void __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_27__del__(struct __pyx_obj
   __Pyx_RefNannyFinishContext();
 }
 
-/* "lyfile/storage/lyfile.pyx":40
+/* "lyfile/storage/lyfile.pyx":36
  *     """
  *     cdef:
  *         public object folder_path             # <<<<<<<<<<<<<<
@@ -12406,7 +12511,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_11folder_path_4__del__(stru
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":41
+/* "lyfile/storage/lyfile.pyx":37
  *     cdef:
  *         public object folder_path
  *         public object filepath             # <<<<<<<<<<<<<<
@@ -12507,7 +12612,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_8filepath_4__del__(struct _
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":42
+/* "lyfile/storage/lyfile.pyx":38
  *         public object folder_path
  *         public object filepath
  *         public int thread_count             # <<<<<<<<<<<<<<
@@ -12539,7 +12644,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_12thread_count___get_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->thread_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12577,7 +12682,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_12thread_count_2__set__(str
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L1_error)
   __pyx_v_self->thread_count = __pyx_t_1;
 
   /* function exit code */
@@ -12590,7 +12695,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_12thread_count_2__set__(str
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":43
+/* "lyfile/storage/lyfile.pyx":39
  *         public object filepath
  *         public int thread_count
  *         public object _executor             # <<<<<<<<<<<<<<
@@ -12691,7 +12796,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_9_executor_4__del__(struct 
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":44
+/* "lyfile/storage/lyfile.pyx":40
  *         public int thread_count
  *         public object _executor
  *         public object _thread_local             # <<<<<<<<<<<<<<
@@ -12792,7 +12897,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13_thread_local_4__del__(st
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":45
+/* "lyfile/storage/lyfile.pyx":41
  *         public object _executor
  *         public object _thread_local
  *         public object _parquet_folder             # <<<<<<<<<<<<<<
@@ -12893,7 +12998,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_parquet_folder_4__del__(
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":46
+/* "lyfile/storage/lyfile.pyx":42
  *         public object _thread_local
  *         public object _parquet_folder
  *         public dict _vector_columns             # <<<<<<<<<<<<<<
@@ -12955,7 +13060,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_vector_columns_2__set__(
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 1);
-  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_value))) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_value))) __PYX_ERR(0, 42, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -13007,7 +13112,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_vector_columns_4__del__(
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":47
+/* "lyfile/storage/lyfile.pyx":43
  *         public object _parquet_folder
  *         public dict _vector_columns
  *         public int n_rows             # <<<<<<<<<<<<<<
@@ -13039,7 +13144,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6n_rows___get__(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_rows); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13077,7 +13182,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6n_rows_2__set__(struct __p
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
   __pyx_v_self->n_rows = __pyx_t_1;
 
   /* function exit code */
@@ -13090,7 +13195,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_6n_rows_2__set__(struct __p
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":48
+/* "lyfile/storage/lyfile.pyx":44
  *         public dict _vector_columns
  *         public int n_rows
  *         public list _column_order             # <<<<<<<<<<<<<<
@@ -13152,7 +13257,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13_column_order_2__set__(st
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 1);
-  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_v_value))) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_v_value))) __PYX_ERR(0, 44, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -13204,7 +13309,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13_column_order_4__del__(st
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":49
+/* "lyfile/storage/lyfile.pyx":45
  *         public int n_rows
  *         public list _column_order
  *         public int _partition_size             # <<<<<<<<<<<<<<
@@ -13236,7 +13341,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_partition_size___g
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_partition_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13274,7 +13379,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_partition_size_2__set__(
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L1_error)
   __pyx_v_self->_partition_size = __pyx_t_1;
 
   /* function exit code */
@@ -13287,7 +13392,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_partition_size_2__set__(
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":50
+/* "lyfile/storage/lyfile.pyx":46
  *         public list _column_order
  *         public int _partition_size
  *         public int _max_partitions             # <<<<<<<<<<<<<<
@@ -13319,7 +13424,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_max_partitions___g
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_max_partitions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_max_partitions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13357,7 +13462,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_max_partitions_2__set__(
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 46, __pyx_L1_error)
   __pyx_v_self->_max_partitions = __pyx_t_1;
 
   /* function exit code */
@@ -13370,7 +13475,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_max_partitions_2__set__(
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":51
+/* "lyfile/storage/lyfile.pyx":47
  *         public int _partition_size
  *         public int _max_partitions
  *         public int _min_partition_size             # <<<<<<<<<<<<<<
@@ -13402,7 +13507,7 @@ static PyObject *__pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_min_partition_size
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__get__", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_min_partition_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_min_partition_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13440,7 +13545,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_min_partition_size_2__se
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L1_error)
   __pyx_v_self->_min_partition_size = __pyx_t_1;
 
   /* function exit code */
@@ -13453,7 +13558,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_19_min_partition_size_2__se
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":52
+/* "lyfile/storage/lyfile.pyx":48
  *         public int _max_partitions
  *         public int _min_partition_size
  *         public object _merge_executor             # <<<<<<<<<<<<<<
@@ -13554,7 +13659,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_15_merge_executor_4__del__(
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":53
+/* "lyfile/storage/lyfile.pyx":49
  *         public int _min_partition_size
  *         public object _merge_executor
  *         public object _merge_future             # <<<<<<<<<<<<<<
@@ -13655,7 +13760,7 @@ static int __pyx_pf_6lyfile_7storage_6lyfile_6LyFile_13_merge_future_4__del__(st
   return __pyx_r;
 }
 
-/* "lyfile/storage/lyfile.pyx":54
+/* "lyfile/storage/lyfile.pyx":50
  *         public object _merge_executor
  *         public object _merge_future
  *         public object _merge_lock             # <<<<<<<<<<<<<<
@@ -15914,11 +16019,10 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_u_05d, __pyx_k_05d, sizeof(__pyx_k_05d), 0, 1, 0, 0},
     {&__pyx_kp_u_2_0, __pyx_k_2_0, sizeof(__pyx_k_2_0), 0, 1, 0, 0},
     {&__pyx_kp_u_2_6, __pyx_k_2_6, sizeof(__pyx_k_2_6), 0, 1, 0, 0},
-    {&__pyx_n_s_BytesIO, __pyx_k_BytesIO, sizeof(__pyx_k_BytesIO), 0, 0, 1, 1},
+    {&__pyx_n_s_ArrayView, __pyx_k_ArrayView, sizeof(__pyx_k_ArrayView), 0, 0, 1, 1},
     {&__pyx_n_s_DataFrame, __pyx_k_DataFrame, sizeof(__pyx_k_DataFrame), 0, 0, 1, 1},
     {&__pyx_n_s_Dict, __pyx_k_Dict, sizeof(__pyx_k_Dict), 0, 0, 1, 1},
     {&__pyx_kp_u_Error_during_partition_merge, __pyx_k_Error_during_partition_merge, sizeof(__pyx_k_Error_during_partition_merge), 0, 1, 0, 0},
-    {&__pyx_n_s_Future, __pyx_k_Future, sizeof(__pyx_k_Future), 0, 0, 1, 1},
     {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
     {&__pyx_kp_s_Incompatible_checksums_0x_x_vs_0, __pyx_k_Incompatible_checksums_0x_x_vs_0, sizeof(__pyx_k_Incompatible_checksums_0x_x_vs_0), 0, 0, 1, 0},
     {&__pyx_n_s_List, __pyx_k_List, sizeof(__pyx_k_List), 0, 0, 1, 1},
@@ -15940,19 +16044,19 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_u_Merge_operation_already_in_progr, __pyx_k_Merge_operation_already_in_progr, sizeof(__pyx_k_Merge_operation_already_in_progr), 0, 1, 0, 0},
     {&__pyx_kp_u_Merged, __pyx_k_Merged, sizeof(__pyx_k_Merged), 0, 1, 0, 0},
     {&__pyx_n_s_Optional, __pyx_k_Optional, sizeof(__pyx_k_Optional), 0, 0, 1, 1},
-    {&__pyx_n_s_OrderedDict, __pyx_k_OrderedDict, sizeof(__pyx_k_OrderedDict), 0, 0, 1, 1},
     {&__pyx_n_s_ParquetFile, __pyx_k_ParquetFile, sizeof(__pyx_k_ParquetFile), 0, 0, 1, 1},
     {&__pyx_n_s_Path, __pyx_k_Path, sizeof(__pyx_k_Path), 0, 0, 1, 1},
     {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
     {&__pyx_n_s_Series, __pyx_k_Series, sizeof(__pyx_k_Series), 0, 0, 1, 1},
     {&__pyx_n_s_Table, __pyx_k_Table, sizeof(__pyx_k_Table), 0, 0, 1, 1},
     {&__pyx_n_s_ThreadPoolExecutor, __pyx_k_ThreadPoolExecutor, sizeof(__pyx_k_ThreadPoolExecutor), 0, 0, 1, 1},
-    {&__pyx_n_s_Tuple, __pyx_k_Tuple, sizeof(__pyx_k_Tuple), 0, 0, 1, 1},
     {&__pyx_n_s_Union, __pyx_k_Union, sizeof(__pyx_k_Union), 0, 0, 1, 1},
     {&__pyx_kp_s_Union_List_Dict_pd_DataFrame_pd, __pyx_k_Union_List_Dict_pd_DataFrame_pd, sizeof(__pyx_k_Union_List_Dict_pd_DataFrame_pd), 0, 0, 1, 0},
     {&__pyx_kp_s_Union_Optional_List_str_str, __pyx_k_Union_Optional_List_str_str, sizeof(__pyx_k_Union_Optional_List_str_str), 0, 0, 1, 0},
+    {&__pyx_kp_s_Union_np_ndarray_ArrayView, __pyx_k_Union_np_ndarray_ArrayView, sizeof(__pyx_k_Union_np_ndarray_ArrayView), 0, 0, 1, 0},
     {&__pyx_kp_s_Union_pd_DataFrame_dict, __pyx_k_Union_pd_DataFrame_dict, sizeof(__pyx_k_Union_pd_DataFrame_dict), 0, 0, 1, 0},
     {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
+    {&__pyx_n_s_VecStorage, __pyx_k_VecStorage, sizeof(__pyx_k_VecStorage), 0, 0, 1, 1},
     {&__pyx_kp_u__12, __pyx_k__12, sizeof(__pyx_k__12), 0, 1, 0, 0},
     {&__pyx_n_s__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 1, 1},
     {&__pyx_n_s__41, __pyx_k__41, sizeof(__pyx_k__41), 0, 0, 1, 1},
@@ -15968,7 +16072,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
     {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
     {&__pyx_n_s_col, __pyx_k_col, sizeof(__pyx_k_col), 0, 0, 1, 1},
-    {&__pyx_n_s_collections, __pyx_k_collections, sizeof(__pyx_k_collections), 0, 0, 1, 1},
     {&__pyx_n_s_column_name, __pyx_k_column_name, sizeof(__pyx_k_column_name), 0, 0, 1, 1},
     {&__pyx_n_s_columns, __pyx_k_columns, sizeof(__pyx_k_columns), 0, 0, 1, 1},
     {&__pyx_n_s_compression, __pyx_k_compression, sizeof(__pyx_k_compression), 0, 0, 1, 1},
@@ -16007,11 +16110,11 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_initializing, __pyx_k_initializing, sizeof(__pyx_k_initializing), 0, 0, 1, 1},
     {&__pyx_n_s_inplace, __pyx_k_inplace, sizeof(__pyx_k_inplace), 0, 0, 1, 1},
     {&__pyx_n_s_int, __pyx_k_int, sizeof(__pyx_k_int), 0, 0, 1, 1},
-    {&__pyx_n_s_io, __pyx_k_io, sizeof(__pyx_k_io), 0, 0, 1, 1},
     {&__pyx_n_s_is_coroutine, __pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 0, 1, 1},
     {&__pyx_kp_u_isenabled, __pyx_k_isenabled, sizeof(__pyx_k_isenabled), 0, 1, 0, 0},
     {&__pyx_n_s_local, __pyx_k_local, sizeof(__pyx_k_local), 0, 0, 1, 1},
     {&__pyx_n_s_logging, __pyx_k_logging, sizeof(__pyx_k_logging), 0, 0, 1, 1},
+    {&__pyx_kp_u_ly, __pyx_k_ly, sizeof(__pyx_k_ly), 0, 1, 0, 0},
     {&__pyx_n_s_lyfile_storage_lyfile, __pyx_k_lyfile_storage_lyfile, sizeof(__pyx_k_lyfile_storage_lyfile), 0, 0, 1, 1},
     {&__pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_k_lyfile_storage_lyfile_pyx, sizeof(__pyx_k_lyfile_storage_lyfile_pyx), 0, 0, 1, 0},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
@@ -16033,7 +16136,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_new_partitions, __pyx_k_new_partitions, sizeof(__pyx_k_new_partitions), 0, 0, 1, 1},
     {&__pyx_n_s_new_path, __pyx_k_new_path, sizeof(__pyx_k_new_path), 0, 0, 1, 1},
     {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
-    {&__pyx_kp_s_np_ndarray, __pyx_k_np_ndarray, sizeof(__pyx_k_np_ndarray), 0, 0, 1, 0},
     {&__pyx_n_s_num_rows, __pyx_k_num_rows, sizeof(__pyx_k_num_rows), 0, 0, 1, 1},
     {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
     {&__pyx_kp_u_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 1, 0, 0},
@@ -16046,13 +16148,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_pandas, __pyx_k_pandas, sizeof(__pyx_k_pandas), 0, 0, 1, 1},
     {&__pyx_n_s_parent, __pyx_k_parent, sizeof(__pyx_k_parent), 0, 0, 1, 1},
     {&__pyx_n_s_parents, __pyx_k_parents, sizeof(__pyx_k_parents), 0, 0, 1, 1},
-    {&__pyx_kp_u_parquet, __pyx_k_parquet, sizeof(__pyx_k_parquet), 0, 1, 0, 0},
-    {&__pyx_n_s_parquet_2, __pyx_k_parquet_2, sizeof(__pyx_k_parquet_2), 0, 0, 1, 1},
+    {&__pyx_n_s_parquet, __pyx_k_parquet, sizeof(__pyx_k_parquet), 0, 0, 1, 1},
     {&__pyx_n_s_parquet_file, __pyx_k_parquet_file, sizeof(__pyx_k_parquet_file), 0, 0, 1, 1},
     {&__pyx_n_s_parquet_path, __pyx_k_parquet_path, sizeof(__pyx_k_parquet_path), 0, 0, 1, 1},
     {&__pyx_kp_u_part, __pyx_k_part, sizeof(__pyx_k_part), 0, 1, 0, 0},
-    {&__pyx_kp_u_part_00000_parquet, __pyx_k_part_00000_parquet, sizeof(__pyx_k_part_00000_parquet), 0, 1, 0, 0},
-    {&__pyx_kp_u_part_parquet, __pyx_k_part_parquet, sizeof(__pyx_k_part_parquet), 0, 1, 0, 0},
+    {&__pyx_kp_u_part_00000_ly, __pyx_k_part_00000_ly, sizeof(__pyx_k_part_00000_ly), 0, 1, 0, 0},
+    {&__pyx_kp_u_part_ly, __pyx_k_part_ly, sizeof(__pyx_k_part_ly), 0, 1, 0, 0},
     {&__pyx_n_s_partition, __pyx_k_partition, sizeof(__pyx_k_partition), 0, 0, 1, 1},
     {&__pyx_n_s_partition_files, __pyx_k_partition_files, sizeof(__pyx_k_partition_files), 0, 0, 1, 1},
     {&__pyx_n_s_partition_id, __pyx_k_partition_id, sizeof(__pyx_k_partition_id), 0, 0, 1, 1},
@@ -16092,7 +16193,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_return, __pyx_k_return, sizeof(__pyx_k_return), 0, 0, 1, 1},
     {&__pyx_n_s_rmtree, __pyx_k_rmtree, sizeof(__pyx_k_rmtree), 0, 0, 1, 1},
     {&__pyx_n_u_rows, __pyx_k_rows, sizeof(__pyx_k_rows), 0, 1, 0, 1},
-    {&__pyx_n_s_save_nnp, __pyx_k_save_nnp, sizeof(__pyx_k_save_nnp), 0, 0, 1, 1},
+    {&__pyx_n_s_save_vec, __pyx_k_save_vec, sizeof(__pyx_k_save_vec), 0, 0, 1, 1},
     {&__pyx_n_s_schema, __pyx_k_schema, sizeof(__pyx_k_schema), 0, 0, 1, 1},
     {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
     {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
@@ -16109,7 +16210,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_state, __pyx_k_state, sizeof(__pyx_k_state), 0, 0, 1, 1},
     {&__pyx_n_s_str, __pyx_k_str, sizeof(__pyx_k_str), 0, 0, 1, 1},
     {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
-    {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
     {&__pyx_n_s_submit, __pyx_k_submit, sizeof(__pyx_k_submit), 0, 0, 1, 1},
     {&__pyx_n_s_table, __pyx_k_table, sizeof(__pyx_k_table), 0, 0, 1, 1},
     {&__pyx_n_s_tables, __pyx_k_tables, sizeof(__pyx_k_tables), 0, 0, 1, 1},
@@ -16128,12 +16228,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_use_dictionary, __pyx_k_use_dictionary, sizeof(__pyx_k_use_dictionary), 0, 0, 1, 1},
     {&__pyx_n_s_use_setstate, __pyx_k_use_setstate, sizeof(__pyx_k_use_setstate), 0, 0, 1, 1},
     {&__pyx_n_s_utils, __pyx_k_utils, sizeof(__pyx_k_utils), 0, 0, 1, 1},
-    {&__pyx_n_s_utils_nnp, __pyx_k_utils_nnp, sizeof(__pyx_k_utils_nnp), 0, 0, 1, 1},
+    {&__pyx_n_s_utils_array, __pyx_k_utils_array, sizeof(__pyx_k_utils_array), 0, 0, 1, 1},
     {&__pyx_n_s_values, __pyx_k_values, sizeof(__pyx_k_values), 0, 0, 1, 1},
     {&__pyx_kp_u_vec, __pyx_k_vec, sizeof(__pyx_k_vec), 0, 1, 0, 0},
-    {&__pyx_n_s_vec_filename, __pyx_k_vec_filename, sizeof(__pyx_k_vec_filename), 0, 0, 1, 1},
+    {&__pyx_n_u_vec_data, __pyx_k_vec_data, sizeof(__pyx_k_vec_data), 0, 1, 0, 1},
+    {&__pyx_n_s_vec_storage, __pyx_k_vec_storage, sizeof(__pyx_k_vec_storage), 0, 0, 1, 1},
     {&__pyx_n_s_vector_columns, __pyx_k_vector_columns, sizeof(__pyx_k_vector_columns), 0, 0, 1, 1},
-    {&__pyx_n_s_vectors_array, __pyx_k_vectors_array, sizeof(__pyx_k_vectors_array), 0, 0, 1, 1},
     {&__pyx_n_s_version, __pyx_k_version, sizeof(__pyx_k_version), 0, 0, 1, 1},
     {&__pyx_n_s_vstack, __pyx_k_vstack, sizeof(__pyx_k_vstack), 0, 0, 1, 1},
     {&__pyx_n_s_wait, __pyx_k_wait, sizeof(__pyx_k_wait), 0, 0, 1, 1},
@@ -16145,8 +16245,8 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 174, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 277, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 984, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -16180,25 +16280,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "lyfile/storage/lyfile.pyx":174
+  /* "lyfile/storage/lyfile.pyx":173
  *         #
  *         if self._column_order and set(df.columns) != set(self._column_order):
  *             raise ValueError("")             # <<<<<<<<<<<<<<
  * 
  *         #
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_u__6); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_u__6); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "lyfile/storage/lyfile.pyx":296
+  /* "lyfile/storage/lyfile.pyx":294
  * 
  *                 #
  *                 with self._merge_lock:             # <<<<<<<<<<<<<<
  *                     #
  *                     for partition in partitions:
  */
-  __pyx_tuple__10 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 296, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 294, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
@@ -16213,139 +16313,139 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "lyfile/storage/lyfile.pyx":16
- * import cython
+  /* "lyfile/storage/lyfile.pyx":11
+ * from concurrent.futures import ThreadPoolExecutor
  * from libc.stdint cimport int64_t
  * import pyarrow.parquet as pq             # <<<<<<<<<<<<<<
  * import logging
  * 
  */
-  __pyx_tuple__14 = PyTuple_Pack(2, __pyx_n_s_pyarrow, __pyx_n_s_parquet_2); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(2, __pyx_n_s_pyarrow, __pyx_n_s_parquet); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "lyfile/storage/lyfile.pyx":119
- *                 self._vector_columns[col] = str(relative_path)
+ *                 break
  * 
  *     def write(self, data: Union[pd.DataFrame, dict]):             # <<<<<<<<<<<<<<
  *         """"""
  *         #  DataFrame
  */
-  __pyx_tuple__15 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_df, __pyx_n_s_vector_columns, __pyx_n_s_regular_columns, __pyx_n_s_col, __pyx_n_s_vec_filename, __pyx_n_s_vectors_array, __pyx_n_s_table, __pyx_n_s_parquet_path); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_df, __pyx_n_s_vector_columns, __pyx_n_s_regular_columns, __pyx_n_s_col, __pyx_n_s_vec_storage, __pyx_n_s_table, __pyx_n_s_parquet_path); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_write, 119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_write, 119, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 119, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":162
+  /* "lyfile/storage/lyfile.pyx":161
  *         self.n_rows = len(df)
  * 
  *     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):             # <<<<<<<<<<<<<<
  *         """Append data to the file."""
  *         #  DataFrame
  */
-  __pyx_tuple__17 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_df, __pyx_n_s_vector_columns, __pyx_n_s_regular_columns, __pyx_n_s_col, __pyx_n_s_vec_filename, __pyx_n_s_vectors_array, __pyx_n_s_table, __pyx_n_s_partition_files, __pyx_n_s_partition_id, __pyx_n_s_parquet_path); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_data, __pyx_n_s_df, __pyx_n_s_vector_columns, __pyx_n_s_regular_columns, __pyx_n_s_col, __pyx_n_s_vec_storage, __pyx_n_s_table, __pyx_n_s_partition_files, __pyx_n_s_partition_id, __pyx_n_s_parquet_path); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_append, 162, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_append, 161, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 161, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":214
+  /* "lyfile/storage/lyfile.pyx":212
  *         self.trigger_merge()
  * 
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  __pyx_tuple__19 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_columns, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_columns, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read, 214, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 214, __pyx_L1_error)
-  __pyx_tuple__21 = PyTuple_Pack(1, Py_None); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read, 212, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, Py_None); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "lyfile/storage/lyfile.pyx":219
+  /* "lyfile/storage/lyfile.pyx":217
  *         return reader.read(columns)
  * 
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:             # <<<<<<<<<<<<<<
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  __pyx_tuple__22 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_column_name, __pyx_n_s_mmap_mode, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_column_name, __pyx_n_s_mmap_mode, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read_vec, 219, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __pyx_tuple__24 = PyTuple_Pack(1, Py_True); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read_vec, 217, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(1, Py_True); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "lyfile/storage/lyfile.pyx":224
+  /* "lyfile/storage/lyfile.pyx":222
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  __pyx_tuple__25 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_batch_size, __pyx_n_s_columns, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_batch_size, __pyx_n_s_columns, __pyx_n_s_reader); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_GENERATOR, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read_batch, 224, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_GENERATOR, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_read_batch, 222, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 222, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":238
+  /* "lyfile/storage/lyfile.pyx":236
  *         return self.n_rows
  * 
  *     def mmap_reader(self) -> MMapReader:             # <<<<<<<<<<<<<<
  *         """"""
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_mmap_reader, 238, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_mmap_reader, 236, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 236, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":242
+  /* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         #
  */
-  __pyx_tuple__28 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_partitions_2, __pyx_n_s_parquet_file, __pyx_n_s_metadata, __pyx_n_s_tables, __pyx_n_s_partition, __pyx_n_s_table, __pyx_n_s_merged_table, __pyx_n_s_temp_folder, __pyx_n_s_total_rows, __pyx_n_s_new_partitions, __pyx_n_s_i, __pyx_n_s_end_idx, __pyx_n_s_partition_table, __pyx_n_s_new_path, __pyx_n_s_target_path, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_partitions_2, __pyx_n_s_parquet_file, __pyx_n_s_metadata, __pyx_n_s_tables, __pyx_n_s_partition, __pyx_n_s_table, __pyx_n_s_merged_table, __pyx_n_s_temp_folder, __pyx_n_s_total_rows, __pyx_n_s_new_partitions, __pyx_n_s_i, __pyx_n_s_end_idx, __pyx_n_s_partition_table, __pyx_n_s_new_path, __pyx_n_s_target_path, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_merge_small_partitions, 242, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_merge_small_partitions, 240, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 240, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":316
+  /* "lyfile/storage/lyfile.pyx":314
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  * 
  *     def _async_merge(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         try:
  */
-  __pyx_tuple__30 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_e); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_tuple__30 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_e); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 314, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_async_merge, 316, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 316, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_async_merge, 314, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 314, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":324
+  /* "lyfile/storage/lyfile.pyx":322
  *             raise
  * 
  *     def trigger_merge(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         #
  */
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_trigger_merge, 324, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 324, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_trigger_merge, 322, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 322, __pyx_L1_error)
 
-  /* "lyfile/storage/lyfile.pyx":335
+  /* "lyfile/storage/lyfile.pyx":333
  *         return True
  * 
  *     def optimize(self, wait: bool = True):             # <<<<<<<<<<<<<<
  *         """
  * 
  */
-  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_wait); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_wait); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_optimize, 335, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lyfile_storage_lyfile_pyx, __pyx_n_s_optimize, 333, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 333, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -16471,15 +16571,15 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtabptr_6lyfile_7storage_6lyfile_LyFile = &__pyx_vtable_6lyfile_7storage_6lyfile_LyFile;
   __pyx_vtable_6lyfile_7storage_6lyfile_LyFile._init_metadata = (void (*)(struct __pyx_obj_6lyfile_7storage_6lyfile_LyFile *))__pyx_f_6lyfile_7storage_6lyfile_6LyFile__init_metadata;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_6lyfile_7storage_6lyfile_LyFile = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile_LyFile_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile_LyFile)) __PYX_ERR(0, 35, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile_LyFile_spec, __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_ptype_6lyfile_7storage_6lyfile_LyFile = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile_LyFile_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile_LyFile)) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile_LyFile_spec, __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #else
   __pyx_ptype_6lyfile_7storage_6lyfile_LyFile = &__pyx_type_6lyfile_7storage_6lyfile_LyFile;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_6lyfile_7storage_6lyfile_LyFile->tp_print = 0;
@@ -16491,7 +16591,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_UPDATE_DESCRIPTOR_DOC
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 35, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 31, __pyx_L1_error)
     if (__Pyx_IS_TYPE(wrapper, &PyWrapperDescr_Type)) {
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile___init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile___init__.doc = __pyx_doc_6lyfile_7storage_6lyfile_6LyFile___init__;
@@ -16501,7 +16601,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_UPDATE_DESCRIPTOR_DOC
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__getitem__"); if (unlikely(!wrapper)) __PYX_ERR(0, 35, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__getitem__"); if (unlikely(!wrapper)) __PYX_ERR(0, 31, __pyx_L1_error)
     if (__Pyx_IS_TYPE(wrapper, &PyWrapperDescr_Type)) {
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_13__getitem__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_13__getitem__.doc = __pyx_doc_6lyfile_7storage_6lyfile_6LyFile_13__getitem__;
@@ -16511,7 +16611,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_UPDATE_DESCRIPTOR_DOC
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__len__"); if (unlikely(!wrapper)) __PYX_ERR(0, 35, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__len__"); if (unlikely(!wrapper)) __PYX_ERR(0, 31, __pyx_L1_error)
     if (__Pyx_IS_TYPE(wrapper, &PyWrapperDescr_Type)) {
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_15__len__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_15__len__.doc = __pyx_doc_6lyfile_7storage_6lyfile_6LyFile_15__len__;
@@ -16521,7 +16621,7 @@ static int __Pyx_modinit_type_init_code(void) {
   #endif
   #if CYTHON_UPDATE_DESCRIPTOR_DOC
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__del__"); if (unlikely(!wrapper)) __PYX_ERR(0, 35, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, "__del__"); if (unlikely(!wrapper)) __PYX_ERR(0, 31, __pyx_L1_error)
     if (__Pyx_IS_TYPE(wrapper, &PyWrapperDescr_Type)) {
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_27__del__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_6lyfile_7storage_6lyfile_6LyFile_27__del__.doc = __pyx_doc_6lyfile_7storage_6lyfile_6LyFile_27__del__;
@@ -16529,24 +16629,24 @@ static int __Pyx_modinit_type_init_code(void) {
     }
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_vtabptr_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_vtabptr_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_LyFile, (PyObject *) __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_LyFile, (PyObject *) __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_6lyfile_7storage_6lyfile_LyFile) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch)) __PYX_ERR(0, 224, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch)) __PYX_ERR(0, 222, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
   #else
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch = &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct__read_batch->tp_print = 0;
@@ -16557,15 +16657,15 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions)) __PYX_ERR(0, 242, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions)) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
   #else
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions = &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_1__merge_small_partitions->tp_print = 0;
@@ -16576,15 +16676,15 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr)) __PYX_ERR(0, 259, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr_spec, NULL); if (unlikely(!__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr)) __PYX_ERR(0, 257, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr_spec, __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr) < 0) __PYX_ERR(0, 257, __pyx_L1_error)
   #else
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr = &__pyx_type_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr) < 0) __PYX_ERR(0, 259, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr) < 0) __PYX_ERR(0, 257, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_6lyfile_7storage_6lyfile___pyx_scope_struct_2_genexpr->tp_print = 0;
@@ -16945,8 +17045,8 @@ if (!__Pyx_RefNanny) {
 
   /* "lyfile/storage/lyfile.pyx":1
  * import shutil             # <<<<<<<<<<<<<<
- * from io import BytesIO
- * import struct
+ * import threading
+ * import numpy as np
  */
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_shutil, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -16955,526 +17055,467 @@ if (!__Pyx_RefNanny) {
 
   /* "lyfile/storage/lyfile.pyx":2
  * import shutil
- * from io import BytesIO             # <<<<<<<<<<<<<<
- * import struct
- * import threading
- */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s_BytesIO);
-  __Pyx_GIVEREF(__pyx_n_s_BytesIO);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_BytesIO)) __PYX_ERR(0, 2, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_io, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_BytesIO); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_BytesIO, __pyx_t_2) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":3
- * import shutil
- * from io import BytesIO
- * import struct             # <<<<<<<<<<<<<<
- * import threading
- * import numpy as np
- */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_struct, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_struct, __pyx_t_3) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":4
- * from io import BytesIO
- * import struct
  * import threading             # <<<<<<<<<<<<<<
  * import numpy as np
  * import pandas as pd
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_threading, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_threading, __pyx_t_3) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_threading, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_threading, __pyx_t_2) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":5
- * import struct
+  /* "lyfile/storage/lyfile.pyx":3
+ * import shutil
  * import threading
  * import numpy as np             # <<<<<<<<<<<<<<
  * import pandas as pd
  * import pyarrow as pa
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_3) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":6
+  /* "lyfile/storage/lyfile.pyx":4
  * import threading
  * import numpy as np
  * import pandas as pd             # <<<<<<<<<<<<<<
  * import pyarrow as pa
- * from typing import Dict, List, Optional, Tuple, Union
+ * from typing import Dict, List, Optional, Union
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_pandas, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pd, __pyx_t_3) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_pandas, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pd, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":7
+  /* "lyfile/storage/lyfile.pyx":5
  * import numpy as np
  * import pandas as pd
  * import pyarrow as pa             # <<<<<<<<<<<<<<
- * from typing import Dict, List, Optional, Tuple, Union
+ * from typing import Dict, List, Optional, Union
  * from pathlib import Path
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_pyarrow, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pa, __pyx_t_3) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_pyarrow, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pa, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":8
+  /* "lyfile/storage/lyfile.pyx":6
  * import pandas as pd
  * import pyarrow as pa
- * from typing import Dict, List, Optional, Tuple, Union             # <<<<<<<<<<<<<<
+ * from typing import Dict, List, Optional, Union             # <<<<<<<<<<<<<<
  * from pathlib import Path
- * from collections import OrderedDict
+ * import os
  */
-  __pyx_t_3 = PyList_New(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = PyList_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_Dict);
   __Pyx_GIVEREF(__pyx_n_s_Dict);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_Dict)) __PYX_ERR(0, 8, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_Dict)) __PYX_ERR(0, 6, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_List);
   __Pyx_GIVEREF(__pyx_n_s_List);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 1, __pyx_n_s_List)) __PYX_ERR(0, 8, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_List)) __PYX_ERR(0, 6, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_Optional);
   __Pyx_GIVEREF(__pyx_n_s_Optional);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 2, __pyx_n_s_Optional)) __PYX_ERR(0, 8, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_n_s_Tuple);
-  __Pyx_GIVEREF(__pyx_n_s_Tuple);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 3, __pyx_n_s_Tuple)) __PYX_ERR(0, 8, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_s_Optional)) __PYX_ERR(0, 6, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_Union);
   __Pyx_GIVEREF(__pyx_n_s_Union);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 4, __pyx_n_s_Union)) __PYX_ERR(0, 8, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 3, __pyx_n_s_Union)) __PYX_ERR(0, 6, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_typing, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Dict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Dict, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_List); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_List, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Optional); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Optional, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Union); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_2) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "lyfile/storage/lyfile.pyx":7
+ * import pyarrow as pa
+ * from typing import Dict, List, Optional, Union
+ * from pathlib import Path             # <<<<<<<<<<<<<<
+ * import os
+ * from concurrent.futures import ThreadPoolExecutor
+ */
+  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_INCREF(__pyx_n_s_Path);
+  __Pyx_GIVEREF(__pyx_n_s_Path);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_Path)) __PYX_ERR(0, 7, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pathlib, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Dict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Path); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Dict, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Path, __pyx_t_3) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_List); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_List, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Optional); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Optional, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Tuple); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Tuple, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Union); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Union, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "lyfile/storage/lyfile.pyx":8
+ * from typing import Dict, List, Optional, Union
+ * from pathlib import Path
+ * import os             # <<<<<<<<<<<<<<
+ * from concurrent.futures import ThreadPoolExecutor
+ * from libc.stdint cimport int64_t
+ */
+  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_os, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_2) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "lyfile/storage/lyfile.pyx":9
- * import pyarrow as pa
- * from typing import Dict, List, Optional, Tuple, Union
- * from pathlib import Path             # <<<<<<<<<<<<<<
- * from collections import OrderedDict
- * import io
+ * from pathlib import Path
+ * import os
+ * from concurrent.futures import ThreadPoolExecutor             # <<<<<<<<<<<<<<
+ * from libc.stdint cimport int64_t
+ * import pyarrow.parquet as pq
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s_Path);
-  __Pyx_GIVEREF(__pyx_n_s_Path);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_Path)) __PYX_ERR(0, 9, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_pathlib, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Path); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Path, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":10
- * from typing import Dict, List, Optional, Tuple, Union
- * from pathlib import Path
- * from collections import OrderedDict             # <<<<<<<<<<<<<<
- * import io
- * import os
- */
-  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_n_s_OrderedDict);
-  __Pyx_GIVEREF(__pyx_n_s_OrderedDict);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_OrderedDict)) __PYX_ERR(0, 10, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_collections, __pyx_t_3, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_OrderedDict); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_OrderedDict, __pyx_t_3) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":11
- * from pathlib import Path
- * from collections import OrderedDict
- * import io             # <<<<<<<<<<<<<<
- * import os
- * from concurrent.futures import ThreadPoolExecutor, Future
- */
-  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_io, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 11, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_io, __pyx_t_2) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":12
- * from collections import OrderedDict
- * import io
- * import os             # <<<<<<<<<<<<<<
- * from concurrent.futures import ThreadPoolExecutor, Future
- * import cython
- */
-  __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_os, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_2) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "lyfile/storage/lyfile.pyx":13
- * import io
- * import os
- * from concurrent.futures import ThreadPoolExecutor, Future             # <<<<<<<<<<<<<<
- * import cython
- * from libc.stdint cimport int64_t
- */
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ThreadPoolExecutor);
   __Pyx_GIVEREF(__pyx_n_s_ThreadPoolExecutor);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ThreadPoolExecutor)) __PYX_ERR(0, 13, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_n_s_Future);
-  __Pyx_GIVEREF(__pyx_n_s_Future);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_Future)) __PYX_ERR(0, 13, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_concurrent_futures, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ThreadPoolExecutor)) __PYX_ERR(0, 9, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_concurrent_futures, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ThreadPoolExecutor, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_Future); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Future, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ThreadPoolExecutor, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":16
- * import cython
+  /* "lyfile/storage/lyfile.pyx":11
+ * from concurrent.futures import ThreadPoolExecutor
  * from libc.stdint cimport int64_t
  * import pyarrow.parquet as pq             # <<<<<<<<<<<<<<
  * import logging
  * 
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_pyarrow_parquet, __pyx_tuple__14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_pyarrow_parquet, __pyx_tuple__14); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pq, __pyx_t_3) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pq, __pyx_t_3) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":17
+  /* "lyfile/storage/lyfile.pyx":12
  * from libc.stdint cimport int64_t
  * import pyarrow.parquet as pq
  * import logging             # <<<<<<<<<<<<<<
  * 
  * # Add necessary cimports
  */
-  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_logging, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportDottedModule(__pyx_n_s_logging, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logging, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_logging, __pyx_t_3) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":21
+  /* "lyfile/storage/lyfile.pyx":16
  * # Add necessary cimports
  * cimport numpy as np
  * from ..utils import fsst             # <<<<<<<<<<<<<<
- * from ..utils.nnp import save_nnp
  * from .mmap import MMapReader
+ * from .vec_storage import VecStorage
  */
-  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_n_s_fsst);
   __Pyx_GIVEREF(__pyx_n_s_fsst);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_fsst)) __PYX_ERR(0, 21, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_3, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_fsst)) __PYX_ERR(0, 16, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_utils, __pyx_t_3, 2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fsst); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_fsst); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fsst, __pyx_t_3) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fsst, __pyx_t_3) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":22
+  /* "lyfile/storage/lyfile.pyx":17
  * cimport numpy as np
  * from ..utils import fsst
- * from ..utils.nnp import save_nnp             # <<<<<<<<<<<<<<
- * from .mmap import MMapReader
- * 
+ * from .mmap import MMapReader             # <<<<<<<<<<<<<<
+ * from .vec_storage import VecStorage
+ * from ..utils.array import ArrayView
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s_save_nnp);
-  __Pyx_GIVEREF(__pyx_n_s_save_nnp);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_save_nnp)) __PYX_ERR(0, 22, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_Import(__pyx_n_s_utils_nnp, __pyx_t_2, 2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_MMapReader);
+  __Pyx_GIVEREF(__pyx_n_s_MMapReader);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_MMapReader)) __PYX_ERR(0, 17, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_mmap, __pyx_t_2, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_save_nnp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_MMapReader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_save_nnp, __pyx_t_2) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_MMapReader, __pyx_t_2) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":23
+  /* "lyfile/storage/lyfile.pyx":18
  * from ..utils import fsst
- * from ..utils.nnp import save_nnp
- * from .mmap import MMapReader             # <<<<<<<<<<<<<<
+ * from .mmap import MMapReader
+ * from .vec_storage import VecStorage             # <<<<<<<<<<<<<<
+ * from ..utils.array import ArrayView
+ * 
+ */
+  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_INCREF(__pyx_n_s_VecStorage);
+  __Pyx_GIVEREF(__pyx_n_s_VecStorage);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_VecStorage)) __PYX_ERR(0, 18, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_vec_storage, __pyx_t_3, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_VecStorage); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_VecStorage, __pyx_t_3) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "lyfile/storage/lyfile.pyx":19
+ * from .mmap import MMapReader
+ * from .vec_storage import VecStorage
+ * from ..utils.array import ArrayView             # <<<<<<<<<<<<<<
  * 
  * # Define types
  */
-  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_INCREF(__pyx_n_s_MMapReader);
-  __Pyx_GIVEREF(__pyx_n_s_MMapReader);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_n_s_MMapReader)) __PYX_ERR(0, 23, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_mmap, __pyx_t_3, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_MMapReader); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_ArrayView);
+  __Pyx_GIVEREF(__pyx_n_s_ArrayView);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ArrayView)) __PYX_ERR(0, 19, __pyx_L1_error);
+  __pyx_t_3 = __Pyx_Import(__pyx_n_s_utils_array, __pyx_t_2, 2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_MMapReader, __pyx_t_3) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_ArrayView); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ArrayView, __pyx_t_2) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lyfile/storage/lyfile.pyx":57
+  /* "lyfile/storage/lyfile.pyx":53
  * 
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,
  *                  partition_size: int = 100000, max_partitions: int = 10,             # <<<<<<<<<<<<<<
  *                  min_partition_size: int = 10000, overwrite: bool = False):
  *         """Initialize the LyFile."""
  */
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_100000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_100000))) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_100000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_100000))) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_INCREF(__pyx_int_100000);
   __pyx_k__3 = ((PyObject*)__pyx_int_100000);
   __Pyx_GIVEREF(__pyx_int_100000);
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_10)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_10))) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_10)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_10))) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_INCREF(__pyx_int_10);
   __pyx_k__4 = ((PyObject*)__pyx_int_10);
   __Pyx_GIVEREF(__pyx_int_10);
 
-  /* "lyfile/storage/lyfile.pyx":58
+  /* "lyfile/storage/lyfile.pyx":54
  *     def __init__(self, filepath: Union[str, Path], thread_count: int = None,
  *                  partition_size: int = 100000, max_partitions: int = 10,
  *                  min_partition_size: int = 10000, overwrite: bool = False):             # <<<<<<<<<<<<<<
  *         """Initialize the LyFile."""
  *         self.folder_path = Path(filepath)
  */
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_10000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_10000))) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_10000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_10000))) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_INCREF(__pyx_int_10000);
   __pyx_k__5 = ((PyObject*)__pyx_int_10000);
   __Pyx_GIVEREF(__pyx_int_10000);
 
   /* "lyfile/storage/lyfile.pyx":119
- *                 self._vector_columns[col] = str(relative_path)
+ *                 break
  * 
  *     def write(self, data: Union[pd.DataFrame, dict]):             # <<<<<<<<<<<<<<
  *         """"""
  *         #  DataFrame
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_data, __pyx_kp_s_Union_pd_DataFrame_dict) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_3write, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_write, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_write, __pyx_t_3) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_data, __pyx_kp_s_Union_pd_DataFrame_dict) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_3write, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_write, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_write, __pyx_t_2) < 0) __PYX_ERR(0, 119, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":162
+  /* "lyfile/storage/lyfile.pyx":161
  *         self.n_rows = len(df)
  * 
  *     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):             # <<<<<<<<<<<<<<
  *         """Append data to the file."""
  *         #  DataFrame
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_data, __pyx_kp_s_Union_List_Dict_pd_DataFrame_pd) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_5append, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_append, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_append, __pyx_t_2) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_data, __pyx_kp_s_Union_List_Dict_pd_DataFrame_pd) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_5append, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_append, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_append, __pyx_t_3) < 0) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":214
+  /* "lyfile/storage/lyfile.pyx":212
  *         self.trigger_merge()
  * 
  *     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_columns, __pyx_kp_s_Union_Optional_List_str_str) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_pa_Table) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_7read, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__21);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read, __pyx_t_3) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_columns, __pyx_kp_s_Union_Optional_List_str_str) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, __pyx_kp_s_pa_Table) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_7read, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_2, __pyx_tuple__21);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read, __pyx_t_2) < 0) __PYX_ERR(0, 212, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":219
+  /* "lyfile/storage/lyfile.pyx":217
  *         return reader.read(columns)
  * 
- *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:             # <<<<<<<<<<<<<<
+ *     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_column_name, __pyx_n_s_str) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mmap_mode, __pyx_n_s_bool) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_return, __pyx_kp_s_np_ndarray) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_9read_vec, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read_vec, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_2, __pyx_tuple__24);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read_vec, __pyx_t_2) < 0) __PYX_ERR(0, 219, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_column_name, __pyx_n_s_str) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_mmap_mode, __pyx_n_s_bool) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_return, __pyx_kp_s_Union_np_ndarray_ArrayView) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_9read_vec, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read_vec, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_3, __pyx_tuple__24);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read_vec, __pyx_t_3) < 0) __PYX_ERR(0, 217, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":224
+  /* "lyfile/storage/lyfile.pyx":222
  *         return reader.read_vec(column_name, mmap_mode)
  * 
  *     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):             # <<<<<<<<<<<<<<
  *         """"""
  *         reader = self.mmap_reader()
  */
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1000))) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1000))) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_INCREF(__pyx_int_1000);
   __pyx_k__8 = ((PyObject*)__pyx_int_1000);
   __Pyx_GIVEREF(__pyx_int_1000);
-  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1000))) __PYX_ERR(0, 224, __pyx_L1_error)
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  if (!(likely(__Pyx_Py3Int_CheckExact(__pyx_int_1000)) || __Pyx_RaiseUnexpectedTypeError("int", __pyx_int_1000))) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_int_1000);
   __Pyx_GIVEREF(__pyx_int_1000);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_int_1000)) __PYX_ERR(0, 224, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_int_1000)) __PYX_ERR(0, 222, __pyx_L1_error);
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 1, Py_None)) __PYX_ERR(0, 224, __pyx_L1_error);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_batch_size, __pyx_n_s_int) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_columns, __pyx_kp_s_Union_Optional_List_str_str) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_11read_batch, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read_batch, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, Py_None)) __PYX_ERR(0, 222, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_batch_size, __pyx_n_s_int) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_columns, __pyx_kp_s_Union_Optional_List_str_str) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_11read_batch, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_read_batch, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_2);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_t_3);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read_batch, __pyx_t_4) < 0) __PYX_ERR(0, 224, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_read_batch, __pyx_t_4) < 0) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":238
+  /* "lyfile/storage/lyfile.pyx":236
  *         return self.n_rows
  * 
  *     def mmap_reader(self) -> MMapReader:             # <<<<<<<<<<<<<<
  *         """"""
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  */
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 238, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_MMapReader) < 0) __PYX_ERR(0, 238, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_18mmap_reader, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_mmap_reader, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 238, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_4);
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_return, __pyx_n_s_MMapReader) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_18mmap_reader, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_mmap_reader, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_2, __pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_mmap_reader, __pyx_t_3) < 0) __PYX_ERR(0, 238, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_mmap_reader, __pyx_t_2) < 0) __PYX_ERR(0, 236, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":242
+  /* "lyfile/storage/lyfile.pyx":240
  *         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
  * 
  *     def _merge_small_partitions(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         #
  */
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_20_merge_small_partitions, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile__merge_small_partitions, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 242, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_merge_small_partitions, __pyx_t_3) < 0) __PYX_ERR(0, 242, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_20_merge_small_partitions, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile__merge_small_partitions, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_merge_small_partitions, __pyx_t_2) < 0) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":316
+  /* "lyfile/storage/lyfile.pyx":314
  *             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
  * 
  *     def _async_merge(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         try:
  */
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_22_async_merge, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile__async_merge, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_async_merge, __pyx_t_3) < 0) __PYX_ERR(0, 316, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_22_async_merge, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile__async_merge, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 314, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_async_merge, __pyx_t_2) < 0) __PYX_ERR(0, 314, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":324
+  /* "lyfile/storage/lyfile.pyx":322
  *             raise
  * 
  *     def trigger_merge(self):             # <<<<<<<<<<<<<<
  *         """"""
  *         #
  */
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_24trigger_merge, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_trigger_merge, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 324, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_trigger_merge, __pyx_t_3) < 0) __PYX_ERR(0, 324, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_24trigger_merge, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_trigger_merge, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_trigger_merge, __pyx_t_2) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
-  /* "lyfile/storage/lyfile.pyx":335
+  /* "lyfile/storage/lyfile.pyx":333
  *         return True
  * 
  *     def optimize(self, wait: bool = True):             # <<<<<<<<<<<<<<
  *         """
  * 
  */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 335, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_wait, __pyx_n_s_bool) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_26optimize, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_optimize, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 335, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 333, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_wait, __pyx_n_s_bool) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_New(&__pyx_mdef_6lyfile_7storage_6lyfile_6LyFile_26optimize, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_LyFile_optimize, NULL, __pyx_n_s_lyfile_storage_lyfile, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__24);
-  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_3);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_optimize, __pyx_t_4) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_4, __pyx_t_2);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_6lyfile_7storage_6lyfile_LyFile, __pyx_n_s_optimize, __pyx_t_4) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   PyType_Modified(__pyx_ptype_6lyfile_7storage_6lyfile_LyFile);
 
@@ -17513,8 +17554,8 @@ if (!__Pyx_RefNanny) {
 
   /* "lyfile/storage/lyfile.pyx":1
  * import shutil             # <<<<<<<<<<<<<<
- * from io import BytesIO
- * import struct
+ * import threading
+ * import numpy as np
  */
   __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
@@ -19495,26 +19536,6 @@ bad:
     CYTHON_UNUSED_VAR(value_count);
     return PyUnicode_Join(__pyx_empty_unicode, value_tuple);
 #endif
-}
-
-/* ExtTypeTest */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    __Pyx_TypeName obj_type_name;
-    __Pyx_TypeName type_name;
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(__Pyx_TypeCheck(obj, type)))
-        return 1;
-    obj_type_name = __Pyx_PyType_GetName(Py_TYPE(obj));
-    type_name = __Pyx_PyType_GetName(type);
-    PyErr_Format(PyExc_TypeError,
-                 "Cannot convert " __Pyx_FMT_TYPENAME " to " __Pyx_FMT_TYPENAME,
-                 obj_type_name, type_name);
-    __Pyx_DECREF_TypeName(obj_type_name);
-    __Pyx_DECREF_TypeName(type_name);
-    return 0;
 }
 
 /* FixUpExtensionType */

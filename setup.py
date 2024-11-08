@@ -72,6 +72,7 @@ extensions = [
     create_extension("lyfile.utils.array", utils_dir / "array.pyx"),
     create_extension("lyfile.utils.fsst", utils_dir / "fsst.pyx"),
     create_extension("lyfile.utils.nnp", utils_dir / "nnp.pyx"),
+    create_extension("lyfile.storage.vec_storage", storage_dir / "vec_storage.pyx", [str(utils_dir)]),
 ]
 
 

@@ -1,17 +1,12 @@
 import shutil
-from io import BytesIO
-import struct
 import threading
 import numpy as np
 import pandas as pd
 import pyarrow as pa
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Union
 from pathlib import Path
-from collections import OrderedDict
-import io
 import os
-from concurrent.futures import ThreadPoolExecutor, Future
-import cython
+from concurrent.futures import ThreadPoolExecutor
 from libc.stdint cimport int64_t
 import pyarrow.parquet as pq
 import logging
@@ -19,8 +14,9 @@ import logging
 # Add necessary cimports
 cimport numpy as np
 from ..utils import fsst
-from ..utils.nnp import save_nnp
 from .mmap import MMapReader
+from .vec_storage import VecStorage
+from ..utils.array import ArrayView
 
 # Define types
 ctypedef np.int32_t INT32
@@ -58,11 +54,13 @@ cdef class LyFile:
                  min_partition_size: int = 10000, overwrite: bool = False):
         """Initialize the LyFile."""
         self.folder_path = Path(filepath)
-        
+
         if self.folder_path.exists() and overwrite:
             shutil.rmtree(self.folder_path)
             
         self.folder_path.mkdir(parents=True, exist_ok=True)
+        # 创建 vec_data 文件夹
+        (self.folder_path / "vec_data").mkdir(parents=True, exist_ok=True)
         
         # 修改: 使用文件夹存储分区文件
         self._parquet_folder = self.folder_path / "data"
@@ -96,7 +94,7 @@ cdef class LyFile:
         self._column_order = []
         
         # 获取所有分区文件
-        parquet_files = sorted(self._parquet_folder.glob("part-*.parquet"))
+        parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))
         if not parquet_files:
             return
             
@@ -111,10 +109,12 @@ cdef class LyFile:
         
         # 处理向量列
         for col in self._column_order:
-            vec_path = self.folder_path / f"{col}.vec"
-            if vec_path.exists():
+            vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
+            # 如果找不到对应的向量文件，忽略， 如果找到，使用相对路径，存储随机一个文件路径
+            for vec_path in vec_path:
                 relative_path = vec_path.relative_to(self.folder_path)
                 self._vector_columns[col] = str(relative_path)
+                break
 
     def write(self, data: Union[pd.DataFrame, dict]):
         """写入数据到文件"""
@@ -134,9 +134,8 @@ cdef class LyFile:
                 regular_columns.drop(col, axis=1, inplace=True)
                 
                 # 保存向量数据
-                vec_filename = self.folder_path / f"{col}.vec"
-                vectors_array = np.vstack(vector_columns[col])
-                save_nnp(str(vec_filename), vectors_array)
+                vec_storage = VecStorage(self.folder_path / "vec_data", col)
+                vec_storage.save_vec(np.vstack(vector_columns[col]))
                 
                 # 存储相对路径
                 self._vector_columns[col] = col  # 只存储列名
@@ -145,7 +144,7 @@ cdef class LyFile:
         table = pa.Table.from_pandas(regular_columns)
         
         # 写入第一个分区文件
-        parquet_path = self._parquet_folder / "part-00000.parquet"
+        parquet_path = self._parquet_folder / "part-00000.ly"
         pq.write_table(
             table, 
             parquet_path,
@@ -182,18 +181,17 @@ cdef class LyFile:
                 vector_columns[col] = df[col].values
                 regular_columns.drop(col, axis=1, inplace=True)
                 
-                # 追向量数据
-                vec_filename = self.folder_path / f"{col}.vec"
-                vectors_array = np.vstack(vector_columns[col])
-                save_nnp(str(vec_filename), vectors_array, append=True)
+                # 追加向量数据
+                vec_storage = VecStorage(self.folder_path / "vec_data", col)
+                vec_storage.save_vec(np.vstack(vector_columns[col]))
 
         # 将常规列写入新的分区文件
         table = pa.Table.from_pandas(regular_columns)
         
         # 创建新的分区文件
-        partition_files = list(self._parquet_folder.glob("part-*.parquet"))
+        partition_files = list(self._parquet_folder.glob("part-*.ly"))
         partition_id = len(partition_files)
-        parquet_path = self._parquet_folder / f"part-{partition_id:05d}.parquet"
+        parquet_path = self._parquet_folder / f"part-{partition_id:05d}.ly"
         
         # 写入数据
         pq.write_table(
@@ -216,7 +214,7 @@ cdef class LyFile:
         reader = self.mmap_reader()
         return reader.read(columns)
 
-    def read_vec(self, column_name: str, mmap_mode: bool = True) -> np.ndarray:
+    def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:
         """读取向量数据"""
         reader = self.mmap_reader()
         return reader.read_vec(column_name, mmap_mode)
@@ -243,7 +241,7 @@ cdef class LyFile:
         """合并小分区文件"""
         # 获取所有分区文件及其大小
         partitions = []
-        for parquet_file in sorted(self._parquet_folder.glob("part-*.parquet")):
+        for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):
             metadata = pq.read_metadata(parquet_file)
             partitions.append({
                 'path': parquet_file,
@@ -281,7 +279,7 @@ cdef class LyFile:
                     partition_table = merged_table.slice(i, end_idx - i)
                     
                     # 写入新的分区文件
-                    new_path = temp_folder / f"part-{i//self._partition_size:05d}.parquet"
+                    new_path = temp_folder / f"part-{i//self._partition_size:05d}.ly"
                     pq.write_table(
                         partition_table,
                         new_path,

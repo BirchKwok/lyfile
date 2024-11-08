@@ -11,7 +11,8 @@ import numpy as np
 # Add necessary cimports
 cimport numpy as np
 
-from ..utils.nnp import load_nnp
+from .vec_storage import VecStorage
+from ..utils.array import ArrayView
 
 # Define types
 ctypedef np.int32_t INT32
@@ -77,6 +78,9 @@ class TableWrapper:
         # 确保列顺序与原表一致
         return result[cols]
 
+    def __getitem__(self, item):
+        return self._table[item]
+
     def __repr__(self):
         return self._table.__repr__()
 
@@ -88,6 +92,7 @@ cdef class MMapReader:
     """Parquet-based reader implementation."""
     cdef:
         public object folder_path
+        public object vec_path
         public int thread_count
         public list _parquet_files
         public dict _vector_file_paths
@@ -97,6 +102,7 @@ cdef class MMapReader:
     def __init__(self, folder_path: Union[str, Path], thread_count: int = 4):
         """Initialize the reader."""
         self.folder_path = Path(folder_path)
+        self.vec_path = self.folder_path.parent / "vec_data"
         self.thread_count = thread_count
         self._parquet_files = []
         self._vector_file_paths = {}
@@ -107,7 +113,7 @@ cdef class MMapReader:
     cdef void _init_reader(self):
         """Initialize the parquet reader and metadata."""
         # 获取所有分区文件
-        self._parquet_files = sorted(self.folder_path.glob("part-*.parquet"))
+        self._parquet_files = sorted(self.folder_path.glob("part-*.ly"))
         
         if not self._parquet_files:
             return
@@ -120,13 +126,11 @@ cdef class MMapReader:
         for parquet_file in self._parquet_files:
             metadata = pq.read_metadata(parquet_file)
             self.n_rows += metadata.num_rows
-        
-        # 初始化向量文件路径
-        parent_folder = self.folder_path.parent
-        
+
         # 检查所有可能的向量文件
-        for vec_file in parent_folder.glob("*.vec"):
+        for vec_file in self.vec_path.glob("*.vec"):
             col_name = vec_file.stem  # 获取文件名（不含扩展名）
+            col_name = col_name.split("-")[0]
             self._vector_file_paths[col_name] = vec_file
             if col_name not in self._column_order:
                 self._column_order.append(col_name)
@@ -162,8 +166,8 @@ cdef class MMapReader:
 
         # 读取向量列
         for col in vector_cols:
-            vec_path = self._vector_file_paths[col]
-            _arrays = load_nnp(str(vec_path), mmap_mode=False)
+            vec_storage = VecStorage(self.vec_path, col)
+            _arrays = vec_storage.load_vec(mmap_mode=True)
             vectors_col_num = _arrays.shape[1]
             flat_data = _arrays.reshape(-1)
             arrow_array = pa.array(flat_data, type=pa.float64())
@@ -188,8 +192,8 @@ cdef class MMapReader:
         # 预加载所有向量数据
         vector_data = {}
         for col in vector_cols:
-            vec_path = self._vector_file_paths[col]
-            vector_data[col] = load_nnp(str(vec_path), mmap_mode=True)
+            vec_storage = VecStorage(self.vec_path, col)
+            vector_data[col] = vec_storage.load_vec(mmap_mode=True)
 
         # 使用 pyarrow.dataset 批量读取
         if regular_cols:
@@ -274,13 +278,11 @@ cdef class MMapReader:
         
         # 读取向量列并添加到table中
         for col in self._vector_file_paths:
-            vec_path = self._vector_file_paths[col]
+            vec_storage = VecStorage(self.vec_path, col)
             # 使用 mmap_mode 实现高效切片
-            _arrays = load_nnp(str(vec_path), mmap_mode=True)
-            vectors_col_num = _arrays.shape[1]
-            
             # 只读取需要的行
-            _arrays = _arrays[row_indices]
+            _arrays = vec_storage[row_indices]
+            vectors_col_num = _arrays.shape[1]
             flat_data = _arrays.reshape(-1)
             arrow_array = pa.array(flat_data, type=pa.float64())
             vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
@@ -291,7 +293,7 @@ cdef class MMapReader:
     def __len__(self):
         """返回数据行数"""
         return self.n_rows
-    def read_vec(self, column_name: str, mmap_mode: bool = False) -> np.ndarray:
+    def read_vec(self, column_name: str, mmap_mode: bool = False) -> Union[np.ndarray, ArrayView]:
         """读取向量数据
         
         Args:
@@ -306,6 +308,6 @@ cdef class MMapReader:
         if column_name not in self._vector_file_paths:
             raise KeyError(f"列 '{column_name}' 不是向量列或不存在")
             
-        vec_path = self._vector_file_paths[column_name]
-        return load_nnp(str(vec_path), mmap_mode=mmap_mode)
+        vec_storage = VecStorage(self.vec_path, column_name)
+        return vec_storage.load_vec(mmap_mode=mmap_mode)
 
