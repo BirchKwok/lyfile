@@ -1,4 +1,3 @@
-# cimport 必要的库
 cimport numpy as np
 import numpy as np
 from libc.stdio cimport (
@@ -9,13 +8,12 @@ from libc.string cimport memcpy, strncpy
 from libc.stdint cimport uint32_t
 import os
 
-# 定义C结构体来处理文件头
 cdef struct NnpHeader:
     uint32_t rows
     char dtype[30]
     uint32_t shape
 
-# 优化后的save_nnp函数
+
 def save_nnp(str filename, np.ndarray data, bint append=True):
     cdef:
         FILE* f
@@ -35,34 +33,34 @@ def save_nnp(str filename, np.ndarray data, bint append=True):
     data_size = data_2d.nbytes
     file_exists = os.path.exists(filename)
     if append and not file_exists:
-        append = False  # 如果文件不存在，强制设置为非追加模式
+        append = False  # If file does not exist, force non-append mode
     
     mode = 'rb+' if (append and file_exists) else 'wb+'
     
     f = fopen(filename.encode('utf-8'), mode)
     if f == NULL:
-        raise IOError(f"无法打开文件 {filename}")
+        raise IOError(f"Unable to open file {filename}")
 
     try:
-        if append and file_exists:  # 只在文件存在且确实要追加时才读取头部
-            # 读取现有头部
+        if append and file_exists:  # Only read header if file exists and append is true
+            # Read existing header
             if fread(&header, sizeof(NnpHeader), 1, f) != 1:
                 fclose(f)
-                raise IOError("读取文件头失败")
+                raise IOError("Failed to read header")
             current_rows = header.rows
             new_rows = current_rows + data_2d.shape[0]
 
-            # 更新行数
+            # Update row count
             fseek(f, 0, SEEK_SET)
             header.rows = new_rows
             if fwrite(&header, sizeof(NnpHeader), 1, f) != 1:
                 fclose(f)
-                raise IOError("写入文件头失败")
+                raise IOError("Failed to write header")
 
-            # 移动到数据的末尾
+            # Move to the end of the data
             fseek(f, sizeof(NnpHeader) + current_rows * data_2d.shape[1] * data_2d.itemsize, SEEK_SET)
         else:
-            # 创建新文件头
+            # Create new header
             header.rows = data_2d.shape[0]
             dtype_bytes = str(data_2d.dtype).encode('utf-8')
             strncpy(header.dtype, dtype_bytes, 29)
@@ -71,18 +69,18 @@ def save_nnp(str filename, np.ndarray data, bint append=True):
 
             if fwrite(&header, sizeof(NnpHeader), 1, f) != 1:
                 fclose(f)
-                raise IOError("写入文件头失败")
+                raise IOError("Failed to write header")
 
-        # 一次性写入数据
+        # Write data in one go
         raw_data = <char*>data_2d.data
         if fwrite(raw_data, data_size, 1, f) != 1:
             fclose(f)
-            raise IOError("写入数据失败")
+            raise IOError("Failed to write data")
 
     finally:
         fclose(f)
 
-# 优化后的load_nnp函数
+
 def load_nnp(str filename, bint mmap_mode=False):
     cdef:
         FILE* f
@@ -92,14 +90,14 @@ def load_nnp(str filename, bint mmap_mode=False):
         np.dtype dtype_obj
 
     if mmap_mode:
-        # 使用内存映射
+        # Use memory mapping
         f = fopen(filename.encode('utf-8'), 'rb')
         if f == NULL:
-            raise IOError(f"无法打开文件 {filename}")
+            raise IOError(f"Unable to open file {filename}")
         try:
             if fread(&header, sizeof(NnpHeader), 1, f) != 1:
                 fclose(f)
-                raise IOError("读取文件头失败")
+                raise IOError("Failed to read header")
             shape = (int(header.rows), int(header.shape))
             dtype_obj = np.dtype(header.dtype.decode('utf-8').strip())
             fclose(f)
@@ -111,23 +109,23 @@ def load_nnp(str filename, bint mmap_mode=False):
 
     f = fopen(filename.encode('utf-8'), 'rb')
     if f == NULL:
-        raise IOError(f"无法打开文件 {filename}")
+        raise IOError(f"Unable to open file {filename}")
 
     try:
-        # 读取文件头
+        # Read header
         if fread(&header, sizeof(NnpHeader), 1, f) != 1:
             fclose(f)
-            raise IOError("读取文件头失败")
+            raise IOError("Failed to read header")
 
-        # 创建numpy数组
+        # Create numpy array
         shape = (int(header.rows), int(header.shape))
         dtype_obj = np.dtype(header.dtype.decode('utf-8').strip())
         result = np.empty(shape, dtype=dtype_obj)
 
-        # 一次性读取数据
+        # Read data in one go
         if fread(<char*>result.data, result.nbytes, 1, f) != 1:
             fclose(f)
-            raise IOError("读取数据失败")
+            raise IOError("Failed to read data")
 
         return result
 

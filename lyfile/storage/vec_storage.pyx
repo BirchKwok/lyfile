@@ -9,7 +9,7 @@ from ..utils.array import ArrayView
 
 
 cdef class VecStorage:
-    """向量调度器"""
+    """Vector storage class."""
     cdef:
         public object root_path
         public object column_name
@@ -18,6 +18,13 @@ cdef class VecStorage:
         public dict vec_index_range
 
     def __init__(self, root_path: Path, column_name: str):
+        """
+        Initialize vector storage.
+
+        Parameters:
+            root_path (Pathlike): The root path of the vector storage.
+            column_name (str): The column name of the vector storage.
+        """
         self.root_path = root_path
         self.column_name = column_name
         self.max_rows = 1000000
@@ -29,7 +36,7 @@ cdef class VecStorage:
         self._init_vec_index_range()
 
     def _init_vec_index_range(self):
-        """初始化向量索引范围"""
+        """Initial vec index range."""
         vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
                            key=lambda x: int(x.stem.split("-")[-1]))
         for i, vec_file in enumerate(vec_files):
@@ -42,22 +49,40 @@ cdef class VecStorage:
                 )
 
     def _get_partition_id(self, index: int):
-        """获取指定索引的分区ID"""
+        """Get partition ID for specified index.
+        
+        Parameters:
+            index (int): Index.
+
+        Returns:
+            int: Partition ID.
+        """
         for partition_id, vec_index_range in self.vec_index_range.items():
             if vec_index_range[0] <= index <= vec_index_range[1]:
                 return partition_id
-        raise ValueError(f"索引 {index} 超出范围")
+        raise ValueError(f"Index {index} out of range")
 
     def _get_vec_file_index(self, external_index: int):
-        """获取指定外部索引的向量文件索引"""
+        """Get vector file index for specified external index.
+        
+        Parameters:
+            external_index (int): External index.
+
+        Returns:
+            int: Vector file index.
+        """
         for partition_id, vec_index_range in self.vec_index_range.items():
             if vec_index_range[0] <= external_index <= vec_index_range[1]:
                 return external_index - vec_index_range[0]
 
-        raise ValueError(f"外部索引 {external_index} 超出范围")
+        raise ValueError(f"External index {external_index} out of range")
 
     def save_vec(self, vec: np.ndarray):
-        """保存向量"""
+        """Save vector.
+        
+        Parameters:
+            vec (np.ndarray): Vector.
+        """
         vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
                            key=lambda x: int(x.stem.split("-")[-1]))
         partition_id = len(vec_files)
@@ -87,11 +112,27 @@ cdef class VecStorage:
         
     
     def _load_vec_file(self, vec_file: Path, mmap_mode: bool = False):
-        """加载向量文件"""
+        """Load vector file.
+        
+        Parameters:
+            vec_file (Path): Vector file.
+            mmap_mode (bool): Whether to use memory mapping to read the file.
+
+        Returns:
+            np.ndarray: Vector data.
+            int: Partition ID.
+        """
         return load_nnp(str(vec_file), mmap_mode=mmap_mode), int(vec_file.stem.split("-")[-1])
     
     def load_vec(self, mmap_mode: bool = False):
-        """加载向量"""
+        """Load vector.
+        
+        Parameters:
+            mmap_mode (bool): Whether to use memory mapping to read the file.
+
+        Returns:
+            np.ndarray: Vector data.
+        """
         vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
                            key=lambda x: int(x.stem.split("-")[-1]))
         if not vec_files:
@@ -113,44 +154,48 @@ cdef class VecStorage:
         return ArrayView([vec for vec, _ in results], total_rows, vector_dim)
 
     def __len__(self):
-        """返回向量数量"""
+        """Return the number of vectors."""
         vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
                            key=lambda x: int(x.stem.split("-")[-1]))
         return len(vec_files)
 
     def vector_shape(self):
-        """返回向量形状"""
+        """Return the shape of vectors.
+        
+        Returns:
+            tuple: Shape of vectors.
+        """
         return self.load_vec(mmap_mode=True).shape
 
     def __getitem__(self, index):
-        """获取指定索引的向量，支持花样索引
+        """Get vector for specified index.
         
-        支持的索引类型：
-        - 整数：单个索引
-        - 切片：start:stop:step
-        - 列表：[1, 2, 3]
-        - numpy数组：array([1, 2, 3])
-        - 布尔数组：array([True, False, True])
+        Supported index types:
+        - int: Single index
+        - slice: start:stop:step
+        - list: [1, 2, 3]
+        - numpy array: array([1, 2, 3])
+        - boolean array: array([True, False, True])
         """
         total_len = len(self)
         
-        # 处理单个整数索引
+        # Process single integer index
         if isinstance(index, (int, np.integer)):
             if index < 0:
                 index += total_len
             if not 0 <= index < total_len:
-                raise IndexError("索引超出范围")
+                raise IndexError("Index out of range")
 
             partition_id = self._get_partition_id(index)
             vec_file = self.root_path / f"{self.column_name}-{partition_id:05d}.{self.suffix}"
             vec_index = self._get_vec_file_index(index)
             return load_nnp(str(vec_file), mmap_mode=True)[vec_index]
         
-        # 处理切片
+        # Process slice
         elif isinstance(index, slice):
             start, stop, step = index.indices(total_len)
             
-            # 优化：按分区分组处理切片
+            # Optimize: Process slice by partition
             results = []
             current_idx = start
             
@@ -159,47 +204,47 @@ cdef class VecStorage:
                 vec_file = self.root_path / f"{self.column_name}-{partition_id:05d}.{self.suffix}"
                 vec_data = load_nnp(str(vec_file), mmap_mode=True)
                 
-                # 计算当前分区的范围
+                # Calculate current partition range
                 partition_start, partition_end = self.vec_index_range[partition_id]
                 
-                # 计算在当前分区内的切片范围
+                # Calculate slice range in current partition
                 local_start = self._get_vec_file_index(current_idx)
                 local_stop = min(
                     self._get_vec_file_index(min(stop - 1, partition_end)) + 1,
                     vec_data.shape[0]
                 )
                 
-                # 提取当前分区的数据
+                # Extract data from current partition
                 partition_indices = range(local_start, local_stop, step)
                 if partition_indices:
                     results.append(vec_data[partition_indices])
                 
-                # 更新索引到下一个分区的起始位置
+                # Update index to next partition start position
                 current_idx = partition_end + 1
                 if step > 1:
-                    # 调整到step的下一个有效位置
+                    # Adjust to next valid position of step
                     offset = (current_idx - start) % step
                     if offset:
                         current_idx += (step - offset)
             
             return np.vstack(results) if results else np.array([])
         
-        # 处理列表、numpy数组等可迭代对象
+        # Process list, numpy array, etc. iterable objects
         elif isinstance(index, (list, np.ndarray)):
             if isinstance(index, np.ndarray) and index.dtype == bool:
-                # 处理布尔索引
+                # Process boolean index
                 if len(index) != total_len:
-                    raise IndexError("布尔索引长度必须与向量数量相同")
+                    raise IndexError("Boolean index length must be the same as the number of vectors")
                 indices = np.where(index)[0]
             else:
-                # 处理整数索引数组
+                # Process integer index array
                 indices = np.asarray(index)
-                # 处理负索引
+                # Process negative index
                 indices = np.where(indices < 0, indices + total_len, indices)
                 if np.any((indices < 0) | (indices >= total_len)):
-                    raise IndexError("索引超出范围")
+                    raise IndexError("Index out of range")
             
-            # 优化：按分区分组批量读取
+            # Optimize: Batch read by partition
             partition_groups = {}
             for idx in indices:
                 partition_id = self._get_partition_id(idx)
@@ -207,7 +252,7 @@ cdef class VecStorage:
                     partition_groups[partition_id] = []
                 partition_groups[partition_id].append(idx)
             
-            # 按分区读取并组装结果
+            # Read by partition and assemble results
             results = []
             for partition_id, group_indices in sorted(partition_groups.items()):
                 vec_file = self.root_path / f"{self.column_name}-{partition_id:05d}.{self.suffix}"
@@ -218,4 +263,4 @@ cdef class VecStorage:
             return np.vstack(results)
         
         else:
-            raise TypeError(f"不支持的索引类型: {type(index)}")
+            raise TypeError(f"Unsupported index type: {type(index)}")

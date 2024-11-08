@@ -11,14 +11,11 @@ from libc.stdint cimport int64_t
 import pyarrow.parquet as pq
 import logging
 
-# Add necessary cimports
 cimport numpy as np
-from ..utils import fsst
 from .mmap import MMapReader
 from .vec_storage import VecStorage
 from ..utils.array import ArrayView
 
-# Define types
 ctypedef np.int32_t INT32
 ctypedef np.int64_t INT64
 ctypedef np.float32_t FLOAT32
@@ -59,10 +56,10 @@ cdef class LyFile:
             shutil.rmtree(self.folder_path)
             
         self.folder_path.mkdir(parents=True, exist_ok=True)
-        # 创建 vec_data 文件夹
+        # Create vec_data folder
         (self.folder_path / "vec_data").mkdir(parents=True, exist_ok=True)
         
-        # 修改: 使用文件夹存储分区文件
+        # Use folder to store partition files
         self._parquet_folder = self.folder_path / "data"
         self._parquet_folder.mkdir(exist_ok=True)
         self.filepath = self._parquet_folder
@@ -89,42 +86,48 @@ cdef class LyFile:
         if not self._parquet_folder.exists():
             return
             
-        # 读取所有分区文件的元数据
+        # Read metadata from all partition files
         self.n_rows = 0
         self._column_order = []
         
-        # 获取所有分区文件
+        # Get all partition files
         parquet_files = sorted(self._parquet_folder.glob("part-*.ly"))
         if not parquet_files:
             return
             
-        # 从第一个文件获取 schema
+        # Get schema from the first file
         first_file = pq.ParquetFile(parquet_files[0])
         self._column_order = first_file.schema.names
         
-        # 计算总行数
+        # Calculate total rows
         for parquet_file in parquet_files:
             metadata = pq.read_metadata(parquet_file)
             self.n_rows += metadata.num_rows
         
-        # 处理向量列
+        # Process vector columns
         for col in self._column_order:
             vec_path = Path(self.folder_path).glob(f"{col}-*.vec")
-            # 如果找不到对应的向量文件，忽略， 如果找到，使用相对路径，存储随机一个文件路径
+            # If no corresponding vector file, ignore it. If found, use relative path, store a random file path
             for vec_path in vec_path:
                 relative_path = vec_path.relative_to(self.folder_path)
                 self._vector_columns[col] = str(relative_path)
                 break
 
-    def write(self, data: Union[pd.DataFrame, dict]):
-        """写入数据到文件"""
-        # 转换输入数据为 DataFrame
+    def write(self, data: Union[pd.DataFrame, dict, pa.Table]):
+        """Write data to file.
+        
+        Parameters:
+            data (Union[pd.DataFrame, dict, pa.Table]): Data to write.
+        """
+        # Convert input data to DataFrame
         if isinstance(data, dict):
             df = pd.DataFrame(data)
+        elif isinstance(data, pa.Table):
+            df = data.to_pandas()
         else:
             df = data.copy()
             
-        # 分离向量列
+        # Separate vector columns
         vector_columns = {}
         regular_columns = df.copy()
         
@@ -133,17 +136,17 @@ cdef class LyFile:
                 vector_columns[col] = df[col].values
                 regular_columns.drop(col, axis=1, inplace=True)
                 
-                # 保存向量数据
+                # Save vector data
                 vec_storage = VecStorage(self.folder_path / "vec_data", col)
                 vec_storage.save_vec(np.vstack(vector_columns[col]))
                 
-                # 存储相对路径
-                self._vector_columns[col] = col  # 只存储列名
+                # Store relative path
+                self._vector_columns[col] = col  # Only store column name
 
-        # 将常规列写入 parquet 文件
+        # Write regular columns to parquet file
         table = pa.Table.from_pandas(regular_columns)
         
-        # 写入第一个分区文件
+        # Write to the first partition file
         parquet_path = self._parquet_folder / "part-00000.ly"
         pq.write_table(
             table, 
@@ -154,13 +157,17 @@ cdef class LyFile:
             data_page_version='2.0'
         )
         
-        # 更新元数据
-        self._column_order = list(df.columns)  # 包含所有列，包括向量列
+        # Update metadata
+        self._column_order = list(df.columns)  # Include all columns, including vector columns
         self.n_rows = len(df)
 
     def append(self, data: Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]):
-        """Append data to the file."""
-        # 转换输入数据为 DataFrame
+        """Append data to the file.
+        
+        Parameters:
+            data (Union[List[Dict], pd.DataFrame, pd.Series, pa.Table]): Data to append.
+        """
+        # Convert input data to DataFrame
         if isinstance(data, (pd.Series, pa.Table)):
             df = pd.DataFrame(data)
         elif isinstance(data, list):
@@ -168,11 +175,11 @@ cdef class LyFile:
         else:
             df = data.copy()
             
-        # 检查列是否匹配
+        # Check if columns match
         if self._column_order and set(df.columns) != set(self._column_order):
-            raise ValueError("新数据的列与现有列不匹配")
+            raise ValueError("New data columns do not match existing columns")
             
-        # 分离并处理向量列
+        # Separate and process vector columns
         vector_columns = {}
         regular_columns = df.copy()
         
@@ -181,19 +188,19 @@ cdef class LyFile:
                 vector_columns[col] = df[col].values
                 regular_columns.drop(col, axis=1, inplace=True)
                 
-                # 追加向量数据
+                # Append vector data
                 vec_storage = VecStorage(self.folder_path / "vec_data", col)
                 vec_storage.save_vec(np.vstack(vector_columns[col]))
 
-        # 将常规列写入新的分区文件
+        # Write regular columns to new partition file
         table = pa.Table.from_pandas(regular_columns)
         
-        # 创建新的分区文件
+        # Create new partition file
         partition_files = list(self._parquet_folder.glob("part-*.ly"))
         partition_id = len(partition_files)
         parquet_path = self._parquet_folder / f"part-{partition_id:05d}.ly"
         
-        # 写入数据
+        # Write data
         pq.write_table(
             table, 
             parquet_path,
@@ -203,43 +210,73 @@ cdef class LyFile:
             data_page_version='2.0'
         )
         
-        # 更新元数据
+        # Update metadata
         self._init_metadata()
         
-        # 异步触发合并操作
+        # Trigger merge operation asynchronously
         self.trigger_merge()
 
     def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:
-        """读取指定列的数据"""
+        """Read data from specified columns.
+        
+        Parameters:
+            columns (Union[Optional[List[str]], str]): Columns to read.
+
+        Returns:
+            pa.Table: Data.
+        """
         reader = self.mmap_reader()
         return reader.read(columns)
 
     def read_vec(self, column_name: str, mmap_mode: bool = True) -> Union[np.ndarray, ArrayView]:
-        """读取向量数据"""
+        """Read vector data.
+        
+        Parameters:
+            column_name (str): Column name.
+            mmap_mode (bool): Whether to use memory-mapped mode.
+
+        Returns:
+            Union[np.ndarray, ArrayView]: Vector data.
+        """
         reader = self.mmap_reader()
         return reader.read_vec(column_name, mmap_mode)
 
     def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):
-        """批量读取数据的生成器"""
+        """Read data in batches.
+        
+        Parameters:
+            batch_size (int): Batch size.
+            columns (Union[Optional[List[str]], str]): Columns to read.
+
+        Yields:
+            pa.Table: Batch of data.
+        """
         reader = self.mmap_reader()
         yield from reader.read_batch(batch_size, columns)
 
     def __getitem__(self, key):
-        """支持切片操作"""
+        """Support slicing operation.
+        
+        Parameters:
+            key: Slicing key.
+
+        Returns:
+            pa.Table: Sliced data.
+        """
         reader = self.mmap_reader()
         return reader[key]
 
     def __len__(self):
-        """返回数据行数"""
+        """Return number of rows"""
         return self.n_rows
 
     def mmap_reader(self) -> MMapReader:
-        """返回一个内存映射读取器"""
+        """Return a memory-mapped reader"""
         return MMapReader(self._parquet_folder, thread_count=self.thread_count)
 
     def _merge_small_partitions(self):
-        """合并小分区文件"""
-        # 获取所有分区文件及其大小
+        """Merge small partition files"""
+        # Get all partition files and their sizes
         partitions = []
         for parquet_file in sorted(self._parquet_folder.glob("part-*.ly")):
             metadata = pq.read_metadata(parquet_file)
@@ -252,33 +289,33 @@ cdef class LyFile:
         if not partitions:
             return
 
-        # 如果分区数量超过最大值或存在小分区，执行合并
+        # If partition count exceeds maximum or there are small partitions, perform merge
         if (len(partitions) > self._max_partitions or 
             any(p['rows'] < self._min_partition_size for p in partitions)):
             
-            # 读取所有需要合并的分区
+            # Read all partitions to be merged
             tables = []
             for partition in partitions:
-                # 读取parquet文件
+                # Read parquet file
                 table = pq.read_table(partition['path'])
                 tables.append(table)
                 
-            # 合并所有表
+            # Merge all tables
             merged_table = pa.concat_tables(tables)
             
-            # 创建临时文件夹用于存放新分区
+            # Create temporary folder to store new partitions
             temp_folder = self._parquet_folder.parent / f"{self._parquet_folder.name}_temp"
             temp_folder.mkdir(exist_ok=True)
             
             try:
-                # 重新分区并写入临时文件夹
+                # Re-partition and write to temporary folder
                 total_rows = len(merged_table)
                 new_partitions = []
                 for i in range(0, total_rows, self._partition_size):
                     end_idx = min(i + self._partition_size, total_rows)
                     partition_table = merged_table.slice(i, end_idx - i)
                     
-                    # 写入新的分区文件
+                    # Write to new partition file
                     new_path = temp_folder / f"part-{i//self._partition_size:05d}.ly"
                     pq.write_table(
                         partition_table,
@@ -290,29 +327,29 @@ cdef class LyFile:
                     )
                     new_partitions.append(new_path)
                 
-                # 获取锁以进行文件替换
+                # Get lock to replace files
                 with self._merge_lock:
-                    # 删除原有分区文件
+                    # Delete existing partition files
                     for partition in partitions:
                         partition['path'].unlink()
                     
-                    # 移动新分区文件到正式目录
+                    # Move new partition files to official directory
                     for new_path in new_partitions:
                         target_path = self._parquet_folder / new_path.name
                         new_path.rename(target_path)
                     
-                    # 更新元数据
+                    # Update metadata
                     self._init_metadata()
                     
             finally:
-                # 清理临时文件夹
+                # Clean up temporary folder
                 if temp_folder.exists():
                     shutil.rmtree(temp_folder)
                     
             logging.info(f"Merged {len(partitions)} partitions into {len(new_partitions)} partitions")
 
     def _async_merge(self):
-        """异步执行合并操作"""
+        """Asynchronously execute merge operation"""
         try:
             self._merge_small_partitions()
         except Exception as e:
@@ -320,26 +357,26 @@ cdef class LyFile:
             raise
 
     def trigger_merge(self):
-        """触发异步合并操作"""
-        # 如果有正在进行的合并任务，检查其状态
+        """Trigger asynchronous merge operation"""
+        # If there is an ongoing merge task, check its status
         if self._merge_future and not self._merge_future.done():
             logging.info("Merge operation already in progress")
             return False
             
-        # 启动新的合并任务
+        # Start new merge task
         self._merge_future = self._merge_executor.submit(self._async_merge)
         return True
 
     def optimize(self, wait: bool = True):
-        """手动触发优化存储
+        """Manually trigger optimization.
         
-        Args:
-            wait: 是否等待优化完成
+        Parameters:
+            wait (bool): Whether to wait for optimization to complete
         """
         if self.trigger_merge() and wait:
-            self._merge_future.result()  # 等待合并完成
+            self._merge_future.result()  # Wait for merge to complete
 
     def __del__(self):
-        """清理资源"""
+        """Clean up resources"""
         if self._merge_executor:
             self._merge_executor.shutdown(wait=True)

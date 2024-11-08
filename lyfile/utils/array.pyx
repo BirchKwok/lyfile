@@ -1,11 +1,8 @@
-# array.pyx
 import cython
 cimport numpy as cnp
 import numpy as np
 from libc.stdlib cimport malloc, free
-import pyarrow as pa
 
-# 初始化 NumPy
 cnp.import_array()
 
 cdef struct ArrayInfo:
@@ -15,9 +12,9 @@ cdef struct ArrayInfo:
 
 cdef class ArrayView:
     cdef:
-        ArrayInfo *arrays  # 数组信息的指针数组
-        cnp.npy_intp *start_rows  # 每个块的起始行索引数组
-        list views  # 保持对原始数组的引用，防止被回收
+        ArrayInfo *arrays  # Pointer array for array information
+        cnp.npy_intp *start_rows  # Array of start row indices for each block
+        list views  # Reference to original arrays to prevent garbage collection
         cython.int num_blocks
         cnp.npy_intp total_rows
         cython.int vector_dim
@@ -34,19 +31,19 @@ cdef class ArrayView:
         self.vector_dim = vector_dim
 
         if self.arrays == NULL or self.start_rows == NULL:
-            raise MemoryError("内存分配失败")
+            raise MemoryError("Memory allocation failed")
 
         for i in range(self.num_blocks):
             view = views_list[i]
             self.start_rows[i] = current_row
             current_row += view.shape[0]
 
-            # 获取数组的 C 级别信息
+            # Get C-level information of the array
             self.arrays[i].data_ptr = <cnp.float64_t *>cnp.PyArray_DATA(view)
             self.arrays[i].shape0 = view.shape[0]
             self.arrays[i].strides0 = view.strides[0]
 
-            # 保持对原始数组的引用
+            # Keep reference to the original array
             self.views.append(view)
 
         self.total_rows = current_row
@@ -56,7 +53,7 @@ cdef class ArrayView:
             free(self.arrays)
         if self.start_rows != NULL:
             free(self.start_rows)
-        # 无需手动释放 self.views，Python 垃圾回收会处理
+        # No need to manually release self.views, Python garbage collection will handle it
         self.views = None
 
     @cython.boundscheck(False)
@@ -75,7 +72,7 @@ cdef class ArrayView:
                 left = mid + 1
             else:
                 right = mid - 1
-        return -1  # 索引超出范围
+        return -1  # Index out of range
 
     def __getitem__(self, idx):
         cdef cython.int normalized_idx
@@ -87,30 +84,30 @@ cdef class ArrayView:
         if isinstance(idx, (int, np.integer)):
             normalized_idx = idx if idx >= 0 else self.total_rows + idx
             if normalized_idx < 0 or normalized_idx >= self.total_rows:
-                raise IndexError("索引超出范围")
+                raise IndexError("Index out of range")
 
             block_idx = self.find_block(normalized_idx)
             if block_idx == -1:
-                raise IndexError("索引超出范围")
+                raise IndexError("Index out of range")
 
             data_ptr = self.get_row_ptr(normalized_idx)
             if data_ptr == NULL:
-                raise IndexError("索引超出范围")
+                raise IndexError("Index out of range")
 
-            # 创建 NumPy 数组
+            # Create NumPy array
             dims[0] = self.vector_dim
             result = cnp.PyArray_SimpleNewFromData(
                 1, dims, cnp.NPY_FLOAT64, <void *>data_ptr)
             if result is None:
-                raise MemoryError("无法创建数组")
+                raise MemoryError("Failed to create array")
 
-            # 设置 base 对象，防止内存被回收
+            # Set base object to prevent memory from being reclaimed
             cnp.PyArray_SetBaseObject(<cnp.ndarray>result, self.views[block_idx])
 
             return result
 
         else:
-            raise TypeError("只支持整数索引")
+            raise TypeError("Only integer index is supported")
 
     cdef cnp.float64_t *get_row_ptr(self, cython.int idx) nogil:
         cdef cython.int block_idx
@@ -130,7 +127,7 @@ cdef class ArrayView:
         return array_info.data_ptr + row_idx * (array_info.strides0 // sizeof(cnp.float64_t))
 
     def __array__(self):
-        """NumPy数组接口，返回完整的数组副本"""
+        """NumPy array interface, return a complete array copy"""
         result = np.empty((int(self.total_rows), self.vector_dim), dtype=np.float64)
         cdef cnp.npy_intp i
         cdef cnp.npy_intp start_idx = 0
@@ -146,11 +143,11 @@ cdef class ArrayView:
         return result
 
     def copy(self):
-        """创建数组的副本"""
+        """Create a copy of the array"""
         return self.__array__()
 
     def __len__(self):
-        """返回行数"""
+        """Return the number of rows"""
         return self.total_rows
 
     @property
@@ -163,24 +160,24 @@ cdef class ArrayView:
 
     @property
     def ndim(self):
-        """数组维度"""
-        return 2  # 二维数组
+        """Array dimension"""
+        return 2
 
     @property
     def size(self):
-        """数组元素总数"""
+        """Total number of array elements"""
         return self.total_rows * self.vector_dim
 
     def reshape(self, *shape):
-        """重塑数组形状"""
+        """Reshape array"""
         return self.__array__().reshape(*shape)
 
     def to_numpy(self):
-        """转换为 NumPy 数组"""
+        """Convert to NumPy array"""
         return self.__array__()
     
     def tolist(self):
-        """转换为嵌套列表"""
+        """Convert to nested list"""
         return self.__array__().tolist()
 
     cdef str _format_row(self, cnp.float64_t *data_ptr):
@@ -192,13 +189,13 @@ cdef class ArrayView:
         cdef int half_cols = max_cols // 2
 
         if vector_dim <= max_cols:
-            # 显示所有列
+            # Display all columns
             for j in range(vector_dim):
                 value = data_ptr[j]
                 row_values.append(f"{value:<.8f}")
             return f"[{', '.join(row_values)}]"
         else:
-            # 显示部分列
+            # Display partial columns
             for j in range(half_cols):
                 value = data_ptr[j]
                 row_values.append(f"{value:<.8f}")
@@ -209,36 +206,36 @@ cdef class ArrayView:
             return f"[{', '.join(row_values)}]"
 
     def __repr__(self):
-        """NumPy风格的字符串表示"""
+        """NumPy-style string representation"""
         cdef:
-            int max_rows = 12  # 最多显示的行数
-            int half_rows = max_rows // 2  # 每一半显示的行数
+            int max_rows = 12  # Maximum number of rows to display
+            int half_rows = max_rows // 2  # Number of rows to display in each half
             cnp.npy_intp total_rows = self.total_rows
             cnp.npy_intp i
             list rows = []
             cnp.float64_t *data_ptr
 
         if total_rows <= max_rows:
-            # 显示所有行
+            # Display all rows
             for i in range(total_rows):
                 data_ptr = self.get_row_ptr(i)
                 rows.append(self._format_row(data_ptr))
         else:
-            # 显示头部行
+            # Display top rows
             for i in range(half_rows):
                 data_ptr = self.get_row_ptr(i)
                 rows.append(self._format_row(data_ptr))
-            # 添加省略号
+            # Add ellipsis
             rows.append("...")
-            # 显示尾部行
+            # Display bottom rows
             for i in range(total_rows - half_rows, total_rows):
                 data_ptr = self.get_row_ptr(i)
                 rows.append(self._format_row(data_ptr))
 
-        # 组合最终字符串
+        # Combine final string
         content = ",\n ".join(rows)
         return f"ArrayView([\n {content}\n])"
 
     def __str__(self):
-        """字符串风格"""
+        """String style"""
         return self.__repr__()

@@ -23,7 +23,7 @@ from cpython.mem cimport PyMem_Malloc, PyMem_Free
 from libcpp.vector cimport vector
 
 cdef class FSST:
-    """FSST压缩类的Cython实现"""
+    """Cython implementation of FSST compression class"""
     
     def __cinit__(self, int thread_count=1):
         self.thread_count = max(1, thread_count)
@@ -32,7 +32,7 @@ cdef class FSST:
         self._executor = ThreadPoolExecutor(max_workers=thread_count)
 
     cdef cython.str _analyze_data(self, const unsigned char[:] data, int sample_size=1024) except *:
-        """优化的数据分析"""
+        """Optimized data analysis"""
         cdef:
             int data_len = data.shape[0]
             int sample_len = min(sample_size, data_len)
@@ -71,7 +71,7 @@ cdef class FSST:
             return 'normal'
 
     cdef bytes _compress_numeric_py(self, const unsigned char[:] data) except *:
-        """优化的数字压缩实现"""
+        """Optimized numeric compression implementation"""
         cdef:
             int data_len = data.shape[0]
             vector[uint8_t] compressed
@@ -125,7 +125,7 @@ cdef class FSST:
         return bytes(compressed)
 
     cdef bytes _decompress_numeric_py(self, const unsigned char[:] data) except *:
-        """优化的数字解压实现"""
+        """Optimized numeric decompression implementation"""
         cdef:
             int data_len = data.shape[0]
             int original_length
@@ -179,7 +179,7 @@ cdef class FSST:
         return bytes(result[:original_length])
 
     cdef bytes _parallel_compress_numeric(self, const unsigned char[:] data) except *:
-        """并行数字压缩"""
+        """Parallel numeric compression"""
         cdef:
             int chunk_size
             list chunks = []
@@ -213,7 +213,7 @@ cdef class FSST:
         return result
 
     cdef bytes _parallel_decompress_numeric(self, const unsigned char[:] data) except *:
-        """并行数字解压"""
+        """Parallel numeric decompression"""
         cdef:
             uint32_t chunk_count
             list chunks = []
@@ -248,7 +248,7 @@ cdef class FSST:
             return self._decompress_numeric_py(data)
 
     cdef bytes _parallel_compress_lz4(self, const unsigned char[:] data) except *:
-        """并行LZ4压缩"""
+        """Parallel LZ4 compression"""
         cdef:
             int chunk_size
             list chunks = []
@@ -279,7 +279,7 @@ cdef class FSST:
         return b'\x01' + header + sizes_bytes + b''.join(compressed_chunks)
 
     cdef bytes _parallel_decompress_lz4(self, const unsigned char[:] data) except *:
-        """并行LZ4解压缩"""
+        """Parallel LZ4 decompression"""
         cdef:
             int n_chunks
             vector[uint32_t] chunk_sizes
@@ -292,19 +292,19 @@ cdef class FSST:
             n_chunks = struct.unpack('<I', data[:4])[0]
             chunk_sizes.resize(n_chunks)
             
-            # 读取每个块的大小
+            # Read each chunk size
             for i in range(n_chunks):
                 chunk_sizes[i] = struct.unpack('<I', bytes(data[pos:pos+4]))[0]
                 pos += 4
                 
-            # 分割数据块
+            # Split data blocks
             for i in range(n_chunks):
                 if pos + chunk_sizes[i] > len(data):
                     return lz4.frame.decompress(bytes(data))
                 chunks.append(bytes(data[pos:pos + chunk_sizes[i]]))
                 pos += chunk_sizes[i]
                 
-            # 并行解压缩
+            # Parallel decompression
             decompressed_chunks = list(self._executor.map(
                 lz4.frame.decompress, chunks))
                 
@@ -314,7 +314,14 @@ cdef class FSST:
             return lz4.frame.decompress(bytes(data))
 
     def compress(self, data: bytes) -> bytes:
-        """压缩入口方法"""
+        """Compression entry method.
+        
+        Parameters:
+            data (bytes): Data to compress.
+
+        Returns:
+            bytes: Compressed data.
+        """
         if not data:
             return b''
             
@@ -336,7 +343,14 @@ cdef class FSST:
             return self._parallel_compress_lz4(data_view)
 
     def decompress(self, data: bytes) -> bytes:
-        """解压入口方法"""
+        """Decompression entry method.
+        
+        Parameters:
+            data (bytes): Data to decompress.
+
+        Returns:
+            bytes: Decompressed data.
+        """
         if not data:
             return b''
             
@@ -364,95 +378,28 @@ cdef class FSST:
         else:
             raise ValueError(f"Unknown compression method: {method}")
 
-# 全局函数
 def compress(data: bytes, thread_count: int = 4) -> bytes:
-    """全局压缩函数"""
+    """Global compression function.
+    
+    Parameters:
+        data (bytes): Data to compress.
+        thread_count (int): Number of threads.
+
+    Returns:
+        bytes: Compressed data.
+    """
     compressor = FSST(thread_count=thread_count)
     return compressor.compress(data)
 
 def decompress(data: bytes, thread_count: int = 4) -> bytes:
-    """全局解压函数"""
+    """Global decompression function.
+    
+    Parameters:
+        data (bytes): Data to decompress.
+        thread_count (int): Number of threads.
+
+    Returns:
+        bytes: Decompressed data.
+    """
     compressor = FSST(thread_count=thread_count)
     return compressor.decompress(data)
-
-def get_memory_usage() -> float:
-    """获取内存使用量"""
-    process = psutil.Process(os.getpid())
-    return process.memory_info().rss / 1024 / 1024
-
-def run_benchmark(data: bytes, name: str, thread_count: int = 4):
-    """性能测试函数"""
-    print(f"\n测试 {name}:")
-    print(f"原始大小: {len(data):,} 字节")
-
-    initial_memory = get_memory_usage()
-
-    start_time = time.time()
-    compressed = compress(data, thread_count)
-    compress_time = time.time() - start_time
-    compress_memory = get_memory_usage() - initial_memory
-
-    print(f"压缩后大小: {len(compressed):,} 字节")
-    print(f"压缩率: {len(compressed) / len(data):.2%}")
-    print(f"压缩时间: {compress_time:.3f} 秒")
-    print(f"压缩内存: {compress_memory:.2f} MB")
-
-    initial_memory = get_memory_usage()
-
-    start_time = time.time()
-    decompressed = decompress(compressed, thread_count)
-    decompress_time = time.time() - start_time
-    decompress_memory = get_memory_usage() - initial_memory
-
-    print(f"解压时间: {decompress_time:.3f} 秒")
-    print(f"解压内存: {decompress_memory:.2f} MB")
-    print(f"数据完整性: {decompressed == data}")
-
-    return {
-        'name': name,
-        'original_size': len(data),
-        'compressed_size': len(compressed),
-        'compression_ratio': len(compressed) / len(data),
-        'compress_time': compress_time,
-        'decompress_time': decompress_time,
-        'compress_memory': compress_memory,
-        'decompress_memory': decompress_memory,
-        'is_valid': decompressed == data
-    }
-
-def run_comprehensive_benchmark(thread_counts: List[int] = [1, 2, 4, 8]):
-    """综合性能测试函数"""
-    test_cases = [
-        (b"Hello" * 100000, "重复文本"),
-        (os.urandom(100000), "随机二进制"),
-        (b"".join([str(i).encode() for i in range(10000)]), "数字序列"),
-        (b"abcdefghijklmnopqrstuvwxyz" * 10000, "重复字母"),
-        (open(__file__, 'rb').read() * 100, "Python源代码")
-    ]
-
-    all_results = []
-
-    for thread_count in thread_counts:
-        print(f"\n使用 {thread_count} 个线程进行测试")
-        print("=" * 80)
-
-        results = []
-        for data, name in test_cases:
-            result = run_benchmark(data, name, thread_count)
-            results.append(result)
-
-        all_results.extend(results)
-
-        print(f"\n{thread_count} 线程测试汇总:")
-        print("-" * 80)
-        print(f"{'测试类型':<15} {'原始大小':>10} {'压缩大小':>10} {'压缩率':>8} "
-              f"{'压缩时间':>8} {'解压时间':>8} {'压缩内存':>8} {'解压内存':>8}")
-        print("-" * 80)
-
-        for result in results:
-            print(f"{result['name']:<15} {result['original_size']:>10,} "
-                  f"{result['compressed_size']:>10,} {result['compression_ratio']:>7.2%} "
-                  f"{result['compress_time']:>7.3f}s {result['decompress_time']:>7.3f}s "
-                  f"{result['compress_memory']:>7.1f}M {result['decompress_memory']:>7.1f}M")
-
-    return all_results

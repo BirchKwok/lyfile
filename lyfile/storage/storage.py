@@ -19,11 +19,11 @@ class MMapReaderContext:
     
     def __init__(self, storage, columns: Optional[List[str]] = None):
         """
-        初始化上下文管理器
-        
-        Args:
-            storage: LyStorage实例
-            columns: 要读取的列名列表
+        Initialize the context manager.
+
+        Parameters:
+            storage (LyStorage): The LyStorage instance.
+            columns (Optional[List[str]]): The columns to read.
         """
         self.storage = storage
         self.columns = columns
@@ -31,10 +31,10 @@ class MMapReaderContext:
 
     def __enter__(self):
         """
-        进入上下文，创建并返回所有活跃区域的读取器
-        
+        Enter the context and create and return all active regions' readers.
+
         Returns:
-            pd.DataFrame: 合并后的数据
+            pd.DataFrame: The merged dataframe
         """
         active_regions = [r for r in self.storage.regions if r['row_count'] > 0]
         dfs = []
@@ -55,13 +55,14 @@ class MMapReaderContext:
         return pd.DataFrame()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """退出上下文，关闭所有读取器"""
+        """Exit the context and close all active regions' readers.
+        """
         for reader in self.readers:
             reader.close()
 
 
 class LyStorage:
-    """存储管理类，提供数据存储、查询、版本控制等功能"""
+    """Storage class for LyFile, supporting multiple regions and lazy loading."""
     
     def __init__(self, data_path: str, 
                  schema: Optional[dict] = None,
