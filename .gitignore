@@ -159,3 +159,5 @@ Benchmarks.ipynb
 *.ly
 *.pq
 *.ipynb
+*.vec
+*.npy
