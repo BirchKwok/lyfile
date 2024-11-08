@@ -1,37 +1,30 @@
 # LyFile
 
-LyFile 是一个高性能的文件格式库，专为大规模数据存储和处理而设计。它提供了高效的压缩算法、向量存储和版本控制功能。
+LyFile is a high-performance file format library designed for large-scale data storage and processing. It offers efficient compression algorithms, vector storage, and version control features.
 
-## 特性
+**New features and performance optimizations are being actively developed.**
 
-- 智能压缩算法 (FSST)
-  - 自适应数据类型识别
-  - 多线程并行压缩/解压
-  - 针对不同数据类型的优化策略
+## Features
 
-- 高效向量存储
-  - 支持高维向量数据
-  - 内存映射(mmap)读取
-  - 自动分区管理
+- Intelligent Compression Algorithm (FSST)
+  - Adaptive data type recognition
+  - Multithreaded parallel compression/decompression
+  - Optimization strategies for different data types
 
-- 版本控制
-  - 支持数据版本管理
-  - 增量更新
-  - 回滚能力
+- Efficient Vector Storage
+  - Supports high-dimensional vector data
+  - Memory-mapped (mmap) reading
+  - Automatic partition management
 
-- 多平台支持
-  - 支持 x86/ARM 架构
-  - Windows/Linux/MacOS 兼容
-  - SIMD 优化 (SSE2/NEON)
+- Version Control
+  - Supports data version management
+  - Incremental updates
+  - Rollback capability
 
-## 安装
+- Multi-platform Support
+  - Supports x86/ARM architectures
+  - Windows/Linux/MacOS compatibility
+  - SIMD optimization (SSE2/NEON)
+
+## Installation
 TODO
-
-
-## 系统要求
-
-- Python >= 3.7
-- numpy >= 1.19.0
-- pandas >= 1.0.0
-- pyarrow >= 0.17.0
-- cython >= 0.29.0
