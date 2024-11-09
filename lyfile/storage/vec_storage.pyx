@@ -39,13 +39,22 @@ cdef class VecStorage:
         """Initial vec index range."""
         vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
                            key=lambda x: int(x.stem.split("-")[-1]))
+        
+        if not vec_files:
+            return
+        
+        # 获取最小的文件序号
+        min_partition_id = int(vec_files[0].stem.split("-")[-1])
+        
         for i, vec_file in enumerate(vec_files):
+            partition_id = int(vec_file.stem.split("-")[-1])
             if i == 0:
-                self.vec_index_range[i] = (0, load_nnp(str(vec_file), mmap_mode=True).shape[0] - 1)
+                self.vec_index_range[partition_id] = (0, load_nnp(str(vec_file), mmap_mode=True).shape[0] - 1)
             else:
-                self.vec_index_range[i] = (
-                    self.vec_index_range[i - 1][1] + 1, 
-                    self.vec_index_range[i - 1][1] + load_nnp(str(vec_file), mmap_mode=True).shape[0] - 1
+                prev_partition = sorted(self.vec_index_range.keys())[-1]
+                self.vec_index_range[partition_id] = (
+                    self.vec_index_range[prev_partition][1] + 1, 
+                    self.vec_index_range[prev_partition][1] + load_nnp(str(vec_file), mmap_mode=True).shape[0]
                 )
 
     def _get_partition_id(self, index: int):
@@ -57,7 +66,7 @@ cdef class VecStorage:
         Returns:
             int: Partition ID.
         """
-        for partition_id, vec_index_range in self.vec_index_range.items():
+        for partition_id, vec_index_range in sorted(self.vec_index_range.items()):
             if vec_index_range[0] <= index <= vec_index_range[1]:
                 return partition_id
         raise ValueError(f"Index {index} out of range")
@@ -78,7 +87,7 @@ cdef class VecStorage:
         raise ValueError(f"External index {external_index} out of range")
 
     def save_vec(self, vec: np.ndarray):
-        """Save vector.
+        """Append save vectors.
         
         Parameters:
             vec (np.ndarray): Vector.
@@ -88,12 +97,12 @@ cdef class VecStorage:
         partition_id = len(vec_files)
         
         if vec_files:
-            last_file_rows = load_nnp(str(vec_files[-1])).shape[0]
+            last_file_rows = load_nnp(str(vec_files[-1]), mmap_mode=True).shape[0]
             last_file_path = vec_files[-1]
         else:
             last_file_rows = 0
             last_file_path = None
-        
+
         if (last_file_path is not None) and (last_file_rows < self.max_rows):
             filling_rows = self.max_rows - last_file_rows
             to_fill_vec = vec[:filling_rows]
@@ -109,8 +118,7 @@ cdef class VecStorage:
             vec_path = self.root_path / f"{self.column_name}-{partition_id:05d}.{self.suffix}"
             save_nnp(str(vec_path), vec[:self.max_rows], append=False)
             vec = vec[self.max_rows:]
-        
-    
+
     def _load_vec_file(self, vec_file: Path, mmap_mode: bool = False):
         """Load vector file.
         
@@ -149,15 +157,20 @@ cdef class VecStorage:
         # sort by partition_id
         results.sort(key=lambda x: x[1])
 
-        total_rows = sum(vec.shape[0] for vec, _ in results)
-        vector_dim = results[0][0].shape[1]
-        return ArrayView([vec for vec, _ in results], total_rows, vector_dim)
+        vectors, partition_ids = zip(*results)
+
+        total_rows = sum(vec.shape[0] for vec in vectors)
+        vector_dim = vectors[0].shape[1]
+        return ArrayView(list(vectors), total_rows, vector_dim)
 
     def __len__(self):
-        """Return the number of vectors."""
-        vec_files = sorted(self.root_path.glob(f"{self.column_name}*.{self.suffix}"), 
-                           key=lambda x: int(x.stem.split("-")[-1]))
-        return len(vec_files)
+        """Return the total number of vectors."""
+        if not self.vec_index_range:
+            return 0
+        # 获取最后一个分区的范围
+        last_partition = max(self.vec_index_range.keys())
+        # 返回最后一个分区的结束索引 + 1
+        return self.vec_index_range[last_partition][1] + 1
 
     def vector_shape(self):
         """Return the shape of vectors.
@@ -176,6 +189,7 @@ cdef class VecStorage:
         - list: [1, 2, 3]
         - numpy array: array([1, 2, 3])
         - boolean array: array([True, False, True])
+        - range: range(start, stop, step)
         """
         total_len = len(self)
         
@@ -191,11 +205,33 @@ cdef class VecStorage:
             vec_index = self._get_vec_file_index(index)
             return load_nnp(str(vec_file), mmap_mode=True)[vec_index]
         
-        # Process slice
-        elif isinstance(index, slice):
-            start, stop, step = index.indices(total_len)
+        # Process slice and range objects
+        elif isinstance(index, (slice, range)):
+            if isinstance(index, range):
+                start, stop, step = index.start, index.stop, index.step
+                if step is None:
+                    step = 1
+            else:  # slice
+                start, stop, step = index.indices(total_len)
+                
+            # 处理负数索引和边界
+            if start is None:
+                start = 0
+            elif start < 0:
+                start += total_len
+            if stop is None:
+                stop = total_len
+            elif stop < 0:
+                stop += total_len
+                
+            # 边界检查
+            start = max(0, start)
+            stop = min(stop, total_len)
             
-            # Optimize: Process slice by partition
+            if start >= stop:
+                return np.array([])
+                
+            # Optimize: Process by partition
             results = []
             current_idx = start
             
@@ -204,7 +240,7 @@ cdef class VecStorage:
                 vec_file = self.root_path / f"{self.column_name}-{partition_id:05d}.{self.suffix}"
                 vec_data = load_nnp(str(vec_file), mmap_mode=True)
                 
-                # Calculate current partition range
+                # Calculate partition range
                 partition_start, partition_end = self.vec_index_range[partition_id]
                 
                 # Calculate slice range in current partition
@@ -214,15 +250,21 @@ cdef class VecStorage:
                     vec_data.shape[0]
                 )
                 
-                # Extract data from current partition
-                partition_indices = range(local_start, local_stop, step)
-                if partition_indices:
-                    results.append(vec_data[partition_indices])
+                # 计算当前分区内的有效索引
+                valid_indices = []
+                idx = local_start
+                while idx < local_stop:
+                    if (idx - local_start + current_idx - start) % step == 0:
+                        valid_indices.append(idx)
+                    idx += 1
+                    
+                if valid_indices:
+                    results.append(vec_data[valid_indices])
                 
-                # Update index to next partition start position
+                # 更新到下一个分区的起始位置
                 current_idx = partition_end + 1
                 if step > 1:
-                    # Adjust to next valid position of step
+                    # 调整到下一个有效步长位置
                     offset = (current_idx - start) % step
                     if offset:
                         current_idx += (step - offset)

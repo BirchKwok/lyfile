@@ -68,11 +68,13 @@ def create_extension(name, source_file, extra_includes=None):
 # 定义扩展模块
 extensions = [
     create_extension("lyfile.storage.lyfile", storage_dir / "lyfile.pyx", [str(utils_dir)]),
-    create_extension("lyfile.storage.mmap", storage_dir / "mmap.pyx", [str(utils_dir)]),
+    create_extension("lyfile.storage.reader", storage_dir / "reader.pyx", [str(utils_dir)]),
     create_extension("lyfile.utils.array", utils_dir / "array.pyx"),
     create_extension("lyfile.utils.fsst", utils_dir / "fsst.pyx"),
     create_extension("lyfile.utils.nnp", utils_dir / "nnp.pyx"),
     create_extension("lyfile.storage.vec_storage", storage_dir / "vec_storage.pyx", [str(utils_dir)]),
+    create_extension("lyfile.storage.old_reader", storage_dir / "old_reader.pyx", [str(utils_dir)]),
+    create_extension("lyfile.storage.old_lyfile", storage_dir / "old_lyfile.pyx", [str(utils_dir)]),
 ]
 
 

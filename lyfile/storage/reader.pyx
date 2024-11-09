@@ -1,3 +1,6 @@
+# distutils: language = c++
+# cython: language_level=3
+
 import pyarrow as pa
 from typing import Union, Optional, List
 from pathlib import Path
@@ -54,7 +57,8 @@ class TableWrapper:
         
         # Check the first element of each column
         for col in cols:
-            if len(self._table[col]) > 0 and isinstance(self._table[col].chunk(0), pa.FixedSizeListArray):
+            if (len(self._table[col]) > 0 and hasattr(self._table[col], "chunk") and
+                    isinstance(self._table[col].chunk(0), pa.FixedSizeListArray)):
                 chunk_cols.append(col)
             else:
                 regular_cols.append(col)
@@ -85,7 +89,7 @@ class TableWrapper:
         return self.__repr__()
 
 
-cdef class MMapReader:
+cdef class LyReader:
     """Parquet-based reader implementation."""
     cdef:
         public object folder_path
@@ -132,11 +136,12 @@ cdef class MMapReader:
             if col_name not in self._column_order:
                 self._column_order.append(col_name)
                 
-    def read(self, columns: Union[Optional[List[str]], str] = None) -> pa.Table:
+    def read(self, columns: Union[Optional[List[str]], str] = None, exclude_vec=True) -> TableWrapper:
         """Read data from specified columns.
         
         Parameters:
             columns (Union[Optional[List[str]], str]): Columns to read.
+            exclude_vec (bool): Whether to not read vector columns.
 
         Returns:
             pa.Table: Data.
@@ -145,10 +150,13 @@ cdef class MMapReader:
             columns = [columns]
         elif columns is None:
             columns = self._column_order
-            
+
         # Separate vector columns and regular columns
         vector_cols = [col for col in columns if col in self._vector_file_paths]
         regular_cols = [col for col in columns if col not in self._vector_file_paths]
+
+        if exclude_vec and not regular_cols:
+            return TableWrapper(pa.table([]))
         
         # Read partition data using pyarrow.dataset
         if regular_cols:
@@ -161,26 +169,31 @@ cdef class MMapReader:
         else:
             table = pa.Table.from_pandas(pd.DataFrame(index=range(self.n_rows)))
 
-        # Read vector columns
-        for col in vector_cols:
-            vec_storage = VecStorage(self.vec_path, col)
-            _arrays = vec_storage.load_vec(mmap_mode=True)
-            vectors_col_num = _arrays.shape[1]
-            flat_data = _arrays.reshape(-1)
-            arrow_array = pa.array(flat_data, type=pa.float64())
-            vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
-            table = table.append_column(col, vector_array)
-            
+        if not exclude_vec:
+            # Read vector columns
+            for col in vector_cols:
+                vec_storage = VecStorage(self.vec_path, col)
+                _arrays = vec_storage.load_vec(mmap_mode=True)
+                vectors_col_num = _arrays.shape[1]
+                flat_data = _arrays.reshape(-1)
+                arrow_array = pa.array(flat_data, type=pa.float64())
+                vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
+                table = table.append_column(col, vector_array)
+        else:
+            columns = [i for i in columns if i in regular_cols]
+
         # Ensure column order matches the requested order
         table = table.select(columns)
         return TableWrapper(table)
 
-    def read_batch(self, batch_size: int = 1000, columns: Union[Optional[List[str]], str] = None):
+    def read_batch(self, batch_size: int = 1000,
+                   columns: Union[Optional[List[str]], str] = None, exclude_vec=True) -> TableWrapper:
         """Generator for batch reading data.
         
         Parameters:
             batch_size (int): Batch size.
             columns (Union[Optional[List[str]], str]): Columns to read.
+            exclude_vec (bool): Whether to not read vector columns.
 
         Yields:
             pa.Table: Data.
@@ -193,7 +206,12 @@ cdef class MMapReader:
         # Separate vector columns and regular columns
         vector_cols = [col for col in columns if col in self._vector_file_paths]
         regular_cols = [col for col in columns if col not in self._vector_file_paths]
-        
+
+        if exclude_vec and not regular_cols:
+            return TableWrapper(pa.table([]))
+        elif exclude_vec:
+            columns = [i for i in columns if i in regular_cols]
+            
         # Preload all vector data
         vector_data = {}
         for col in vector_cols:
@@ -215,23 +233,21 @@ cdef class MMapReader:
             row_offset = 0
             for batch in scanner.to_batches():
                 current_batch_size = len(batch)
-                
-                # initial an empty PyArrow table
-                table = pa.table([])
-                
-                # Add vector columns
-                for col in vector_cols:
-                    start_idx = row_offset
-                    end_idx = row_offset + current_batch_size
 
-                    _arrays = vector_data[col][start_idx:end_idx]
-                    vectors_col_num = _arrays.shape[1]
-                    flat_data = _arrays.reshape(-1)
-                    arrow_array = pa.array(flat_data, type=pa.float64())
-                    vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
-                    table = table.append_column(col, vector_array)
+                if not exclude_vec:
+                    # Add vector columns
+                    for col in vector_cols:
+                        start_idx = row_offset
+                        end_idx = row_offset + current_batch_size
 
-                yield TableWrapper(table)
+                        _arrays = vector_data[col][start_idx:end_idx]
+                        vectors_col_num = _arrays.shape[1]
+                        flat_data = _arrays.reshape(-1)
+                        arrow_array = pa.array(flat_data, type=pa.float64())
+                        vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
+                        batch = batch.append_column(col, vector_array)
+
+                yield TableWrapper(batch.select(columns))
                 row_offset += current_batch_size
         else:
             # If only vector columns, generate data in batches
@@ -246,7 +262,7 @@ cdef class MMapReader:
                     vector_array = pa.FixedSizeListArray.from_arrays(arrow_array, list_size=vectors_col_num)
                     table = table.append_column(col, vector_array)
                 
-                yield TableWrapper(table)
+                yield TableWrapper(table.select(columns))
 
     def __getitem__(self, key):
         """Support slicing and fancy indexing.
@@ -291,8 +307,6 @@ cdef class MMapReader:
         # Read vector columns and add to table
         for col in self._vector_file_paths:
             vec_storage = VecStorage(self.vec_path, col)
-            # Use mmap_mode to implement efficient slicing
-            # Read only the needed rows
             _arrays = vec_storage[row_indices]
             vectors_col_num = _arrays.shape[1]
             flat_data = _arrays.reshape(-1)
