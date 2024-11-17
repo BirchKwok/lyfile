@@ -1,0 +1,22 @@
+[package]
+name = "lyfile"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lyfile"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.19", features = ["extension-module"] }
+arrow = { version = "47.0", features = ["pyarrow", "ipc_compression", "prettyprint"] }
+arrow-array = "47.0"
+arrow-schema = "47.0"
+arrow-select = "47.0"
+arrow-data = "47.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+lz4_flex = "0.11"
+rayon = "1.8"
+lz4 = "1.24"
+memmap2 = "0.5"
