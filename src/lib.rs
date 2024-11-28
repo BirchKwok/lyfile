@@ -23,7 +23,6 @@ use rayon::prelude::*;
 
 const MAGIC_BYTES: &[u8] = b"LYFILE01";
 const VERSION: u32 = 1;
-const FOOTER_SIZE: usize = 8; // 存储 footer 位置的固定字节数
 const COMPRESSION_LEVEL: i32 = 1; // 压缩级别，1 为最快压缩
 const FILE_HEADER_SIZE: usize = 0x28; // 40 bytes
 const CHUNK_MAGIC: &[u8] = b"LYCHUNK1";
@@ -69,10 +68,6 @@ impl SerializableSchema {
                 })
                 .collect::<Vec<Field>>()
         )
-    }
-
-    fn get_fields(&self) -> &Vec<SerializableField> {
-        &self.fields
     }
 }
 
@@ -175,30 +170,40 @@ impl LyFile {
         }
     }
 
-    /// Writes data to the custom file format.
-    ///
-    /// Args:
-    ///     data (Union[pandas.DataFrame, dict, pyarrow.Table]):
-    ///         The input data to be written.
-    ///         Supported types include:
-    ///         - Pandas DataFrame
-    ///         - Python dictionary
-    ///         - PyArrow Table
-    ///
-    /// Raises:
-    ///     ValueError: If the input data type is not supported or is empty.
-    ///     IOError: If an error occurs while writing to the file.
-    ///     ArrowError: If there is an error with Arrow serialization.
-    ///     SerializationError: If an error occurs during metadata serialization.
-    ///
-    /// Examples:
-    ///     >>> import pandas as pd
-    ///     >>> from lyfile import LyFile
-    ///     >>> df = pd.DataFrame({'col1': [1, 2], 'col2': [3, 4]})
-    ///     >>> lyfile = LyFile("example.ly")
-    ///     >>> lyfile.write(df)
+    // Writes data to the custom file format.
+    // 
+    // Args:
+    //     data (Union[pandas.DataFrame, dict, pyarrow.Table]):
+    //         The input data to be written.
+    //         Supported types include:
+    //         - Pandas DataFrame
+    //         - Python dictionary
+    //         - PyArrow Table
+    // 
+    // Raises:
+    //     ValueError: If the input data type is not supported or is empty.
+    //     IOError: If an error occurs while writing to the file.
+    //     ArrowError: If there is an error with Arrow serialization.
+    //     SerializationError: If an error occurs during metadata serialization.
+    // 
+    // Examples:
+    //     >>> import pandas as pd
+    //     >>> from lyfile import LyFile
+    //     >>> df = pd.DataFrame({'col1': [1, 2], 'col2': [3, 4]})
+    //     >>> lyfile = LyFile("example.ly")
+    //     >>> lyfile.write(df)
     #[pyo3(text_signature = "(self, data)")]
     fn write(&mut self, data: &PyAny, py: Python) -> PyResult<()> {
+        if data.is_none() {
+            return Err(PyValueError::new_err("Input data is None"));
+        }
+        use std::fs;
+
+        if Path::new(&self.filepath).exists() {
+            // 如果文件存在，则删除
+            fs::remove_file(&self.filepath)?;
+        }
+
         // 获取 RecordBatch
         let record_batch = {
             let table = if data.hasattr("__class__")? {
@@ -865,6 +870,7 @@ impl LyFile {
         Ok(buffer)
     }
 
+    #[allow(unused_variables)]
     fn read_chunk(
         &self,
         file_path: &str,
@@ -993,7 +999,7 @@ impl Drop for LyFile {
 }
 
 #[pymodule]
-fn lyfile(_py: Python, m: &PyModule) -> PyResult<()> {
+fn _lib_lyfile(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<LyFile>()?;
     Ok(())
 }
