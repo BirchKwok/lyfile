@@ -21,5 +21,17 @@ zstd = "0.12"
 memmap2 = "0.5"
 tempfile = "3.8"
 numpy = "0.19"
-ndarray = "0.15"
+ndarray = { version = "0.15", features = ["rayon"] }
+bytemuck = "1.14"
 num-traits = "0.2"
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+# x86_64 特定依赖项（如果需要）
+
+[target.'cfg(target_arch = "aarch64")'.dependencies]
+# ARM 特定依赖项（如果需要）
+
+[profile.release]
+lto = true
+codegen-units = 1
+target-cpu = "native"
