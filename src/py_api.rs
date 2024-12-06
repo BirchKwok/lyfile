@@ -5,7 +5,6 @@ use std::path::Path;
 
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
-use arrow::pyarrow::IntoPyArrow;
 use numpy::PyArray2;
 use pyo3::types::PyDict;
 
@@ -232,7 +231,7 @@ impl LyFile {
                 return Err(PyValueError::new_err("vdata must be a dictionary"));
             }
             let dict = data.downcast::<pyo3::types::PyDict>()?;
-            self._append_vec(dict, py)?;
+            self.append_vec(dict, py)?;
         }
 
         Ok(())
@@ -305,22 +304,22 @@ impl LyFile {
         let metadata = self.read_metadata(&mut file)?;
         
         let dict = pyo3::types::PyDict::new(py);
-        
+
         // add regular columns
         for field in metadata.schema.fields.iter() {
-            dict.set_item(
-                &field.name,
-                (field.data_type.clone(), "ly_table")
-            )?;
+            let subdict = pyo3::types::PyDict::new(py);
+            subdict.set_item("dtype", field.data_type.clone())?;
+            subdict.set_item("lytype", "table")?;
+            dict.set_item(&field.name, subdict)?;
         }
         
         // add vector columns
         if let Some(vec_region) = metadata.vec_region {
             for vector in vec_region.vectors {
-                dict.set_item(
-                    &vector.name,
-                    (vector.dtype, "ly_vec")
-                )?;
+                let subdict = pyo3::types::PyDict::new(py);
+                subdict.set_item("dtype", vector.dtype)?;
+                subdict.set_item("lytype", "vector")?;
+                dict.set_item(&vector.name, subdict)?;
             }
         }
         
@@ -401,65 +400,6 @@ impl LyFile {
             let distances_f32 = distances.as_ref(py).call_method1("astype", ("float32",))?;
             Ok((indices, distances_f32.extract()?))
         }
-    }
-
-    pub fn read_columns(&self, columns: Vec<String>, py: Python) -> PyResult<PyObject> {
-        // check if file exists
-        if !Path::new(&self.filepath).exists() {
-            return Err(PyValueError::new_err("File does not exist"));
-        }
-
-        // open file and read schema
-        let mut file = File::open(&self.filepath)?;
-        let metadata = self.read_metadata(&mut file)?;
-
-        // initialize schema (if not already initialized)
-        {
-            let mut schema_lock = self.schema.write().unwrap();
-            if schema_lock.is_none() {
-                *schema_lock = Some(Arc::new(metadata.schema.to_arrow_schema()));
-            }
-        }
-
-        // update chunks (if needed)
-        {
-            let mut chunks_lock = self.chunks.write().unwrap();
-            if chunks_lock.is_empty() {
-                *chunks_lock = metadata.chunks.clone();
-            }
-        }
-
-        // read specified columns
-        self.read_table_data(&columns, py)
-    }
-
-    pub fn get_schema(&self, py: Python) -> PyResult<PyObject> {
-        // check if file exists
-        if !Path::new(&self.filepath).exists() {
-            return Err(PyValueError::new_err("File does not exist"));
-        }
-
-        // if schema is already loaded, return it
-        if let Some(schema) = self.schema.read().unwrap().as_ref() {
-            // get reference from Arc<Schema> and clone internal Schema
-            let schema_clone = (**schema).clone();
-            return Ok(schema_clone.into_pyarrow(py)?.into_py(py));
-        }
-
-        // otherwise, read from file
-        let mut file = File::open(&self.filepath)?;
-        let metadata = self.read_metadata(&mut file)?;
-        let schema = Arc::new(metadata.schema.to_arrow_schema());
-
-        // update cached schema
-        {
-            let mut schema_lock = self.schema.write().unwrap();
-            *schema_lock = Some(schema.clone());
-        }
-
-        // clone internal Schema and convert to PyArrow
-        let schema_clone = (*schema).clone();
-        Ok(schema_clone.into_pyarrow(py)?.into_py(py))
     }
 }
 

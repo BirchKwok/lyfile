@@ -465,7 +465,7 @@ impl LyFile {
         })
     }
 
-    pub fn _append_vec(&mut self, data: &PyAny, py: Python) -> PyResult<()> {
+    pub fn append_vec(&mut self, data: &PyAny, py: Python) -> PyResult<()> {
         if !data.is_instance_of::<pyo3::types::PyDict>() {
             return Err(PyValueError::new_err("Input must be a dictionary"));
         }
@@ -998,6 +998,8 @@ impl LyFile {
             record_batches.push(batch);
         }
 
+        let pa = py.import("pyarrow")?;
+        
         // if no data, return empty table
         if record_batches.is_empty() {
             let empty_schema = Schema::new(
@@ -1010,14 +1012,21 @@ impl LyFile {
             record_batches.push(empty_batch);
         }
 
-        // use concat_batches and convert to PyArrow
+        // convert record batches to PyArrow Table
         let table = arrow::compute::concat_batches(
             &record_batches[0].schema(),
             &record_batches,
         ).map_err(|e| PyValueError::new_err(format!("Failed to concatenate record batches: {}", e)))?;
+        
+        // create a new RecordBatch
+        let batch = RecordBatch::try_new(
+            table.schema(),
+            table.columns().to_vec(),
+        ).map_err(convert_arrow_error)?;
 
-        // use concat_batches and convert to PyArrow
-        Ok(table.into_pyarrow(py)?.into_py(py))
+        // convert to PyArrow Table
+        let py_batch = batch.into_pyarrow(py)?;
+        Ok(pa.getattr("Table")?.call_method1("from_batches", ([py_batch],))?.into_py(py))
     }
 
     pub fn read_vec_with_mmap(&self, name: String, load_mmap_vec: bool, py: Python) -> PyResult<PyObject> {
