@@ -9,11 +9,12 @@ use numpy::PyArray2;
 use pyo3::types::PyDict;
 
 use crate::structs::*;
-use crate::distances::*;
+use simsimd::SpatialSimilarity;
+use num_traits::{Float, ToPrimitive, FromPrimitive};
 
 
 #[pymethods]
-impl LyFile {
+impl _LyFile {
     #[new]
     /// Initializes a new LyFile object.
     ///
@@ -28,7 +29,7 @@ impl LyFile {
     ///     >>> lyfile = LyFile("example.ly")
     #[pyo3(text_signature = "(self, filepath)")]
     fn new(filepath: String) -> Self {
-        LyFile {
+        _LyFile {
             filepath,
             schema: Arc::new(RwLock::new(None)),
             chunks: Arc::new(RwLock::new(Vec::new())),
@@ -350,56 +351,88 @@ impl LyFile {
             return Err(PyValueError::new_err("Invalid metric. Supported metrics are 'l2', 'ip', and 'cosine'."));
         }
         
-        let binding = self.read_vec(vector_name, py)?;
-        let base_array = binding.extract::<&PyAny>(py)?;
+        let binding = self.read_vec_native(vector_name.clone())?;
         
-        // get data type string and convert to lowercase for uniform comparison
-        let dtype_str = base_array.getattr("dtype")?.str()?.to_string().to_lowercase();
-        
-        // update type determination logic
-        let use_f32 = if dtype_str.contains("float32") || dtype_str.contains("f4") || dtype_str.contains("<f4") {
-            true
-        } else if dtype_str.contains("float64") || dtype_str.contains("f8") || dtype_str.contains("<f8") {
-            // delete unused np variable
-            let max_val: f64 = base_array.call_method0("max")?.extract()?;
-            let min_val: f64 = base_array.call_method0("min")?.extract()?;
-            max_val <= f32::MAX as f64 && min_val >= f32::MIN as f64
-        } else {
-            return Err(PyValueError::new_err(format!("Unsupported data type: {}", dtype_str)));
-        };
-    
-        if use_f32 {
-            // f32 calculation path
-            let base_vectors = if dtype_str.contains("float32") || dtype_str.contains("f4") {
-                base_array.extract::<&PyArray2<f32>>()?
-            } else {
-                let array_f32 = base_array.call_method1("astype", ("float32",))?;
-                array_f32.extract::<&PyArray2<f32>>()?
-            };
-    
-            let query_array = if query_vectors.getattr("dtype")?.str()?.to_string().to_lowercase().contains("float32") {
-                query_vectors.extract::<&PyArray2<f32>>()?
-            } else {
-                let array_f32 = query_vectors.call_method1("astype", ("float32",))?;
-                array_f32.extract::<&PyArray2<f32>>()?
-            };
-    
-            compute_distances_f32(py, query_array.readonly(), base_vectors.readonly(), top_k, metric)
-        } else {
-            // f64 calculation path
-            let base_vectors = base_array.extract::<&PyArray2<f64>>()?;
-            let query_array = if query_vectors.getattr("dtype")?.str()?.to_string().to_lowercase().contains("float64") {
-                query_vectors.extract::<&PyArray2<f64>>()?
-            } else {
-                let array_f64 = query_vectors.call_method1("astype", ("float64",))?;
-                array_f64.extract::<&PyArray2<f64>>()?
-            };
-    
-            // calculate results and convert to f32
-            let (indices, distances) = compute_distances_f64(py, query_array.readonly(), base_vectors.readonly(), top_k, metric)?;
-            let distances_f32 = distances.as_ref(py).call_method1("astype", ("float32",))?;
-            Ok((indices, distances_f32.extract()?))
+        match binding {
+            VectorData::F32(base_vecs, _shape) => {
+                search_vector_internal::<f32>(base_vecs, query_vectors, top_k, metric, py)
+            },
+            VectorData::F64(base_vecs, _shape) => {
+                // 对于 f64 数据，我们先转换为 f32
+                let base_vecs_f32: Vec<f32> = base_vecs.into_iter()
+                    .map(|x| x as f32)
+                    .collect();
+                search_vector_internal::<f32>(base_vecs_f32, query_vectors, top_k, metric, py)
+            }
         }
     }
+}
+
+// 添加个新的泛型辅助函数
+fn search_vector_internal<T>(
+    base_vecs: Vec<T>, 
+    query_vectors: &PyAny, 
+    top_k: usize, 
+    metric: &str,
+    py: Python<'_>
+) -> PyResult<(Py<PyArray2<i32>>, Py<PyArray2<f32>>)> 
+where 
+    T: SpatialSimilarity + Copy + 'static + PartialOrd + Float + numpy::Element + FromPrimitive,
+    for<'py> &'py PyArray2<T>: FromPyObject<'py>,
+{
+    let query_array = if query_vectors.getattr("dtype")?.str()?.to_string().to_lowercase().contains(std::any::type_name::<T>()) {
+        query_vectors.extract::<&PyArray2<T>>()?
+    } else {
+        let dtype = if std::any::type_name::<T>() == "f32" { "float32" } else { "float64" };
+        let array = query_vectors.call_method1("astype", (dtype,))?;
+        array.extract::<&PyArray2<T>>()?
+    };
+    
+    let query_slice = unsafe { query_array.as_slice()? };
+    let query_shape = query_array.shape();
+    let n_queries = query_shape[0];
+    let dim = query_shape[1];
+    
+    let mut indices = vec![vec![0i32; top_k]; n_queries];
+    let mut distances = vec![vec![0f32; top_k]; n_queries];
+    
+    for (query_idx, query_vec) in query_slice.chunks(dim).enumerate() {
+        let mut distances_with_indices = base_vecs.chunks(dim)
+            .enumerate()
+            .map(|(i, base_vec)| {
+                let dist = match metric {
+                    "l2" => T::sqeuclidean(query_vec, base_vec)
+                        .unwrap_or_else(|| num_traits::cast(1e30_f64).unwrap()),
+                    "cosine" => T::cosine(query_vec, base_vec)
+                        .unwrap_or_else(|| num_traits::cast(-1e30_f64).unwrap()),
+                    "ip" => T::dot(query_vec, base_vec)
+                        .unwrap_or_else(|| num_traits::cast(-1e30_f64).unwrap()),
+                    _ => unreachable!(),
+                };
+                (dist, i as i32)
+            })
+            .collect::<Vec<_>>();
+
+        distances_with_indices.sort_by(|a, b| {
+            match metric {
+                "cosine" | "l2" => a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal),
+                "ip" => b.0.partial_cmp(&a.0).unwrap_or(std::cmp::Ordering::Equal),
+                _ => unreachable!(),
+            }
+        });
+        
+        distances_with_indices.truncate(top_k);
+        
+        for k in 0..top_k {
+            let (dist, idx) = distances_with_indices[k];
+            indices[query_idx][k] = idx;
+            distances[query_idx][k] = dist.to_f32().unwrap_or(0.0);
+        }
+    }
+    
+    let indices_array = PyArray2::from_vec2(py, &indices)?;
+    let distances_array = PyArray2::from_vec2(py, &distances)?;
+    
+    Ok((indices_array.to_owned(), distances_array.to_owned()))
 }
 

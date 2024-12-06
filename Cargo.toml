@@ -24,6 +24,8 @@ numpy = "0.19"
 ndarray = { version = "0.15", features = ["rayon"] }
 bytemuck = "1.14"
 num-traits = "0.2"
+simsimd = "6.2"
+num_cpus = "1.16"
 
 [target.'cfg(target_arch = "x86_64")'.dependencies]
 # x86_64 特定依赖项（如果需要）
@@ -34,4 +36,13 @@ num-traits = "0.2"
 [profile.release]
 lto = true
 codegen-units = 1
-target-cpu = "native"
+panic = "abort"
+
+[features]
+simd = []
+
+[build-dependencies]
+cc = "1.0"
+
+[build]
+rustflags = ["-C", "target-feature=+neon"]
