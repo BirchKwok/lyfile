@@ -12,16 +12,12 @@ use arrow::error::ArrowError;
 use memmap2::MmapOptions;
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
-use pyo3::types::{PyDict, PyList};
-
-use numpy::PyArray1;
+use pyo3::types::PyDict;
 
 use serde::{Serialize, Deserialize};
 use serde_json;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use zstd::stream::{Encoder as ZstdEncoder, Decoder as ZstdDecoder};
-
-use rayon::prelude::*;
 
 use arrow::pyarrow::IntoPyArrow;
 
@@ -154,10 +150,6 @@ pub struct VectorInfo {
     pub dtype: String,      // 数据类型，如 "f32", "f64"
 }
 
-pub fn handle_arrow_error<T>(result: Result<T, ArrowError>) -> PyResult<T> {
-    result.map_err(|e| PyValueError::new_err(format!("Arrow error: {}", e)))
-}
-
 pub fn handle_io_error<T>(result: Result<T, io::Error>) -> PyResult<T> {
     result.map_err(|e| PyValueError::new_err(format!("IO error: {}", e)))
 }
@@ -186,10 +178,10 @@ impl LyFile {
             fs::remove_file(&self.filepath)?;
         }
 
-        // 获取 record batches
+        // 获取 record batches 时添加大小限制
         let record_batches = if data.getattr("__class__")?.getattr("__name__")?.extract::<String>()? == "Table" {
-            // 直接从 PyArrow Table 获取 batches
-            let batches = data.call_method0("to_batches")?;
+            // 使用 to_batches 时指定最大行数
+            let batches = data.call_method1("to_batches", (PyDict::new(py).set_item("max_chunksize", CHUNK_MAX_ROWS)?,))?;
             batches.extract::<Vec<PyArrowType<RecordBatch>>>()?
         } else {
             // 先转换为 PyArrow Table
@@ -201,8 +193,8 @@ impl LyFile {
                 pa.getattr("Table")?.call_method1("from_pandas", (data,))?
             };
             
-            // 然后获取 batches
-            let batches = table.call_method0("to_batches")?;
+            // 使用指定的chunk大小获取batches
+            let batches = table.call_method1("to_batches", (PyDict::new(py).set_item("max_chunksize", CHUNK_MAX_ROWS)?,))?;
             batches.extract::<Vec<PyArrowType<RecordBatch>>>()?
         };
 
@@ -315,7 +307,7 @@ impl LyFile {
                     .open(&self.filepath)
             )?;
 
-            // 读取文件的元数据
+            // 读取文��元数据
             let metadata = self.read_metadata(&mut file)?;
 
             // 验证新数的 Schema 是否与文件中的一致
@@ -411,7 +403,7 @@ impl LyFile {
             ));
         }
 
-        // 使用 Python GIL 护的方式读取数据
+        // 使用 Python GIL 护的方式读取数
         let data_vec = unsafe {
             std::slice::from_raw_parts(ptr, total_bytes).to_vec()
         };
@@ -465,7 +457,7 @@ impl LyFile {
             let new_pos = vector_offset + total_bytes as u64;
             file.seek(std::io::SeekFrom::Start(new_pos))?;
             
-            // 序列化���写入元数据
+            // 序列化写入元数据
             let metadata_bytes = serde_json::to_vec(&metadata)
                 .map_err(|e| PyValueError::new_err(format!("Failed to serialize metadata: {}", e)))?;
             let metadata_length = metadata_bytes.len() as u32;
@@ -609,7 +601,7 @@ impl LyFile {
         // 数据偏移 (8 bytes)
         buffer.write_u64::<LittleEndian>(data_offset)?;
 
-        // 索引��移 (8 bytes)
+        // 索引移 (8 bytes)
         buffer.write_u64::<LittleEndian>(index_offset)?;
 
         // Schema 度 (4 bytes)
@@ -651,7 +643,7 @@ impl LyFile {
         file.write_u32::<LittleEndian>(num_columns)?;
         *current_offset += 8;
 
-        // 处理每一列
+        // 处每一列
         let mut column_infos = Vec::with_capacity(num_columns as usize);
         
         for i in 0..num_columns as usize {
@@ -714,7 +706,7 @@ impl LyFile {
 
             // 写入页面元数据
             file.write_u32::<LittleEndian>(final_buffer.len() as u32)?;  // 数据大小
-            file.write_u32::<LittleEndian>(num_rows)?;  // 行��
+            file.write_u32::<LittleEndian>(num_rows)?;  // 行
             file.write_u8(is_compressed as u8)?;  // 压缩标记
             *current_offset += 9;
 
@@ -754,7 +746,7 @@ impl LyFile {
         let num_chunks = chunks.len() as u32;
         file.write_u32::<LittleEndian>(num_chunks)?;
 
-        // 写入每 Chunk 的索��信息
+        // 写入每 Chunk 的索信息
         for (offset, _chunk_info) in chunks {
             // 写入 Chunk 偏移
             file.write_u64::<LittleEndian>(*offset)?;
@@ -818,7 +810,7 @@ impl LyFile {
     }
 
     pub fn divide_into_pages(&self, array: &Arc<dyn arrow::array::Array>) -> PyResult<Vec<RecordBatch>> {
-        // 这里简单地整个列作为一个 Page，可根据需要拆分
+        // 这里简单整个列作为一个 Page，可根据需要分
         let schema = Schema::new(vec![Field::new("column", array.data_type().clone(), true)]);
         let batch = RecordBatch::try_new(Arc::new(schema), vec![array.clone()])
             .map_err(|e| PyValueError::new_err(format!("Arrow error: {}", e)))?;
@@ -888,7 +880,7 @@ impl LyFile {
                 .map_err(convert_arrow_error)?
                 .clone();
 
-            // 根据数据类型选择同的反序列化方式
+            // 根据数据类型选择同的反序列化方
             let array = if let DataType::List(field_ref) = field.data_type() {
                 // List类型（向量数据）直接从字节构建数组
                 let values = bytemuck::cast_slice::<u8, f64>(&final_data);
@@ -914,7 +906,7 @@ impl LyFile {
                 
                 Arc::new(ListArray::from(list_data)) as Arc<dyn Array>
             } else {
-                // 其他类使用Arrow IPC反序列化
+                // 其他类使用Arrow IPC反序列
                 let cursor = std::io::Cursor::new(final_data);
                 let mut arrow_reader = arrow::ipc::reader::FileReader::try_new(
                     cursor,
@@ -975,7 +967,7 @@ impl LyFile {
 
         // 读取文件头元数据
         let mut file = File::open(&self.filepath)?;
-        let metadata = self.read_metadata(&mut file)?;
+        let _metadata = self.read_metadata(&mut file)?;
 
         // 获取 schema
         let schema = self.schema.read().unwrap();
@@ -989,7 +981,7 @@ impl LyFile {
                 .map(|f| f.name().clone())
                 .collect()
         } else {
-            // 验证所有请求的列都存在
+            // 验证所有请求的都存在
             for col in selected_columns {
                 if schema.field_with_name(col).is_err() {
                     return Err(PyValueError::new_err(format!("Column '{}' not found in schema", col)));
@@ -1032,6 +1024,45 @@ impl LyFile {
 
         // 使用 into_pyarrow
         Ok(table.into_pyarrow(py)?.into_py(py))
+    }
+
+    pub fn read_vec_with_mmap(&self, name: String, load_mmap_vec: bool, py: Python) -> PyResult<PyObject> {
+        let mut file = File::open(&self.filepath)?;
+        let metadata = self.read_metadata(&mut file)?;
+
+        let vec_region = metadata.vec_region
+            .ok_or_else(|| PyValueError::new_err("No vector data in file"))?;
+
+        let vector_info = vec_region.vectors.iter()
+            .find(|v| v.name == name)
+            .ok_or_else(|| PyValueError::new_err(format!("Vector '{}' not found", name)))?;
+
+        if load_mmap_vec {
+            // 导入 numpy
+            let np = py.import("numpy")?;
+            
+            // 计算总元素数量
+            let total_elements: usize = vector_info.shape.iter().product();
+            
+            // 使用 numpy.memmap 创建内存映射数组
+            let array = np.call_method(
+                "memmap",
+                (
+                    &self.filepath,
+                    vector_info.dtype.as_str(),
+                    "r",  // 只读模式
+                    vector_info.offset,  // 文件偏移量
+                    total_elements,  // 总元素数量
+                ),
+                None
+            )?;
+            
+            // 重塑数组
+            Ok(array.call_method1("reshape", (vector_info.shape.clone(),))?.into_py(py))
+        } else {
+            // 使用常规方式读取向量数据
+            self.read_vec(name, py)
+        }
     }
 }
 

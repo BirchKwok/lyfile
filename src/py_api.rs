@@ -2,14 +2,10 @@
 use std::fs::File;
 use std::sync::{Arc, RwLock};
 use std::path::Path;
-use std::io::{Read, Seek, SeekFrom};
-use byteorder::{LittleEndian, ReadBytesExt};
 
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
 use arrow::pyarrow::IntoPyArrow;
-use arrow::record_batch::RecordBatch;
-use arrow::datatypes::Schema;
 use numpy::PyArray2;
 use pyo3::types::PyDict;
 
@@ -46,13 +42,14 @@ impl LyFile {
     ///     columns (Optional[Union[str, List[str]]]): 
     ///         For table data: The names of columns to read. If None, all columns are read.
     ///         For vector data: The name of the vector to read.
+    ///     load_mmap_vec (bool): Whether to use numpy's memmap to read vector data.
     ///
     /// Returns:
     ///     Union[pyarrow.Table, numpy.ndarray]: 
     ///         - If reading table columns: returns a pyarrow Table
     ///         - If reading a vector: returns a numpy array
-    #[pyo3(text_signature = "(self, columns=None)")]
-    fn read(&self, columns: Option<&PyAny>, py: Python) -> PyResult<PyObject> {
+    #[pyo3(signature = (columns=None, load_mmap_vec=true))]
+    fn read(&self, columns: Option<&PyAny>, load_mmap_vec: bool, py: Python) -> PyResult<PyObject> {
         // 检查文件是否存在
         if !Path::new(&self.filepath).exists() {
             return Err(PyValueError::new_err("File does not exist"));
@@ -110,17 +107,16 @@ impl LyFile {
 
         // 根据请求的列类型返回相应的数据
         if table_columns.is_empty() && vector_columns.len() == 1 && 
-           // 检查是否是单个字符串或只包含一个元素的列表
            (columns.map_or(false, |c| c.is_instance_of::<pyo3::types::PyString>()) || 
             (columns.map_or(false, |c| c.is_instance_of::<pyo3::types::PyList>()) && selected_columns.len() == 1)) {
             // 只读取单个向量列
-            self.read_vec(vector_columns[0].clone(), py)
+            self.read_vec_with_mmap(vector_columns[0].clone(), load_mmap_vec, py)
         } else if !table_columns.is_empty() && !vector_columns.is_empty() {
-            // 同时读取表格列和向量列
+            // 同时���取表格列和向量列
             let table = self.read_table_data(&table_columns, py)?;
             let vector_data = PyDict::new(py);
             for vec_name in vector_columns {
-                let vec_data = self.read_vec(vec_name.clone(), py)?;
+                let vec_data = self.read_vec_with_mmap(vec_name.clone(), load_mmap_vec, py)?;
                 vector_data.set_item(vec_name, vec_data)?;
             }
             Ok((table, vector_data).into_py(py))
@@ -131,7 +127,7 @@ impl LyFile {
             // 读取多个向量列
             let vector_data = PyDict::new(py);
             for vec_name in vector_columns {
-                let vec_data = self.read_vec(vec_name.clone(), py)?;
+                let vec_data = self.read_vec_with_mmap(vec_name.clone(), load_mmap_vec, py)?;
                 vector_data.set_item(vec_name, vec_data)?;
             }
             Ok(vector_data.into_py(py))
