@@ -25,12 +25,12 @@ use arrow::array::{Array, ListArray, Float64Array};
 use arrow::buffer::Buffer;
 use arrow::array::ArrayData;
 
-const CHUNK_MAX_ROWS: usize = 10000; // 每个chunk最大行数为1万行
+const CHUNK_MAX_ROWS: usize = 10000;
 
 pub const MAGIC_BYTES: &[u8] = b"LYFILE01";
 pub const VERSION: u32 = 1;
-pub const COMPRESSION_LEVEL: i32 = 1; // 压缩级别，1 为最快压缩
-pub const FILE_HEADER_SIZE: usize = 0x28; // 40 bytes
+pub const COMPRESSION_LEVEL: i32 = 1;
+pub const FILE_HEADER_SIZE: usize = 0x28;
 pub const CHUNK_MAGIC: [u8; 8] = *b"LYCHUNK0";
 pub const PAGE_MAGIC: [u8; 8] = *b"LYPAGE00";
 pub const FEATURE_FLAGS: u32 = 0;
@@ -78,11 +78,11 @@ impl SerializableSchema {
 }
 
 pub fn parse_datatype(type_str: &str) -> DataType {
-    // 处理 List 类型
+    // handle List type
     if type_str.starts_with("List(") {
-        // 提取内部类型
-        let inner_type_str = &type_str[5..type_str.len() - 1]; // 去掉 "List(" 和 ")"
-        // 解析内部的 Field
+        // extract inner type
+        let inner_type_str = &type_str[5..type_str.len() - 1]; // remove "List(" and ")"
+        // parse inner field
         let field_str = inner_type_str.trim_start_matches("Field { name: \"item\", data_type: ").trim_end_matches(", nullable: true, dict_id: 0, dict_is_ordered: false, metadata: {} }");
         let inner_data_type = parse_datatype(field_str);
         return DataType::List(Arc::new(Field::new("item", inner_data_type, true)));
@@ -131,7 +131,7 @@ pub struct ColumnInfo {
     pub name: String,
     pub offset: u64,
     pub size: u64,
-    pub compressed: bool, // 新增字段，标识该列是否压缩
+    pub compressed: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -146,8 +146,8 @@ pub struct VectorInfo {
     pub name: String,
     pub offset: u64,
     pub size: u64,
-    pub shape: Vec<usize>,  // [n, m] 或 [n, m, o]
-    pub dtype: String,      // 数据类型，如 "f32", "f64"
+    pub shape: Vec<usize>,  // [n, m] or [n, m, o]
+    pub dtype: String,      // data type, like "f32", "f64"
 }
 
 pub fn handle_io_error<T>(result: Result<T, io::Error>) -> PyResult<T> {
@@ -178,13 +178,13 @@ impl LyFile {
             fs::remove_file(&self.filepath)?;
         }
 
-        // 获取 record batches 时添加大小限制
+        // get record batches with size limit
         let record_batches = if data.getattr("__class__")?.getattr("__name__")?.extract::<String>()? == "Table" {
-            // 使用 to_batches 时指定最大行数
+            // specify max rows when using to_batches
             let batches = data.call_method1("to_batches", (PyDict::new(py).set_item("max_chunksize", CHUNK_MAX_ROWS)?,))?;
             batches.extract::<Vec<PyArrowType<RecordBatch>>>()?
         } else {
-            // 先转换为 PyArrow Table
+            // convert to PyArrow Table
             let table = if data.is_instance_of::<pyo3::types::PyDict>() {
                 let pa = PyModule::import(py, "pyarrow")?;
                 pa.getattr("Table")?.call_method1("from_pydict", (data,))?
@@ -193,22 +193,22 @@ impl LyFile {
                 pa.getattr("Table")?.call_method1("from_pandas", (data,))?
             };
             
-            // 使用指定的chunk大小获取batches
+            // get batches with specified chunk size
             let batches = table.call_method1("to_batches", (PyDict::new(py).set_item("max_chunksize", CHUNK_MAX_ROWS)?,))?;
             batches.extract::<Vec<PyArrowType<RecordBatch>>>()?
         };
 
-        // 处理 record batches
+        // handle empty record batches
         if record_batches.is_empty() {
             return Err(PyValueError::new_err("Empty table"));
         }
 
-        // 获取 schema
+        // get schema
         let schema = record_batches[0].0.schema();
         let schema_bytes = serde_json::to_vec(&SerializableSchema::from(schema.as_ref()))
             .map_err(|e| PyValueError::new_err(format!("Failed to serialize schema: {}", e)))?;
 
-        // 创建新文件
+        // create new file
         let mut file = OpenOptions::new()
             .read(true)
             .write(true)
@@ -216,10 +216,10 @@ impl LyFile {
             .truncate(true)
             .open(&self.filepath)?;
 
-        // 写入文件头
+        // write file header
         let schema_length = schema_bytes.len() as u32;
         let data_offset = FILE_HEADER_SIZE as u64 + schema_length as u64;
-        let index_offset = 0; // 暂时不使用索引
+        let index_offset = 0; // not used for now
         self.write_file_header(
             &mut file,
             data_offset,
@@ -229,24 +229,24 @@ impl LyFile {
             record_batches.len() as u32,
         )?;
 
-        // 写入 schema
+        // write schema
         file.write_all(&schema_bytes)?;
 
-        // 写入数据
+        // write data
         let mut current_offset = data_offset;
         let mut chunks = Vec::new();
 
-        // 将每个 batch 写入文件
+        // write each batch to file
         for batch in record_batches {
             let chunk_info = self.write_chunk(&mut file, &batch.0, &mut current_offset)?;
             chunks.push((chunk_info.offset, chunk_info));
         }
 
-        // 写入索引区域
+        // write index region
         let _index_start = current_offset;
         self.write_index_region(&mut file, &chunks)?;
 
-        // 更新元数据
+        // update metadata
         let metadata = Metadata {
             schema: SerializableSchema::from(schema.as_ref()),
             chunks: chunks.into_iter().map(|(_, info)| info).collect(),
@@ -257,7 +257,6 @@ impl LyFile {
             }),
         };
 
-        // 写入 footer
         self.write_footer(&mut file, &metadata)?;
 
         Ok(())
@@ -265,11 +264,9 @@ impl LyFile {
 
     pub fn append_table_data(&mut self, data: &PyAny, py: Python) -> PyResult<()> {
         if !Path::new(&self.filepath).exists() {
-            // 如果文件不存在，直接调用 write 方法
             return self.write_table_data(data, py);
         }
 
-        // 获取 RecordBatch
         let record_batch = {
             let table = if data.hasattr("__class__")? {
                 let class_name = data.getattr("__class__")?.getattr("__name__")?;
@@ -297,9 +294,7 @@ impl LyFile {
             batches[0].0.clone()
         };
 
-        // 放 GIL
         let (metadata_clone, _new_chunk_info) = py.allow_threads(|| -> PyResult<(Metadata, ChunkInfo)> {
-            // 打开文件进行读操
             let mut file = handle_io_error(
                 OpenOptions::new()
                     .read(true)
@@ -307,50 +302,49 @@ impl LyFile {
                     .open(&self.filepath)
             )?;
 
-            // 读取文��元数据
+            // read metadata
             let metadata = self.read_metadata(&mut file)?;
 
-            // 验证新数的 Schema 是否与文件中的一致
+            // validate new data schema
             let file_schema = metadata.schema.to_arrow_schema();
             if record_batch.schema().fields() != file_schema.fields() {
                 return Err(PyValueError::new_err("Schema of new data does not match the file schema"));
             }
 
-            // 定位 Footer 的始位，即 Footer 前面的偏移量
+            // locate footer start, which is the offset before footer
             let footer_offset = handle_io_error(file.seek(std::io::SeekFrom::End(-(8 + 4))))?;
             let metadata_length = file.read_u32::<LittleEndian>()?;
             let metadata_start = footer_offset - metadata_length as u64;
 
-            // 定位到数据的开始位置，准备追加新的 Chunk
+            // locate data start, prepare to append new chunk
             let new_chunk_offset = metadata_start;
 
-            // 将文件指针动到元数据的开始位置，准备写入新的 Chunk
+            // move file pointer to metadata start, prepare to write new chunk
             handle_io_error(file.seek(std::io::SeekFrom::Start(new_chunk_offset)))?;
 
             let mut current_offset = new_chunk_offset;
 
-            // 写入新的 Chunk
+            // write new chunk
             let chunk_info = self.write_chunk(&mut file, &record_batch, &mut current_offset)?;
 
-            // 更新元数据
+            // update metadata
             let mut new_metadata = metadata.clone();
             new_metadata.chunks.push(chunk_info.clone());
 
-            // 重新写入 Footer
             self.write_footer(&mut file, &new_metadata)?;
 
-            // 更新文件头部信息中的 Chunk 数量
+            // update chunk count in file header
             let num_chunks = new_metadata.chunks.len() as u32;
             handle_io_error(file.seek(std::io::SeekFrom::Start(0)))?;
             self.update_chunk_count_in_header(&mut file, num_chunks)?;
 
-            // 刷新文件
+            // flush file
             handle_io_error(file.flush())?;
 
             Ok((new_metadata, chunk_info))
         })?;
 
-        // 更新 self.chunks
+        // update self.chunks
         {
             let mut chunks_lock = self.chunks.write().unwrap();
             *chunks_lock = metadata_clone.chunks;
@@ -360,17 +354,17 @@ impl LyFile {
     }
 
     pub fn write_vec(&mut self, name: String, data: &PyAny, py: Python) -> PyResult<()> {
-        // 验证输入是否为 numpy array
+        // validate input is numpy array
         if !data.hasattr("__array_interface__")? {
             return Err(PyValueError::new_err("Input must be a numpy array"));
         }
 
-        // 获取数组接口和形状
+        // get array interface and shape
         let array_interface = data.getattr("__array_interface__")?;
         let shape: Vec<usize> = array_interface.get_item("shape")?.extract()?;
         let typestr: String = array_interface.get_item("typestr")?.extract()?;
         
-        // 获取数据指针和长度
+        // get data pointer and length
         let data_ptr = array_interface.get_item("data")?
             .extract::<(usize, bool)>()?;
         let ptr = data_ptr.0 as *const u8;
@@ -380,22 +374,22 @@ impl LyFile {
             _ => return Err(PyValueError::new_err(format!("Unsupported dtype: {}", typestr))),
         };
 
-        // 验证维度
+        // validate dimension
         if shape.len() < 2 || shape.len() > 3 {
             return Err(PyValueError::new_err("Vector must be 2D or 3D"));
         }
 
-        // 读取现有元数据（如果文件存在）
+        // read existing metadata (if file exists)
         let n_rows: usize = if Path::new(&self.filepath).exists() {
             let mut file = File::open(&self.filepath)?;
             let metadata = self.read_metadata(&mut file)?;
             metadata.chunks.iter().map(|chunk| chunk.rows).sum()
         } else {
-            // 如果文件不存在，从 chunks 中获取行数
+            // if file does not exist, get row count from chunks
             self.chunks.read().unwrap().iter().map(|chunk| chunk.rows).sum()
         };
 
-        // 验证行数是否匹配
+        // validate row count
         if n_rows > 0 && shape[0] != n_rows {
             return Err(PyValueError::new_err(
                 format!("First dimension must match number of rows (expected {}, got {})", 
@@ -403,7 +397,7 @@ impl LyFile {
             ));
         }
 
-        // 使用 Python GIL 护的方式读取数
+        // read data using Python GIL protected way
         let data_vec = unsafe {
             std::slice::from_raw_parts(ptr, total_bytes).to_vec()
         };
@@ -414,10 +408,10 @@ impl LyFile {
                 .write(true)
                 .open(&self.filepath)?;
 
-            // 读取现有元数据
+            // read existing metadata
             let mut metadata = self.read_metadata(&mut file)?;
 
-            // 如果是第一个向量，创建向量区域
+            // if it is the first vector, create vector region
             if metadata.vec_region.is_none() {
                 file.seek(std::io::SeekFrom::End(-12))?;
                 let footer_pos = file.stream_position()?;
@@ -428,22 +422,22 @@ impl LyFile {
                 });
             }
 
-            // 获取向量写入位置
+            // get vector write position
             let vec_region = metadata.vec_region.as_mut().unwrap();
             let vector_offset = vec_region.offset + vec_region.size;
 
-            // 预分配文件空间
+            // preallocate file space
             file.set_len(vector_offset + total_bytes as u64)?;
             file.seek(std::io::SeekFrom::Start(vector_offset))?;
             
-            // 使用作用域来确保 writer 被正确释放
+            // ensure writer is correctly released
             {
                 let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, &mut file);
                 writer.write_all(&data_vec)?;
                 writer.flush()?;
             }
 
-            // 更新向量信息
+            // update vector info
             vec_region.vectors.push(VectorInfo {
                 name,
                 offset: vector_offset,
@@ -453,11 +447,11 @@ impl LyFile {
             });
             vec_region.size += total_bytes as u64;
 
-            // 重写 footer
+            // rewrite footer
             let new_pos = vector_offset + total_bytes as u64;
             file.seek(std::io::SeekFrom::Start(new_pos))?;
             
-            // 序列化写入元数据
+            // serialize and write metadata
             let metadata_bytes = serde_json::to_vec(&metadata)
                 .map_err(|e| PyValueError::new_err(format!("Failed to serialize metadata: {}", e)))?;
             let metadata_length = metadata_bytes.len() as u32;
@@ -481,7 +475,7 @@ impl LyFile {
             .map(|k| k.extract::<String>())
             .collect::<Result<_, _>>()?;
 
-        // 读取现有向量信息
+        // read existing vector info
         let mut file = File::open(&self.filepath)?;
         let mut metadata = self.read_metadata(&mut file)?;
 
@@ -489,7 +483,7 @@ impl LyFile {
             .as_mut()
             .ok_or_else(|| PyValueError::new_err("No vector data in file"))?;
 
-        // 验证向量名称是否匹配
+        // validate vector names
         if vector_names.len() != vec_region.vectors.len() {
             return Err(PyValueError::new_err("Number of vectors does not match"));
         }
@@ -500,28 +494,28 @@ impl LyFile {
             }
         }
 
-        // 追加数据
+        // append data
         for vector_info in &mut vec_region.vectors {
             let array = data_dict.get_item(&vector_info.name).unwrap();
             if !array.hasattr("__array_interface__")? {
                 return Err(PyValueError::new_err("All values must be numpy arrays"));
             }
 
-            // 获取数组接口和形状信息
+            // get array interface and shape info
             let array_interface = array.getattr("__array_interface__")?;
             let shape: Vec<usize> = array_interface.get_item("shape")?.extract()?;
             let typestr: String = array_interface.get_item("typestr")?.extract()?;
 
-            // 证数据类型是否匹配
+            // validate data type
             if typestr != vector_info.dtype {
                 return Err(PyValueError::new_err(format!("Data type mismatch for vector '{}'", vector_info.name)));
             }
 
-            // 使用 numpy 的 tofile 方法直接写入临时文件
+            // use numpy's tofile method to write to temp file
             let temp_path = format!("{}.temp.vec", self.filepath);
             array.call_method1("tofile", (temp_path.as_str(),))?;
 
-            // 读取临时文件内容
+            // read temp file content
             py.allow_threads(|| -> PyResult<()> {
                 let mut temp_file = File::open(&temp_path)?;
                 let temp_metadata = temp_file.metadata()?;
@@ -529,22 +523,22 @@ impl LyFile {
                 let mut data_vec = vec![0u8; data_len];
                 temp_file.read_exact(&mut data_vec)?;
 
-                // 删除临时文件
+                // delete temp file
                 std::fs::remove_file(&temp_path)?;
 
-                // 打开目标文件
+                // open target file
                 let file = OpenOptions::new()
                     .read(true)
                     .write(true)
                     .open(&self.filepath)?;
 
-                // 获取向量写入位置
+                // get vector write position
                 let vector_offset = vector_info.offset + vector_info.size;
 
-                // 预分配文件间
+                // preallocate file space
                 file.set_len(vector_offset + data_len as u64)?;
 
-                // 使用内存映射行快速写入
+                // use memory mapping to write data quickly
                 let mut mmap = unsafe {
                     MmapOptions::new()
                         .offset(vector_offset)
@@ -552,23 +546,23 @@ impl LyFile {
                         .map_mut(&file)?
                 };
 
-                // 一次性写入所有数据
+                // write all data at once
                 mmap.copy_from_slice(&data_vec);
                 mmap.flush()?;
 
-                // 更新向量信息
+                // update vector info
                 vector_info.size += data_len as u64;
-                vector_info.shape[0] += shape[0]; // 假设追加行数
+                vector_info.shape[0] += shape[0]; // assume append rows
 
                 Ok(())
             })?;
         }
 
-        // 重写 footer
+        // rewrite footer
         let new_pos = vec_region.offset + vec_region.size;
         file.seek(std::io::SeekFrom::Start(new_pos))?;
         
-        // 序列化并写入元数据
+        // serialize and write metadata
         let metadata_bytes = serde_json::to_vec(&metadata)
             .map_err(|e| PyValueError::new_err(format!("Failed to serialize metadata: {}", e)))?;
         let metadata_length = metadata_bytes.len() as u32;
@@ -595,25 +589,25 @@ impl LyFile {
         // MAGIC (8 bytes)
         buffer.extend_from_slice(MAGIC_BYTES);
 
-        // 版本号 (4 bytes)
+        // version (4 bytes)
         buffer.write_u32::<LittleEndian>(VERSION)?;
 
-        // 数据偏移 (8 bytes)
+        // data offset (8 bytes)
         buffer.write_u64::<LittleEndian>(data_offset)?;
 
-        // 索引移 (8 bytes)
+        // index offset (8 bytes)
         buffer.write_u64::<LittleEndian>(index_offset)?;
 
-        // Schema 度 (4 bytes)
+        // schema length (4 bytes)
         buffer.write_u32::<LittleEndian>(schema_length)?;
 
-        // 特征标记 (4 bytes)
+        // feature flags (4 bytes)
         buffer.write_u32::<LittleEndian>(feature_flags)?;
 
-        // Chunk 数量 (4 bytes)
+        // chunk count (4 bytes)
         buffer.write_u32::<LittleEndian>(num_chunks)?;
 
-        // 写入文件头
+        // write file header
         handle_io_error(file.write_all(&buffer))?;
 
         Ok(())
@@ -627,23 +621,23 @@ impl LyFile {
     ) -> PyResult<ChunkInfo> {
         let chunk_start = *current_offset;
         
-        // 写入 CHUNK_MAGIC
+        // write CHUNK_MAGIC
         handle_io_error(file.write_all(&CHUNK_MAGIC))?;
         *current_offset += CHUNK_MAGIC.len() as u64;
 
-        // 占位 Chunk 大小
+        // reserve chunk size
         let size_position = *current_offset;
         file.write_u32::<LittleEndian>(0)?;
         *current_offset += 4;
 
-        // 写入行数和列数
+        // write row count and column count
         let num_rows = record_batch.num_rows() as u32;
         let num_columns = record_batch.num_columns() as u32;
         file.write_u32::<LittleEndian>(num_rows)?;
         file.write_u32::<LittleEndian>(num_columns)?;
         *current_offset += 8;
 
-        // 处每一列
+        // process each column
         let mut column_infos = Vec::with_capacity(num_columns as usize);
         
         for i in 0..num_columns as usize {
@@ -653,13 +647,13 @@ impl LyFile {
             let column_name = field.name().to_string();
             let column_offset = *current_offset;
 
-            // 写入页面魔数
+            // write page magic
             handle_io_error(file.write_all(&PAGE_MAGIC))?;
             *current_offset += PAGE_MAGIC.len() as u64;
 
-            // 序列化列数据
+            // serialize column data
             let buffer = if let DataType::List(_) = field.data_type() {
-                // List类型不压缩，直接转换为字节
+                // List type not compressed, convert to bytes directly
                 let list_array = column.as_any()
                     .downcast_ref::<ListArray>()
                     .ok_or_else(|| PyValueError::new_err("Failed to downcast to ListArray"))?;
@@ -676,7 +670,7 @@ impl LyFile {
                     ).to_vec()
                 }
             } else {
-                // 其他类型使用Arrow IPC序列化
+                // other types use Arrow IPC serialization
                 let mut buffer = Vec::new();
                 let schema = Schema::new(vec![field.clone()]);
                 let single_column_batch = RecordBatch::try_new(
@@ -696,7 +690,7 @@ impl LyFile {
                 buffer
             };
 
-            // 判断是否需要压缩
+            // determine if compression is needed
             let should_compress = is_compressible(field.data_type()) && buffer.len() > 1024;
             let (final_buffer, is_compressed) = if should_compress {
                 (compress_data(&buffer)?, true)
@@ -704,13 +698,13 @@ impl LyFile {
                 (buffer, false)
             };
 
-            // 写入页面元数据
-            file.write_u32::<LittleEndian>(final_buffer.len() as u32)?;  // 数据大小
-            file.write_u32::<LittleEndian>(num_rows)?;  // 行
-            file.write_u8(is_compressed as u8)?;  // 压缩标记
+            // write page metadata
+            file.write_u32::<LittleEndian>(final_buffer.len() as u32)?;  // data size
+            file.write_u32::<LittleEndian>(num_rows)?;  // row count
+            file.write_u8(is_compressed as u8)?;  // compression flag
             *current_offset += 9;
 
-            // 写入数据
+            // write data
             handle_io_error(file.write_all(&final_buffer))?;
             *current_offset += final_buffer.len() as u64;
 
@@ -722,7 +716,7 @@ impl LyFile {
             });
         }
 
-        // 更新 chunk 大小
+        // update chunk size
         let chunk_end = *current_offset;
         let chunk_size = (chunk_end - size_position - 4) as u32;
         handle_io_error(file.seek(SeekFrom::Start(size_position)))?;
@@ -742,24 +736,24 @@ impl LyFile {
         file: &mut File,
         chunks: &Vec<(u64, ChunkInfo)>,
     ) -> PyResult<()> {
-        // 写 Chunk 数量
+        // write chunk count
         let num_chunks = chunks.len() as u32;
         file.write_u32::<LittleEndian>(num_chunks)?;
 
-        // 写入每 Chunk 的索信息
+        // write each chunk's index info
         for (offset, _chunk_info) in chunks {
-            // 写入 Chunk 偏移
+            // write chunk offset
             file.write_u64::<LittleEndian>(*offset)?;
-            // 可根据需要写入其他索引信息
+            // write other index info if needed
         }
 
         Ok(())
     }
 
-    // 添加辅助方法，用于读取元数据
+    // add helper method for reading metadata
     pub fn read_metadata(&self, file: &mut File) -> PyResult<Metadata> {
-        // 读取 Footer 中元数据
-        // 读取 MAGIC_BYTES（最后8字节）
+        // read metadata from footer
+        // read MAGIC_BYTES (last 8 bytes)
         handle_io_error(file.seek(std::io::SeekFrom::End(-8)))?;
         let mut footer_magic = [0u8; 8];
         handle_io_error(file.read_exact(&mut footer_magic))?;
@@ -767,14 +761,14 @@ impl LyFile {
             return Err(PyValueError::new_err("Invalid footer magic"));
         }
 
-        // 读取元数据长度（倒第12到第9节）
+        // read metadata length (from 12th to 9th byte from the end)
         handle_io_error(file.seek(std::io::SeekFrom::End(-12)))?;
         let metadata_length = file.read_u32::<LittleEndian>()?;
 
-        // 算元数据的起始偏移
+        // calculate metadata start offset
         handle_io_error(file.seek(std::io::SeekFrom::End(-(12 + metadata_length as i64))))?;
 
-        // 读元数据
+        // read metadata
         let mut metadata_bytes = vec![0u8; metadata_length as usize];
         handle_io_error(file.read_exact(&mut metadata_bytes))?;
 
@@ -782,9 +776,9 @@ impl LyFile {
         Ok(metadata)
     }
 
-    // 添加辅助，于更新文件头部的 Chunk 数量
+    // add helper method for updating chunk count in header
     pub fn update_chunk_count_in_header(&self, file: &mut File, num_chunks: u32) -> PyResult<()> {
-        // 文头部 Chunk 数量的偏移量为：
+        // the offset of chunk count in the header is:
         // MAGIC (8 bytes) + VERSION (4 bytes) + DATA_OFFSET (8 bytes) + INDEX_OFFSET (8 bytes) + SCHEMA_LENGTH (4 bytes) + FEATURE_FLAGS (4 bytes)
         let chunk_count_offset = 8 + 4 + 8 + 8 + 4 + 4;
         handle_io_error(file.seek(std::io::SeekFrom::Start(chunk_count_offset as u64)))?;
@@ -793,24 +787,24 @@ impl LyFile {
     }
 
     pub fn write_footer(&self, file: &mut File, metadata: &Metadata) -> PyResult<()> {
-        // 序列化元据
+        // serialize metadata
         let metadata_bytes = handle_serde_error(serde_json::to_vec(metadata))?;
         let metadata_length = metadata_bytes.len() as u32;
 
-        // 写入元数据
+        // write metadata
         handle_io_error(file.write_all(&metadata_bytes))?;
 
-        // 写入元数据度
+        // write metadata length
         file.write_u32::<LittleEndian>(metadata_length)?;
 
-        // 写入 MAGIC
+        // write MAGIC_BYTES
         handle_io_error(file.write_all(MAGIC_BYTES))?;
 
         Ok(())
     }
 
     pub fn divide_into_pages(&self, array: &Arc<dyn arrow::array::Array>) -> PyResult<Vec<RecordBatch>> {
-        // 这里简单整个列作为一个 Page，可根据需要分
+        // here simply treat the whole column as a page, can be divided according to needs
         let schema = Schema::new(vec![Field::new("column", array.data_type().clone(), true)]);
         let batch = RecordBatch::try_new(Arc::new(schema), vec![array.clone()])
             .map_err(|e| PyValueError::new_err(format!("Arrow error: {}", e)))?;
@@ -849,7 +843,7 @@ impl LyFile {
 
             handle_io_error(file.seek(SeekFrom::Start(col_info.offset)))?;
 
-            // 读取页面魔数
+            // read page magic
             let mut magic = [0u8; 8];
             handle_io_error(file.read_exact(&mut magic))?;
             if magic != PAGE_MAGIC {
@@ -859,30 +853,30 @@ impl LyFile {
                 )));
             }
 
-            // 读取页面元数据
+            // read page metadata
             let page_size = file.read_u32::<LittleEndian>()?;
             let num_rows = file.read_u32::<LittleEndian>()?;
             let compressed = file.read_u8()? == 1;
 
-            // 读取数据
+            // read data
             let mut data = vec![0u8; page_size as usize];
             handle_io_error(file.read_exact(&mut data))?;
 
-            // 解压缩（如果需要）
+            // decompress if needed
             let final_data = if compressed {
                 decompress_data(&data)?
             } else {
                 data
             };
 
-            // 获取字段信息
+            // get field info
             let field = schema.field_with_name(col_name)
                 .map_err(convert_arrow_error)?
                 .clone();
 
-            // 根据数据类型选择同的反序列化方
+            // choose different deserialization method according to data type
             let array = if let DataType::List(field_ref) = field.data_type() {
-                // List类型（向量数据）直接从字节构建数组
+                // List type (vector data) directly build array from bytes
                 let values = bytemuck::cast_slice::<u8, f64>(&final_data);
                 let vec_dim = values.len() / num_rows as usize;
                 
@@ -906,7 +900,7 @@ impl LyFile {
                 
                 Arc::new(ListArray::from(list_data)) as Arc<dyn Array>
             } else {
-                // 其他类使用Arrow IPC反序列
+                // other types use Arrow IPC deserialization
                 let cursor = std::io::Cursor::new(final_data);
                 let mut arrow_reader = arrow::ipc::reader::FileReader::try_new(
                     cursor,
@@ -941,47 +935,47 @@ impl LyFile {
             .find(|v| v.name == name)
             .ok_or_else(|| PyValueError::new_err(format!("Vector '{}' not found", name)))?;
 
-        // 读取量数据
+        // read vector data
         file.seek(std::io::SeekFrom::Start(vector_info.offset))?;
         let mut data = vec![0u8; vector_info.size as usize];
         file.read_exact(&mut data)?;
 
-        // 导入 numpy
+        // import numpy
         let np = py.import("numpy")?;
         
-        // 建 numpy 数
+        // build numpy array
         let array = np.call_method1(
             "frombuffer",
             (data.as_slice(), vector_info.dtype.as_str()),
         )?;
 
-        // 重塑数组
+        // reshape array
         Ok(array.call_method1("reshape", (vector_info.shape.clone(),))?.into_py(py))
     }
 
     pub fn read_table_data(&self, selected_columns: &[String], py: Python) -> PyResult<PyObject> {
-        // 检查文件是否存在
+        // check if file exists
         if !Path::new(&self.filepath).exists() {
             return Err(PyValueError::new_err("File does not exist"));
         }
 
-        // 读取文件头元数据
+        // read file header metadata
         let mut file = File::open(&self.filepath)?;
         let _metadata = self.read_metadata(&mut file)?;
 
-        // 获取 schema
+        // get schema
         let schema = self.schema.read().unwrap();
         let schema = schema.as_ref()
             .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
 
-        // 如果有指定列，使用所有列
+        // if specified columns, use all columns
         let columns_to_read: Vec<String> = if selected_columns.is_empty() {
             schema.fields()
                 .iter()
                 .map(|f| f.name().clone())
                 .collect()
         } else {
-            // 验证所有请求的都存在
+            // check if all requested columns exist
             for col in selected_columns {
                 if schema.field_with_name(col).is_err() {
                     return Err(PyValueError::new_err(format!("Column '{}' not found in schema", col)));
@@ -990,7 +984,7 @@ impl LyFile {
             selected_columns.to_vec()
         };
 
-        // 读取所有 chunks
+        // read all chunks
         let chunks = self.chunks.read().unwrap();
         let mut record_batches = Vec::new();
 
@@ -1004,7 +998,7 @@ impl LyFile {
             record_batches.push(batch);
         }
 
-        // 如果没有数据，返回空表
+        // if no data, return empty table
         if record_batches.is_empty() {
             let empty_schema = Schema::new(
                 columns_to_read.iter()
@@ -1016,13 +1010,13 @@ impl LyFile {
             record_batches.push(empty_batch);
         }
 
-        // 使用 concat_batches 并转换为 PyArrow
+        // use concat_batches and convert to PyArrow
         let table = arrow::compute::concat_batches(
             &record_batches[0].schema(),
             &record_batches,
         ).map_err(|e| PyValueError::new_err(format!("Failed to concatenate record batches: {}", e)))?;
 
-        // 使用 into_pyarrow
+        // use concat_batches and convert to PyArrow
         Ok(table.into_pyarrow(py)?.into_py(py))
     }
 
@@ -1038,35 +1032,35 @@ impl LyFile {
             .ok_or_else(|| PyValueError::new_err(format!("Vector '{}' not found", name)))?;
 
         if load_mmap_vec {
-            // 导入 numpy
+            // import numpy
             let np = py.import("numpy")?;
             
-            // 计算总元素数量
+            // calculate total number of elements
             let total_elements: usize = vector_info.shape.iter().product();
             
-            // 使用 numpy.memmap 创建内存映射数组
+            // use numpy.memmap to create memory-mapped array
             let array = np.call_method(
                 "memmap",
                 (
                     &self.filepath,
                     vector_info.dtype.as_str(),
-                    "r",  // 只读模式
-                    vector_info.offset,  // 文件偏移量
-                    total_elements,  // 总元素数量
+                    "r",  // read-only mode
+                    vector_info.offset,  // file offset
+                    total_elements,  // total number of elements
                 ),
                 None
             )?;
             
-            // 重塑数组
+            // reshape array
             Ok(array.call_method1("reshape", (vector_info.shape.clone(),))?.into_py(py))
         } else {
-            // 使用常规方式读取向量数据
+            // read vector data in regular way
             self.read_vec(name, py)
         }
     }
 }
 
-// 辅助函数：判断数据否需要压缩
+// helper function: determine if data needs compression
 pub fn is_compressible(data_type: &DataType) -> bool {
     match data_type {
         DataType::Utf8
@@ -1084,7 +1078,7 @@ pub fn is_compressible(data_type: &DataType) -> bool {
     }
 }
 
-// 辅助函数：压缩数据
+// helper function: compress data
 pub fn compress_data(data: &[u8]) -> PyResult<Vec<u8>> {
     let mut encoder = ZstdEncoder::new(Vec::new(), COMPRESSION_LEVEL)
         .map_err(|e| PyValueError::new_err(format!("Failed to create zstd encoder: {}", e)))?;
@@ -1096,7 +1090,7 @@ pub fn compress_data(data: &[u8]) -> PyResult<Vec<u8>> {
         .map_err(|e| PyValueError::new_err(format!("Failed to finish compression: {}", e)))
 }
 
-// 辅助函：解压缩数据
+// helper function: decompress data
 pub fn decompress_data(data: &[u8]) -> PyResult<Vec<u8>> {
     let mut decoder = ZstdDecoder::new(data)
         .map_err(|e| PyValueError::new_err(format!("Failed to create zstd decoder: {}", e)))?;
@@ -1115,8 +1109,7 @@ impl Drop for LyFile {
     }
 }
 
-// 添加 Arrow 错误转换函数
+// add Arrow error conversion function
 fn convert_arrow_error(err: ArrowError) -> PyErr {
     PyValueError::new_err(format!("Arrow error: {}", err))
 }
-

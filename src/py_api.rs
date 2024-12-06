@@ -50,29 +50,29 @@ impl LyFile {
     ///         - If reading a vector: returns a numpy array
     #[pyo3(signature = (columns=None, load_mmap_vec=true))]
     fn read(&self, columns: Option<&PyAny>, load_mmap_vec: bool, py: Python) -> PyResult<PyObject> {
-        // 检查文件是否存在
+        // check if file exists
         if !Path::new(&self.filepath).exists() {
             return Err(PyValueError::new_err("File does not exist"));
         }
 
-        // 读取元数据
+        // read metadata
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
 
-        // 初始化 schema
+        // initialize schema
         let schema = Arc::new(metadata.schema.to_arrow_schema());
         {
             let mut schema_lock = self.schema.write().unwrap();
             *schema_lock = Some(schema.clone());
         }
 
-        // 更新 chunks
+        // update chunks
         {
             let mut chunks_lock = self.chunks.write().unwrap();
             *chunks_lock = metadata.chunks.clone();
         }
 
-        // 处理列选择
+        // handle column selection
         let selected_columns = if let Some(cols) = columns {
             if cols.is_instance_of::<pyo3::types::PyString>() {
                 vec![cols.extract::<String>()?]
@@ -84,14 +84,14 @@ impl LyFile {
                 ));
             }
         } else {
-            // 如果没有指定列，返回所有表格列
+            // if no columns specified, return all table columns
             schema.fields()
                 .iter()
                 .map(|f| f.name().clone())
                 .collect()
         };
 
-        // 分类列
+        // classify columns
         let mut table_columns = Vec::new();
         let mut vector_columns = Vec::new();
         
@@ -105,14 +105,14 @@ impl LyFile {
             }
         }
 
-        // 根据请求的列类型返回相应的数据
+        // return data based on requested column type
         if table_columns.is_empty() && vector_columns.len() == 1 && 
            (columns.map_or(false, |c| c.is_instance_of::<pyo3::types::PyString>()) || 
             (columns.map_or(false, |c| c.is_instance_of::<pyo3::types::PyList>()) && selected_columns.len() == 1)) {
-            // 只读取单个向量列
+            // read single vector column
             self.read_vec_with_mmap(vector_columns[0].clone(), load_mmap_vec, py)
         } else if !table_columns.is_empty() && !vector_columns.is_empty() {
-            // 同时���取表格列和向量列
+            // read both table and vector columns
             let table = self.read_table_data(&table_columns, py)?;
             let vector_data = PyDict::new(py);
             for vec_name in vector_columns {
@@ -121,10 +121,10 @@ impl LyFile {
             }
             Ok((table, vector_data).into_py(py))
         } else if !table_columns.is_empty() {
-            // 只读取表格列
+            // read table columns
             self.read_table_data(&table_columns, py)
         } else if !vector_columns.is_empty() {
-            // 读取多个向量列
+            // read multiple vector columns
             let vector_data = PyDict::new(py);
             for vec_name in vector_columns {
                 let vec_data = self.read_vec_with_mmap(vec_name.clone(), load_mmap_vec, py)?;
@@ -132,7 +132,7 @@ impl LyFile {
             }
             Ok(vector_data.into_py(py))
         } else {
-            // 如果没有指定列，返回所有表格列
+            // if no columns specified, return all table columns
             self.read_table_data(&schema.fields().iter().map(|f| f.name().clone()).collect::<Vec<_>>(), py)
         }
     }
@@ -159,7 +159,7 @@ impl LyFile {
             return Err(PyValueError::new_err("Both tdata and vdata cannot be None"));
         }
 
-        // 写入表格数据
+        // write table data
         if let Some(data) = tdata {
             let table = if data.hasattr("__class__")? {
                 let class_name = data.getattr("__class__")?.getattr("__name__")?.extract::<String>()?;
@@ -173,7 +173,7 @@ impl LyFile {
                         pa.getattr("Table")?.call_method1("from_pydict", (data,))?
                     },
                     "Table" => {
-                        // 直接使用 PyArrow Table，不需要转换
+                        // directly use PyArrow Table, no conversion needed
                         data
                     },
                     _ => return Err(PyValueError::new_err(format!("Unsupported input type: {}", class_name))),
@@ -185,7 +185,7 @@ impl LyFile {
             self.write_table_data(table, py)?;
         }
 
-        // 写入向量数据
+        // write vector data
         if let Some(data) = vdata {
             if !data.is_instance_of::<pyo3::types::PyDict>() {
                 return Err(PyValueError::new_err("vdata must be a dictionary"));
@@ -216,17 +216,17 @@ impl LyFile {
             return Err(PyValueError::new_err("Both tdata and vdata cannot be None"));
         }
 
-        // 如果文件不存在调用 write
+        // if file doesn't exist, call write
         if !Path::new(&self.filepath).exists() {
             return self.write(tdata, vdata, py);
         }
 
-        // 追加表格数据
+        // append table data
         if let Some(data) = tdata {
             self.append_table_data(data, py)?;
         }
 
-        // 追加向量数据
+        // append vector data
         if let Some(data) = vdata {
             if !data.is_instance_of::<pyo3::types::PyDict>() {
                 return Err(PyValueError::new_err("vdata must be a dictionary"));
@@ -304,10 +304,9 @@ impl LyFile {
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
         
-        // 创建一个 Python 字典
         let dict = pyo3::types::PyDict::new(py);
         
-        // 添加常规列
+        // add regular columns
         for field in metadata.schema.fields.iter() {
             dict.set_item(
                 &field.name,
@@ -315,7 +314,7 @@ impl LyFile {
             )?;
         }
         
-        // 添加向量列
+        // add vector columns
         if let Some(vec_region) = metadata.vec_region {
             for vector in vec_region.vectors {
                 dict.set_item(
@@ -328,17 +327,17 @@ impl LyFile {
         Ok(dict.into())
     }
 
-    /// 在指定的向量列中搜索最近邻
+    /// Searches for nearest neighbors in the specified vector column.
     ///
     /// Args:
-    ///     vector_name (str): 要搜索的向量列名
-    ///     query_vectors (numpy.ndarray): 查询向，shape为(n_queries, dim)
-    ///     top_k (int): 返回的最近邻数量
-    ///     metric (str): 距离度量方式，可选 "l2", "ip" (inner product), "cosine"
+    ///     vector_name (str): The name of the vector column to search.
+    ///     query_vectors (numpy.ndarray): Query vectors, shape is (n_queries, dim)
+    ///     top_k (int): Number of nearest neighbors to return
+    ///     metric (str): Distance metric, supported metrics are "l2", "ip" (inner product), "cosine"
     ///
     /// Returns:
     ///     Tuple[numpy.ndarray, numpy.ndarray]: (indices, distances)
-    ///     indices的shape为(n_queries, top_k)，distances的shape为(n_queries, top_k)
+    ///     indices shape is (n_queries, top_k), distances shape is (n_queries, top_k)
     #[pyo3(signature = (vector_name, query_vectors, top_k, metric="l2"))]
     fn search_vector(
         &self,
@@ -355,14 +354,14 @@ impl LyFile {
         let binding = self.read_vec(vector_name, py)?;
         let base_array = binding.extract::<&PyAny>(py)?;
         
-        // 获取数据类型字符串并转换为小写以便统一比较
+        // get data type string and convert to lowercase for uniform comparison
         let dtype_str = base_array.getattr("dtype")?.str()?.to_string().to_lowercase();
         
-        // 更新类型判断逻辑
+        // update type determination logic
         let use_f32 = if dtype_str.contains("float32") || dtype_str.contains("f4") || dtype_str.contains("<f4") {
             true
         } else if dtype_str.contains("float64") || dtype_str.contains("f8") || dtype_str.contains("<f8") {
-            // 删除未使用的 np 变量
+            // delete unused np variable
             let max_val: f64 = base_array.call_method0("max")?.extract()?;
             let min_val: f64 = base_array.call_method0("min")?.extract()?;
             max_val <= f32::MAX as f64 && min_val >= f32::MIN as f64
@@ -371,7 +370,7 @@ impl LyFile {
         };
     
         if use_f32 {
-            // f32 计算路径
+            // f32 calculation path
             let base_vectors = if dtype_str.contains("float32") || dtype_str.contains("f4") {
                 base_array.extract::<&PyArray2<f32>>()?
             } else {
@@ -388,7 +387,7 @@ impl LyFile {
     
             compute_distances_f32(py, query_array.readonly(), base_vectors.readonly(), top_k, metric)
         } else {
-            // f64 计算路径
+            // f64 calculation path
             let base_vectors = base_array.extract::<&PyArray2<f64>>()?;
             let query_array = if query_vectors.getattr("dtype")?.str()?.to_string().to_lowercase().contains("float64") {
                 query_vectors.extract::<&PyArray2<f64>>()?
@@ -397,7 +396,7 @@ impl LyFile {
                 array_f64.extract::<&PyArray2<f64>>()?
             };
     
-            // 计算结果后转换为 f32
+            // calculate results and convert to f32
             let (indices, distances) = compute_distances_f64(py, query_array.readonly(), base_vectors.readonly(), top_k, metric)?;
             let distances_f32 = distances.as_ref(py).call_method1("astype", ("float32",))?;
             Ok((indices, distances_f32.extract()?))
@@ -405,16 +404,16 @@ impl LyFile {
     }
 
     pub fn read_columns(&self, columns: Vec<String>, py: Python) -> PyResult<PyObject> {
-        // 检查文件是否存在
+        // check if file exists
         if !Path::new(&self.filepath).exists() {
             return Err(PyValueError::new_err("File does not exist"));
         }
 
-        // 打开文件并读取 schema
+        // open file and read schema
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
 
-        // 初始化 schema（如果还没有初始化）
+        // initialize schema (if not already initialized)
         {
             let mut schema_lock = self.schema.write().unwrap();
             if schema_lock.is_none() {
@@ -422,7 +421,7 @@ impl LyFile {
             }
         }
 
-        // 更 chunks（如果需要）
+        // update chunks (if needed)
         {
             let mut chunks_lock = self.chunks.write().unwrap();
             if chunks_lock.is_empty() {
@@ -430,35 +429,35 @@ impl LyFile {
             }
         }
 
-        // 读取指定的列
+        // read specified columns
         self.read_table_data(&columns, py)
     }
 
     pub fn get_schema(&self, py: Python) -> PyResult<PyObject> {
-        // 检查文件是否存在
+        // check if file exists
         if !Path::new(&self.filepath).exists() {
             return Err(PyValueError::new_err("File does not exist"));
         }
 
-        // 如果 schema 已经加载，直接返回
+        // if schema is already loaded, return it
         if let Some(schema) = self.schema.read().unwrap().as_ref() {
-            // 从 Arc<Schema> 取引用，然后克隆内部的 Schema
+            // get reference from Arc<Schema> and clone internal Schema
             let schema_clone = (**schema).clone();
             return Ok(schema_clone.into_pyarrow(py)?.into_py(py));
         }
 
-        // 否则从文件读取
+        // otherwise, read from file
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
         let schema = Arc::new(metadata.schema.to_arrow_schema());
 
-        // 更新缓存的 schema
+        // update cached schema
         {
             let mut schema_lock = self.schema.write().unwrap();
             *schema_lock = Some(schema.clone());
         }
 
-        // 克隆内部的 Schema 并转换为 PyArrow
+        // clone internal Schema and convert to PyArrow
         let schema_clone = (*schema).clone();
         Ok(schema_clone.into_pyarrow(py)?.into_py(py))
     }

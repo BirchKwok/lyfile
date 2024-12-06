@@ -8,23 +8,23 @@ use numpy::{PyArray2, PyReadonlyArray2, IntoPyArray};
 use ndarray::{Array2, s, ArrayView1, parallel::prelude::*,ArrayBase, ViewRepr, Dim};
 use rayon::prelude::*;
 
-// 添加常量定义
-const BATCH_SIZE: usize = 1024;  // 批处理大小
-const MIN_PARALLEL_SIZE: usize = 1000;  // 最小并行处理阈值
+// add constant definitions
+const BATCH_SIZE: usize = 1024;  // batch size
+const MIN_PARALLEL_SIZE: usize = 1000;  // minimum parallel processing threshold
 
-// 优化 DistanceItem 结构体的内存布局
+// optimize DistanceItem structure memory layout
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[repr(C)]
 struct DistanceItem {
-    distance: f32,  // 把 distance 放在前面以优化内存对齐
+    distance: f32,  // put distance in front to optimize memory alignment
     index: i32,
 }
 
-// 为最小堆实现 Ord
+// implement Ord for min heap
 impl Ord for DistanceItem {
     fn cmp(&self, other: &Self) -> Ordering {
-        // 使用小于号来实现最大堆（较小的值具有较低的优先级）
-        // 这样 pop 会移除最大的元素，留下最小的元素
+        // use less than to implement max heap (smaller values have lower priority)
+        // so pop removes the largest element, leaving the smallest element
         self.distance.partial_cmp(&other.distance)
             .unwrap_or(Ordering::Equal)
     }
@@ -38,7 +38,7 @@ impl PartialOrd for DistanceItem {
 
 impl Eq for DistanceItem {}
 
-// 新增用于 SIMD 计算的辅助函数
+// add helper functions for SIMD calculations
 #[inline(always)]
 fn compute_l2_distance_simd(a: ArrayView1<f32>, b: ArrayView1<f32>) -> f32 {
     #[cfg(target_arch = "x86_64")]
@@ -73,7 +73,7 @@ unsafe fn compute_l2_distance_avx2(a: *const f32, b: *const f32, len: usize) -> 
     let mut sum = _mm256_setzero_ps();
     let mut i = 0;
     
-    // 每次处理8个f32
+    // process 8 f32s at a time
     while i + 8 <= len {
         let va = _mm256_loadu_ps(a.add(i));
         let vb = _mm256_loadu_ps(b.add(i));
@@ -82,14 +82,14 @@ unsafe fn compute_l2_distance_avx2(a: *const f32, b: *const f32, len: usize) -> 
         i += 8;
     }
     
-    // 水平求和
+    // horizontal sum
     let mut result = 0.0;
     let sum_array = std::mem::transmute::<__m256, [f32; 8]>(sum);
     for &x in &sum_array {
         result += x;
     }
     
-    // 处理剩余元素
+    // process remaining elements
     while i < len {
         let diff = *a.add(i) - *b.add(i);
         result += diff * diff;
@@ -107,7 +107,7 @@ unsafe fn compute_l2_distance_sse41(a: *const f32, b: *const f32, len: usize) ->
     let mut sum = _mm_setzero_ps();
     let mut i = 0;
     
-    // 每次处理4个f32
+    // process 4 f32s at a time
     while i + 4 <= len {
         let va = _mm_loadu_ps(a.add(i));
         let vb = _mm_loadu_ps(b.add(i));
@@ -116,14 +116,14 @@ unsafe fn compute_l2_distance_sse41(a: *const f32, b: *const f32, len: usize) ->
         i += 4;
     }
     
-    // 水平求和
+    // horizontal sum
     let mut result = 0.0;
     let sum_array = std::mem::transmute::<__m128, [f32; 4]>(sum);
     for &x in &sum_array {
         result += x;
     }
     
-    // 处理剩余元素
+    // process remaining elements
     while i < len {
         let diff = *a.add(i) - *b.add(i);
         result += diff * diff;
@@ -141,7 +141,7 @@ unsafe fn compute_l2_distance_neon(a: *const f32, b: *const f32, len: usize) -> 
     let mut sum = vdupq_n_f32(0.0);
     let mut i = 0;
     
-    // 每次处理4个f32
+    // process 4 f32s at a time
     while i + 4 <= len {
         let va = vld1q_f32(a.add(i));
         let vb = vld1q_f32(b.add(i));
@@ -150,14 +150,14 @@ unsafe fn compute_l2_distance_neon(a: *const f32, b: *const f32, len: usize) -> 
         i += 4;
     }
     
-    // 水平求和
+    // horizontal sum
     let mut result = 0.0;
     let sum_array = std::mem::transmute::<float32x4_t, [f32; 4]>(sum);
     for &x in &sum_array {
         result += x;
     }
     
-    // 处理剩余元素
+    // process remaining elements
     while i < len {
         let diff = *a.add(i) - *b.add(i);
         result += diff * diff;
@@ -178,7 +178,7 @@ fn compute_l2_distance_fallback(a: ArrayView1<f32>, b: ArrayView1<f32>) -> f32 {
         .sum()
 }
 
-// 优化后的主计算函数
+// optimized main calculation function
 #[pyfunction]
 #[pyo3(signature = (query_vectors, base_vectors, top_k, metric="l2"))]
 pub fn compute_distances(
@@ -194,11 +194,11 @@ pub fn compute_distances(
     let n_queries = query_array.shape()[0];
     let _n_base = base_array.shape()[0];
     
-    // 预分配结果数组
+    // preallocate result arrays
     let mut indices = vec![0; n_queries * top_k];
     let mut distances = vec![0.0; n_queries * top_k];
     
-    // 根据数据规模决定是否使用并行处理
+    // determine whether to use parallel processing based on data size
     if n_queries >= MIN_PARALLEL_SIZE {
         indices.par_chunks_mut(top_k)
             .zip(distances.par_chunks_mut(top_k))
@@ -226,7 +226,7 @@ pub fn compute_distances(
         }
     }
     
-    // 转换为 Python 数组
+    // convert to Python arrays
     let indices_array = Array2::from_shape_vec((n_queries, top_k), indices)
         .map_err(|e| PyValueError::new_err(e.to_string()))?;
     let distances_array = Array2::from_shape_vec((n_queries, top_k), distances)
@@ -238,7 +238,7 @@ pub fn compute_distances(
     ))
 }
 
-// 处理单个查询向量的函数
+// function to process a single query vector
 #[inline(always)]
 fn process_single_query(
     query: ArrayView1<f32>,
@@ -250,11 +250,11 @@ fn process_single_query(
 ) {
     let mut heap = BinaryHeap::with_capacity(top_k + 1);
     
-    // 批量处理基向量
+    // batch process base vectors
     for chunk_start in (0..base_array.shape()[0]).step_by(BATCH_SIZE) {
         let chunk_end = (chunk_start + BATCH_SIZE).min(base_array.shape()[0]);
         
-        // 计算当前批次的所有距离
+        // calculate distances for current batch
         for base_idx in chunk_start..chunk_end {
             let base_vec = base_array.slice(s![base_idx, ..]);
             
@@ -284,18 +284,18 @@ fn process_single_query(
         }
     }
     
-    // 将堆中的结果转换为排序后的数组
+    // convert heap results to sorted array
     let mut items: Vec<_> = heap.into_vec();
     items.sort_by(|a, b| a.distance.partial_cmp(&b.distance).unwrap());
     
-    // 填充输出数组
+    // fill output arrays
     for (i, item) in items.iter().enumerate() {
         indices_out[i] = item.index;
         distances_out[i] = item.distance;
     }
 }
 
-// 添加新的泛型函数来处理不同精度
+// add new generic function to handle different precisions
 pub fn compute_distances_generic<T>(
     py: Python,
     query_vectors: PyReadonlyArray2<T>,
@@ -330,7 +330,7 @@ where
                             let mut sum = T::zero();
                             for (q, b) in query.iter().zip(base_vec.iter()) {
                                 let diff = *q - *b;
-                                // 防止溢出，限制单个差值的平方
+                                // prevent overflow, limit squared difference of single element
                                 let squared_diff = if diff.abs() > T::from(1e6).unwrap() {
                                     T::from(1e12).unwrap()
                                 } else {
@@ -370,9 +370,9 @@ where
                         _ => T::max_value(),
                     };
                     
-                    if !dist.is_nan() && !dist.is_infinite() {  // 添加对无穷大的检查
+                    if !dist.is_nan() && !dist.is_infinite() {  // add check for infinity
                         let dist_f32 = dist.to_f32().unwrap_or(f32::MAX);
-                        if dist_f32.is_finite() {  // 再次检查确保是有限值
+                        if dist_f32.is_finite() {  // check again to ensure it's a finite value
                             heap.push(DistanceItem {
                                 index: base_idx as i32,
                                 distance: dist_f32,
@@ -412,7 +412,7 @@ where
     ))
 }
 
-// 具体类型的包装函数
+// wrapper functions for specific types
 pub fn compute_distances_f32(
     py: Python,
     query_vectors: PyReadonlyArray2<f32>,
