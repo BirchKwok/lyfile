@@ -1,5 +1,5 @@
-from ._lib_lyfile import LyFile
 from .utils import test
+from .core import LyFile
 
 __all__ = ['LyFile', 'test']
 
