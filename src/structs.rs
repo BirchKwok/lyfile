@@ -152,7 +152,6 @@ pub fn handle_serde_error<T>(result: Result<T, serde_json::Error>) -> PyResult<T
 }
 
 
-// 添加新的枚举类型用于返回值
 #[derive(Debug)]
 pub enum VectorData {
     F32(Vec<f32>, Vec<usize>),
@@ -221,7 +220,6 @@ pub fn convert_arrow_error(err: ArrowError) -> PyErr {
     PyValueError::new_err(format!("Arrow error: {}", err))
 }
 
-// 定义自定义错误类型
 #[derive(Debug)]
 pub enum VectorError {
     IoError(io::Error),

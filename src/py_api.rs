@@ -358,7 +358,7 @@ impl _LyFile {
                 search_vector_internal::<f32>(base_vecs, query_vectors, top_k, metric, py)
             },
             VectorData::F64(base_vecs, _shape) => {
-                // 对于 f64 数据，我们先转换为 f32
+                // for f64, we first convert to f32
                 let base_vecs_f32: Vec<f32> = base_vecs.into_iter()
                     .map(|x| x as f32)
                     .collect();
@@ -368,7 +368,6 @@ impl _LyFile {
     }
 }
 
-// 添加个新的泛型辅助函数
 fn search_vector_internal<T>(
     base_vecs: Vec<T>, 
     query_vectors: &PyAny, 

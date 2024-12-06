@@ -9,7 +9,7 @@ import lyfile
 def test_data():
     rows = 100_0000
     
-    # 创建测试数据
+    # create test data
     df = pd.DataFrame({
         'id': np.arange(rows, dtype=np.int64),
         'name': [f'name_{i}' for i in range(rows)],

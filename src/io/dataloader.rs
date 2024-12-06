@@ -279,7 +279,7 @@ impl _LyFile {
             .find(|v| v.name == name)
             .ok_or_else(|| VectorError::VectorNotFound(name.clone()))?;
 
-        // 创建内存映射
+        // create memory mapping
         let mmap = unsafe {
             MmapOptions::new()
                 .offset(vector_info.offset)
