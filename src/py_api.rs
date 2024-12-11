@@ -396,7 +396,7 @@ where
     let mut distances = vec![vec![0f32; top_k]; n_queries];
     
     for (query_idx, query_vec) in query_slice.chunks(dim).enumerate() {
-        let mut distances_with_indices = base_vecs.chunks(dim)
+        let mut distances_with_indices: Vec<_> = base_vecs.chunks(dim)
             .enumerate()
             .map(|(i, base_vec)| {
                 let dist = match metric {
@@ -410,18 +410,23 @@ where
                 };
                 (dist, i as i32)
             })
-            .collect::<Vec<_>>();
+            .collect();
 
-        distances_with_indices.sort_by(|a, b| {
-            match metric {
-                "cosine" | "l2" => a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal),
-                "ip" => b.0.partial_cmp(&a.0).unwrap_or(std::cmp::Ordering::Equal),
-                _ => unreachable!(),
+        // 使用快速选择算法找到前k个元素
+        match metric {
+            "ip" => {
+                // 对于内积，我们要找最大的k个
+                quick_select_k_largest(&mut distances_with_indices, top_k);
+                distances_with_indices[..top_k].sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap_or(std::cmp::Ordering::Equal));
+            },
+            _ => {
+                // 对于l2和cosine，我们要找最小的k个
+                quick_select_k_smallest(&mut distances_with_indices, top_k);
+                distances_with_indices[..top_k].sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
             }
-        });
+        };
         
-        distances_with_indices.truncate(top_k);
-        
+        // 复制结果到输出数组
         for k in 0..top_k {
             let (dist, idx) = distances_with_indices[k];
             indices[query_idx][k] = idx;
@@ -433,5 +438,80 @@ where
     let distances_array = PyArray2::from_vec2(py, &distances)?;
     
     Ok((indices_array.to_owned(), distances_array.to_owned()))
+}
+
+// 快速选择算法找到最小的k个元素
+fn quick_select_k_smallest<T: PartialOrd>(arr: &mut [(T, i32)], k: usize) {
+    if k >= arr.len() {
+        return;
+    }
+    
+    let mut left = 0;
+    let mut right = arr.len() - 1;
+    
+    while left < right {
+        let pivot = partition(arr, left, right);
+        if pivot == k {
+            break;
+        } else if pivot > k {
+            right = pivot - 1;
+        } else {
+            left = pivot + 1;
+        }
+    }
+}
+
+// 快速选择算法找到最大的k个元素
+fn quick_select_k_largest<T: PartialOrd>(arr: &mut [(T, i32)], k: usize) {
+    if k >= arr.len() {
+        return;
+    }
+    
+    let mut left = 0;
+    let mut right = arr.len() - 1;
+    let target = arr.len() - k;
+    
+    while left < right {
+        let pivot = partition_rev(arr, left, right);
+        if pivot == target {
+            break;
+        } else if pivot > target {
+            right = pivot - 1;
+        } else {
+            left = pivot + 1;
+        }
+    }
+}
+
+// 分区函数 - 用于最小k个元素
+fn partition<T: PartialOrd>(arr: &mut [(T, i32)], left: usize, right: usize) -> usize {
+    let pivot = right;
+    let mut store_idx = left;
+    
+    for i in left..right {
+        if arr[i].0 <= arr[pivot].0 {
+            arr.swap(i, store_idx);
+            store_idx += 1;
+        }
+    }
+    
+    arr.swap(store_idx, pivot);
+    store_idx
+}
+
+// 分区函数 - 用于最大k个元素
+fn partition_rev<T: PartialOrd>(arr: &mut [(T, i32)], left: usize, right: usize) -> usize {
+    let pivot = right;
+    let mut store_idx = left;
+    
+    for i in left..right {
+        if arr[i].0 >= arr[pivot].0 {
+            arr.swap(i, store_idx);
+            store_idx += 1;
+        }
+    }
+    
+    arr.swap(store_idx, pivot);
+    store_idx
 }
 

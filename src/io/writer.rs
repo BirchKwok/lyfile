@@ -677,6 +677,5 @@ impl _LyFile {
 
         Ok(buffer)
     }
-
 }
 
