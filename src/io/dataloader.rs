@@ -13,7 +13,7 @@ use byteorder::{LittleEndian, ReadBytesExt};
 
 use arrow::pyarrow::IntoPyArrow;
 
-use arrow::array::{Array, ListArray};
+use arrow::array::{Array, ListArray, StringBuilder, StringArray, Int64Array, Float64Array, Float32Array, ArrayBuilder, Float32Builder, Int64Builder, Float64Builder};
 use arrow::buffer::Buffer;
 use arrow::array::ArrayData;
 
@@ -21,7 +21,14 @@ use rayon::prelude::*;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::hint::black_box;
 use crate::structs::*;
+use std::sync::Mutex;
+use std::collections::HashMap;
+use std::time::SystemTime;
+use lazy_static::lazy_static;
 
+lazy_static! {
+    static ref INDEX_CACHE: Mutex<HashMap<String, IndexCache>> = Mutex::new(HashMap::new());
+}
 
 impl _LyFile {
     pub fn read_chunk(
@@ -333,6 +340,149 @@ impl _LyFile {
             },
             _ => Err(VectorError::UnsupportedDataType(vector_info.dtype.clone())),
         }
+    }
+
+    pub fn get_cached_indices(&self) -> PyResult<Vec<RowGroupIndex>> {
+        let mut cache = INDEX_CACHE.lock().unwrap();
+        
+        // 检查文件是否存在于缓存中，且是否需要更新
+        if let Some(cached_index) = cache.get(&self.filepath) {
+            let metadata = std::fs::metadata(&self.filepath)?;
+            if let Ok(modified_time) = metadata.modified() {
+                if modified_time <= cached_index.last_modified {
+                    return Ok(cached_index.row_groups.clone());
+                }
+            }
+        }
+        
+        // 如果缓存不存在或需要更新，则重新读取
+        let mut file = File::open(&self.filepath)?;
+        let metadata = self.read_metadata(&mut file)?;
+        
+        if let Some(index_region) = metadata.index_region {
+            // 更新缓存
+            cache.insert(self.filepath.clone(), IndexCache {
+                row_groups: index_region.row_groups.clone(),
+                last_modified: SystemTime::now(),
+            });
+            
+            Ok(index_region.row_groups)
+        } else {
+            Err(PyValueError::new_err("No index region found in file"))
+        }
+    }
+
+    pub fn read_rows_by_indices(&self, row_indices: &[usize]) -> PyResult<RecordBatch> {
+        let indices = self.get_cached_indices()?;
+        let mut chunk_rows: HashMap<usize, Vec<(usize, usize)>> = HashMap::new();
+        
+        // 将行号映射到对应的数据块和块内偏移
+        for &row_idx in row_indices {
+            let chunk = indices.iter()
+                .find(|idx| row_idx >= idx.start_row && row_idx < idx.end_row)
+                .ok_or_else(|| PyValueError::new_err(format!("Row {} is out of range", row_idx)))?;
+            
+            let chunk_row = row_idx - chunk.start_row;
+            chunk_rows.entry(chunk.chunk_id)
+                .or_insert_with(Vec::new)
+                .push((row_idx, chunk_row));
+        }
+
+        // 读取并处理每个需要的数据块
+        let schema = self.schema.read().unwrap();
+        let schema = schema.as_ref()
+            .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
+        
+        let mut final_arrays = Vec::new();
+        
+        for field in schema.fields() {
+            // 根据字段类型创建相应的数组构建器
+            let mut array_builder: Box<dyn ArrayBuilder> = match field.data_type() {
+                DataType::Float32 => Box::new(Float32Builder::new()),
+                DataType::Float64 => Box::new(Float64Builder::new()),
+                DataType::Int64 => Box::new(Int64Builder::new()),
+                DataType::Utf8 => Box::new(StringBuilder::new()),
+                _ => return Err(PyValueError::new_err(
+                    format!("Unsupported data type: {:?}", field.data_type())
+                )),
+            };
+            
+            for (chunk_id, rows) in &chunk_rows {
+                let chunk_info = &self.chunks.read().unwrap()[*chunk_id];
+                let batch = self.read_chunk(
+                    &self.filepath,
+                    schema,
+                    &[field.name().clone()],
+                    chunk_info,
+                )?;
+                
+                let column = batch.column(0);
+                for &(_, chunk_row) in rows {
+                    match field.data_type() {
+                        DataType::Float32 => {
+                            if let Some(array) = column.as_any().downcast_ref::<Float32Array>() {
+                                if array.is_null(chunk_row) {
+                                    array_builder.as_any_mut().downcast_mut::<Float32Builder>()
+                                        .unwrap()
+                                        .append_null();
+                                } else {
+                                    array_builder.as_any_mut().downcast_mut::<Float32Builder>()
+                                        .unwrap()
+                                        .append_value(array.value(chunk_row));
+                                }
+                            }
+                        },
+                        DataType::Float64 => {
+                            if let Some(array) = column.as_any().downcast_ref::<Float64Array>() {
+                                if array.is_null(chunk_row) {
+                                    array_builder.as_any_mut().downcast_mut::<Float64Builder>()
+                                        .unwrap()
+                                        .append_null();
+                                } else {
+                                    array_builder.as_any_mut().downcast_mut::<Float64Builder>()
+                                        .unwrap()
+                                        .append_value(array.value(chunk_row));
+                                }
+                            }
+                        },
+                        DataType::Int64 => {
+                            if let Some(array) = column.as_any().downcast_ref::<Int64Array>() {
+                                if array.is_null(chunk_row) {
+                                    array_builder.as_any_mut().downcast_mut::<Int64Builder>()
+                                        .unwrap()
+                                        .append_null();
+                                } else {
+                                    array_builder.as_any_mut().downcast_mut::<Int64Builder>()
+                                        .unwrap()
+                                        .append_value(array.value(chunk_row));
+                                }
+                            }
+                        },
+                        DataType::Utf8 => {
+                            if let Some(array) = column.as_any().downcast_ref::<StringArray>() {
+                                if array.is_null(chunk_row) {
+                                    array_builder.as_any_mut().downcast_mut::<StringBuilder>()
+                                        .unwrap()
+                                        .append_null();
+                                } else {
+                                    array_builder.as_any_mut().downcast_mut::<StringBuilder>()
+                                        .unwrap()
+                                        .append_value(array.value(chunk_row));
+                                }
+                            }
+                        },
+                        _ => unreachable!(),
+                    }
+                }
+            }
+            
+            final_arrays.push(array_builder.finish());
+        }
+
+        RecordBatch::try_new(
+            Arc::new(Schema::new(schema.fields().to_vec())),
+            final_arrays,
+        ).map_err(convert_arrow_error)
     }
 }
 

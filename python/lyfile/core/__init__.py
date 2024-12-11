@@ -118,4 +118,23 @@ class LyFile:
         """
         return self._inner.shape
     
+    def __getitem__(self, key):
+        """
+        Get item from the file.
+        """
+        if isinstance(key, int):
+            return self._inner.read_rows([key])
+        elif isinstance(key, slice):
+            # 处理切片的start、stop和step
+            start = key.start if key.start is not None else 0
+            stop = key.stop if key.stop is not None else len(self)
+            step = key.step if key.step is not None else 1
+            return self._inner.read_rows(list(range(start, stop, step)))
+        elif isinstance(key, (list, np.ndarray)):
+            # 支持花式索引
+            return self._inner.read_rows(key)
+        else:
+            raise ValueError(f"Unsupported index type: {type(key)}")
 
+    def __len__(self):
+        return self._inner.shape[0]

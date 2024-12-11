@@ -109,6 +109,7 @@ pub struct Metadata {
     pub schema: SerializableSchema,
     pub chunks: Vec<ChunkInfo>,
     pub vec_region: Option<VecRegionInfo>,
+    pub index_region: Option<IndexRegion>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -141,6 +142,21 @@ pub struct VectorInfo {
     pub size: u64,
     pub shape: Vec<usize>,  // [n, m] or [n, m, o]
     pub dtype: String,      // data type, like "f32", "f64"
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RowGroupIndex {
+    pub start_row: usize,
+    pub end_row: usize,
+    pub chunk_id: usize,
+    pub offset: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IndexRegion {
+    pub row_groups: Vec<RowGroupIndex>,
+    pub offset: u64,
+    pub size: u64,
 }
 
 pub fn handle_io_error<T>(result: Result<T, io::Error>) -> PyResult<T> {
@@ -251,5 +267,10 @@ impl From<io::Error> for VectorError {
     fn from(err: io::Error) -> VectorError {
         VectorError::IoError(err)
     }
+}
+
+pub struct IndexCache {
+    pub row_groups: Vec<RowGroupIndex>,
+    pub last_modified: std::time::SystemTime,
 }
 

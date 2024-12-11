@@ -11,6 +11,7 @@ use pyo3::types::PyDict;
 use crate::structs::*;
 use simsimd::SpatialSimilarity;
 use num_traits::{Float, ToPrimitive, FromPrimitive};
+use arrow::pyarrow::IntoPyArrow;
 
 
 #[pymethods]
@@ -365,6 +366,33 @@ impl _LyFile {
                 search_vector_internal::<f32>(base_vecs_f32, query_vectors, top_k, metric, py)
             }
         }
+    }
+
+    /// 读取指定行号的数据
+    ///
+    /// Args:
+    ///     row_indices (List[int]): 要读取的行号列表
+    ///
+    /// Returns:
+    ///     pyarrow.Table: 包含指定行的数据表
+    ///
+    /// Example:
+    ///     >>> lyfile = LyFile("example.ly")
+    ///     >>> data = lyfile.read_rows([0, 5, 10, 15])  # 读取第0、5、10、15行
+    #[pyo3(text_signature = "(self, row_indices)")]
+    fn read_rows(&self, row_indices: Vec<usize>, py: Python) -> PyResult<PyObject> {
+        // 验证输入
+        if row_indices.is_empty() {
+            return Err(PyValueError::new_err("row_indices cannot be empty"));
+        }
+
+        // 读取指定行的数据
+        let batch = self.read_rows_by_indices(&row_indices)?;
+        
+        // 转换为PyArrow Table并返回
+        let py_batch = batch.into_pyarrow(py)?;
+        let pa = py.import("pyarrow")?;
+        Ok(pa.getattr("Table")?.call_method1("from_batches", ([py_batch],))?.into_py(py))
     }
 }
 

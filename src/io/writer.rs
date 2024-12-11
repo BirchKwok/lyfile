@@ -96,8 +96,7 @@ impl _LyFile {
         }
 
         // write index region
-        let _index_start = current_offset;
-        self.write_index_region(&mut file, &chunks)?;
+        let index_region = self.write_index_region(&mut file, &chunks)?;
 
         // update metadata
         let metadata = Metadata {
@@ -108,6 +107,7 @@ impl _LyFile {
                 size: 0,
                 vectors: Vec::new(),
             }),
+            index_region: Some(index_region),
         };
 
         self.write_footer(&mut file, &metadata)?;
@@ -588,19 +588,36 @@ impl _LyFile {
         &self,
         file: &mut File,
         chunks: &Vec<(u64, ChunkInfo)>,
-    ) -> PyResult<()> {
-        // write chunk count
-        let num_chunks = chunks.len() as u32;
-        file.write_u32::<LittleEndian>(num_chunks)?;
-
-        // write each chunk's index info
-        for (offset, _chunk_info) in chunks {
-            // write chunk offset
-            file.write_u64::<LittleEndian>(*offset)?;
-            // write other index info if needed
+    ) -> PyResult<IndexRegion> {
+        let index_start = file.seek(SeekFrom::Current(0))?;
+        
+        // 创建行组索引
+        let mut row_groups = Vec::new();
+        let mut current_row = 0;
+        
+        for (chunk_id, (offset, chunk_info)) in chunks.iter().enumerate() {
+            let row_group = RowGroupIndex {
+                start_row: current_row,
+                end_row: current_row + chunk_info.rows,
+                chunk_id,
+                offset: *offset,
+            };
+            row_groups.push(row_group);
+            current_row += chunk_info.rows;
         }
 
-        Ok(())
+        // 序列化并写入索引数据
+        let index_bytes = serde_json::to_vec(&row_groups)
+            .map_err(|e| PyValueError::new_err(format!("Failed to serialize index: {}", e)))?;
+        
+        file.write_all(&index_bytes)?;
+        let index_end = file.seek(SeekFrom::Current(0))?;
+
+        Ok(IndexRegion {
+            row_groups,
+            offset: index_start,
+            size: index_end - index_start,
+        })
     }
 
     // add helper method for reading metadata
