@@ -2,6 +2,7 @@
 use std::fs::File;
 use std::sync::{Arc, RwLock};
 use std::path::Path;
+use std::cmp::Ordering;
 
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
@@ -468,78 +469,177 @@ where
     Ok((indices_array.to_owned(), distances_array.to_owned()))
 }
 
-// 快速选择算法找到最小的k个元素
-fn quick_select_k_smallest<T: PartialOrd>(arr: &mut [(T, i32)], k: usize) {
-    if k >= arr.len() {
-        return;
+// 获取pivot的辅助函数
+fn get_pivot<T: PartialOrd + Copy>(arr: &[(T, i32)], left: usize, right: usize) -> usize {
+    let mid = left + (right - left) / 2;
+    let (a, b, c) = (arr[left].0, arr[mid].0, arr[right].0);
+    
+    if a <= b {
+        if b <= c { mid }
+        else if a <= c { right }
+        else { left }
+    } else {
+        if a <= c { left }
+        else if b <= c { right }
+        else { mid }
     }
-    
-    let mut left = 0;
-    let mut right = arr.len() - 1;
-    
-    while left < right {
-        let pivot = partition(arr, left, right);
-        if pivot == k {
-            break;
-        } else if pivot > k {
-            right = pivot - 1;
-        } else {
-            left = pivot + 1;
+}
+
+// 插入排序 - 升序
+fn insertion_sort<T: PartialOrd + Copy>(arr: &mut [(T, i32)], left: usize, right: usize) {
+    for i in (left + 1)..=right {
+        let mut j = i;
+        while j > left && arr[j - 1].0 > arr[j].0 {
+            arr.swap(j - 1, j);
+            j -= 1;
         }
     }
 }
 
-// 快速选择算法找到最大的k个元素
-fn quick_select_k_largest<T: PartialOrd>(arr: &mut [(T, i32)], k: usize) {
+fn block_sort<T: PartialOrd + Copy>(arr: &mut [(T, i32)], left: usize, right: usize) {
+    const BLOCK_SIZE: usize = 32;  // 可以根据实际情况调整
+    let len = right - left + 1;
+    
+    if len <= 1 {
+        return;
+    }
+    
+    if len <= BLOCK_SIZE {
+        insertion_sort(arr, left, right);
+        return;
+    }
+    
+    // 将数组分成若干块并分别排序
+    for i in (left..=right).step_by(BLOCK_SIZE) {
+        let end = (i + BLOCK_SIZE - 1).min(right);
+        insertion_sort(arr, i, end);
+    }
+}
+
+// 2. 三路快速选择算法
+fn partition3way<T: PartialOrd + Copy>(arr: &mut [(T, i32)], left: usize, right: usize) 
+    -> (usize, usize) // 返回等于pivot的区间(lt, gt)
+{
+    let pivot_idx = get_pivot(arr, left, right);
+    let pivot_val = arr[pivot_idx].0;
+    
+    // 将pivot移到开头
+    arr.swap(pivot_idx, left);
+    
+    let mut lt = left;      // 小于pivot的右边界
+    let mut i = left + 1;   // 当前处理的元素
+    let mut gt = right;     // 大于pivot的左边界
+    
+    while i <= gt {
+        match arr[i].0.partial_cmp(&pivot_val).unwrap_or(Ordering::Equal) {
+            Ordering::Less => {
+                arr.swap(lt, i);
+                lt += 1;
+                i += 1;
+            },
+            Ordering::Greater => {
+                arr.swap(i, gt);
+                if gt > 0 {
+                    gt -= 1;
+                }
+            },
+            Ordering::Equal => {
+                i += 1;
+            }
+        }
+    }
+    
+    (lt, gt)
+}
+
+// 3. 优化的快速选择算法
+fn quick_select_k_smallest<T: PartialOrd + Copy>(arr: &mut [(T, i32)], k: usize) {
     if k >= arr.len() {
         return;
     }
     
+    const BLOCK_SIZE: usize = 32;
+    let mut left = 0;
+    let mut right = arr.len() - 1;
+    
+    while right - left > BLOCK_SIZE {
+        // 使用三路划分
+        let (lt, gt) = partition3way(arr, left, right);
+        
+        if k < lt {
+            right = lt - 1;
+        } else if k > gt {
+            left = gt + 1;
+        } else {
+            return; // k在[lt,gt]区间内，已找到
+        }
+        
+        // 如果区间仍然很大，考虑采样
+        if right - left > 1000 {
+            sample_and_presort(arr, left, right);
+        }
+    }
+    
+    // 对小区间使用块排序
+    block_sort(arr, left, right);
+}
+
+// 4. 采样预处理
+fn sample_and_presort<T: PartialOrd + Copy>(arr: &mut [(T, i32)], left: usize, right: usize) {
+    const SAMPLE_SIZE: usize = 5;
+    let len = right - left + 1;
+    
+    if len <= SAMPLE_SIZE {
+        return;
+    }
+    
+    // 采样并排序
+    let step = len / SAMPLE_SIZE;
+    let mut samples = Vec::with_capacity(SAMPLE_SIZE);
+    
+    for i in 0..SAMPLE_SIZE {
+        let idx = left + i * step;
+        samples.push((arr[idx].0, idx));
+    }
+    
+    samples.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(Ordering::Equal));
+    
+    // 将采样点移动到合适的位置
+    for (i, &(_, idx)) in samples.iter().enumerate() {
+        let target = left + i * step;
+        if target != idx {
+            arr.swap(target, idx);
+        }
+    }
+}
+
+// 5. 优化的最大k个元素选择
+fn quick_select_k_largest<T: PartialOrd + Copy>(arr: &mut [(T, i32)], k: usize) {
+    if k >= arr.len() {
+        return;
+    }
+    
+    const BLOCK_SIZE: usize = 32;
     let mut left = 0;
     let mut right = arr.len() - 1;
     let target = arr.len() - k;
     
-    while left < right {
-        let pivot = partition_rev(arr, left, right);
-        if pivot == target {
-            break;
-        } else if pivot > target {
-            right = pivot - 1;
+    while right - left > BLOCK_SIZE {
+        let (lt, gt) = partition3way(arr, left, right);
+        
+        if target < lt {
+            right = lt - 1;
+        } else if target > gt {
+            left = gt + 1;
         } else {
-            left = pivot + 1;
+            return;
         }
-    }
-}
-
-// 分区函数 - 用于最小k个元素
-fn partition<T: PartialOrd>(arr: &mut [(T, i32)], left: usize, right: usize) -> usize {
-    let pivot = right;
-    let mut store_idx = left;
-    
-    for i in left..right {
-        if arr[i].0 <= arr[pivot].0 {
-            arr.swap(i, store_idx);
-            store_idx += 1;
+        
+        if right - left > 1000 {
+            sample_and_presort(arr, left, right);
         }
     }
     
-    arr.swap(store_idx, pivot);
-    store_idx
-}
-
-// 分区函数 - 用于最大k个元素
-fn partition_rev<T: PartialOrd>(arr: &mut [(T, i32)], left: usize, right: usize) -> usize {
-    let pivot = right;
-    let mut store_idx = left;
-    
-    for i in left..right {
-        if arr[i].0 >= arr[pivot].0 {
-            arr.swap(i, store_idx);
-            store_idx += 1;
-        }
-    }
-    
-    arr.swap(store_idx, pivot);
-    store_idx
+    block_sort(arr, left, right);
 }
 
