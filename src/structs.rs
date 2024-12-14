@@ -10,6 +10,7 @@ use pyo3::exceptions::PyValueError;
 use serde::{Serialize, Deserialize};
 use serde_json;
 use zstd::stream::{Encoder as ZstdEncoder, Decoder as ZstdDecoder};
+use half::f16;
 
 pub const CHUNK_MAX_ROWS: usize = 10000;
 
@@ -90,6 +91,7 @@ pub fn parse_datatype(type_str: &str) -> DataType {
         "UInt16" => DataType::UInt16,
         "UInt32" => DataType::UInt32,
         "UInt64" => DataType::UInt64,
+        "Float16" => DataType::Float16,
         "Float32" => DataType::Float32,
         "Float64" => DataType::Float64,
         "Boolean" => DataType::Boolean,
@@ -170,11 +172,21 @@ pub fn handle_serde_error<T>(result: Result<T, serde_json::Error>) -> PyResult<T
 
 #[derive(Debug)]
 pub enum VectorData {
+    F16(Vec<f16>, Vec<usize>),
     F32(Vec<f32>, Vec<usize>),
     F64(Vec<f64>, Vec<usize>),
+    I32(Vec<i32>, Vec<usize>),
+    I64(Vec<i64>, Vec<usize>),
+    U32(Vec<u32>, Vec<usize>),
+    U64(Vec<u64>, Vec<usize>),
+    I16(Vec<i16>, Vec<usize>),
+    U16(Vec<u16>, Vec<usize>),
+    I8(Vec<i8>, Vec<usize>),
+    U8(Vec<u8>, Vec<usize>),
+    Bool(Vec<bool>, Vec<usize>),
 }
 
-
+#[derive(Clone)]
 #[pyclass]
 pub struct _LyFile {
     pub filepath: String,
@@ -194,6 +206,7 @@ pub fn is_compressible(data_type: &DataType) -> bool {
         | DataType::UInt16
         | DataType::UInt32
         | DataType::UInt64
+        | DataType::Float16
         | DataType::Float32
         | DataType::Float64 => true,
         _ => false,
@@ -226,8 +239,10 @@ pub fn decompress_data(data: &[u8]) -> PyResult<Vec<u8>> {
 
 impl Drop for _LyFile {
     fn drop(&mut self) {
-        self.schema.write().unwrap().take();
-        self.chunks.write().unwrap().clear();
+        if Arc::strong_count(&self.schema) == 1 {
+            self.schema.write().unwrap().take();
+            self.chunks.write().unwrap().clear();
+        }
     }
 }
 

@@ -1,3 +1,5 @@
+use rayon::slice::ParallelSliceMut;
+
 use std::alloc::{alloc, Layout};
 use std::fs::File;
 use std::io::{self, Seek, Read, SeekFrom};
@@ -13,7 +15,23 @@ use byteorder::{LittleEndian, ReadBytesExt};
 
 use arrow::pyarrow::IntoPyArrow;
 
-use arrow::array::{Array, ListArray, StringBuilder, StringArray, Int64Array, Float64Array, Float32Array, ArrayBuilder, Float32Builder, Int64Builder, Float64Builder};
+use arrow::array::{
+    Array, ArrayBuilder, ListBuilder,
+    // 基础类型的 Builder
+    Int8Builder, Int16Builder, Int32Builder, Int64Builder,
+    UInt8Builder, UInt16Builder, UInt32Builder, UInt64Builder,
+    Float16Builder, Float32Builder, Float64Builder,
+    BooleanBuilder, StringBuilder, BinaryBuilder,
+    Date32Builder, Date64Builder,
+    
+    // 基础类型的 Array
+    Int8Array, Int16Array, Int32Array, Int64Array,
+    UInt8Array, UInt16Array, UInt32Array, UInt64Array,
+    Float16Array, Float32Array, Float64Array,
+    BooleanArray, StringArray, BinaryArray,
+    Date32Array, Date64Array, ListArray,
+};
+
 use arrow::buffer::Buffer;
 use arrow::array::ArrayData;
 
@@ -25,9 +43,28 @@ use std::sync::Mutex;
 use std::collections::HashMap;
 use std::time::SystemTime;
 use lazy_static::lazy_static;
+use half::f16;
 
 lazy_static! {
     static ref INDEX_CACHE: Mutex<HashMap<String, IndexCache>> = Mutex::new(HashMap::new());
+}
+
+macro_rules! append_value {
+    ($column:expr, $row:expr, $array_type:ty, $builder_type:ty, $builder:expr) => {
+        if let Some(array) = $column.as_any().downcast_ref::<$array_type>() {
+            if array.is_null($row) {
+                $builder.as_any_mut()
+                    .downcast_mut::<$builder_type>()
+                    .unwrap()
+                    .append_null();
+            } else {
+                $builder.as_any_mut()
+                    .downcast_mut::<$builder_type>()
+                    .unwrap()
+                    .append_value(array.value($row));
+            }
+        }
+    };
 }
 
 impl _LyFile {
@@ -286,7 +323,7 @@ impl _LyFile {
             .find(|v| v.name == name)
             .ok_or_else(|| VectorError::VectorNotFound(name.clone()))?;
 
-        // create memory mapping
+        // 创建内存映射
         let mmap = unsafe {
             MmapOptions::new()
                 .offset(vector_info.offset)
@@ -295,49 +332,56 @@ impl _LyFile {
         };
 
         match vector_info.dtype.as_str() {
-            "<f4" | "float32" => {
-                let num_elements = vector_info.size as usize / std::mem::size_of::<f32>();
-                
-                // Create 16-byte aligned memory allocation
-                let layout = Layout::from_size_align(
-                    num_elements * std::mem::size_of::<f32>(),
-                    16
-                ).unwrap();
+            // 浮点类型
+            "<f4" | "float32" => handle_numeric_type::<f32>(&mmap, vector_info),
+            "<f8" | "float64" => handle_numeric_type::<f64>(&mmap, vector_info),
+            
+            // 整数类型
+            "<i4" | "int32" => handle_numeric_type::<i32>(&mmap, vector_info),
+            "<i8" | "int64" => handle_numeric_type::<i64>(&mmap, vector_info),
+            "<u4" | "uint32" => handle_numeric_type::<u32>(&mmap, vector_info),
+            "<u8" | "uint64" => handle_numeric_type::<u64>(&mmap, vector_info),
+            "<i2" | "int16" => handle_numeric_type::<i16>(&mmap, vector_info),
+            "<u2" | "uint16" => handle_numeric_type::<u16>(&mmap, vector_info),
+            "<i1" | "int8" => handle_numeric_type::<i8>(&mmap, vector_info),
+            "<u1" | "uint8" => handle_numeric_type::<u8>(&mmap, vector_info),
+
+            // 布尔类型
+            "|b1" | "bool" => {
+                let num_elements = vector_info.size as usize;
+                let layout = Layout::from_size_align(num_elements, 16).unwrap();
                 
                 unsafe {
-                    let ptr = alloc(layout) as *mut f32;
-                    
+                    let ptr = alloc(layout) as *mut bool;
                     parallel_copy_with_prefetch(
                         mmap.as_ptr(),
                         ptr as *mut u8,
                         vector_info.size as usize
                     );
-                    
                     let vec = Vec::from_raw_parts(ptr, num_elements, num_elements);
-                    Ok(VectorData::F32(vec, vector_info.shape.clone()))
+                    Ok(VectorData::Bool(vec, vector_info.shape.clone()))
                 }
             },
-            "<f8" | "float64" => {
-                let num_elements = vector_info.size as usize / std::mem::size_of::<f64>();
-                
+
+            "<f2" | "float16" => {
+                let num_elements = vector_info.size as usize / std::mem::size_of::<f16>();
                 let layout = Layout::from_size_align(
-                    num_elements * std::mem::size_of::<f64>(),
+                    num_elements * std::mem::size_of::<f16>(),
                     16
                 ).unwrap();
                 
                 unsafe {
-                    let ptr = alloc(layout) as *mut f64;
-                    
+                    let ptr = alloc(layout) as *mut f16;
                     parallel_copy_with_prefetch(
                         mmap.as_ptr(),
                         ptr as *mut u8,
                         vector_info.size as usize
                     );
-                    
                     let vec = Vec::from_raw_parts(ptr, num_elements, num_elements);
-                    Ok(VectorData::F64(vec, vector_info.shape.clone()))
+                    Ok(VectorData::F16(vec, vector_info.shape.clone()))
                 }
             },
+
             _ => Err(VectorError::UnsupportedDataType(vector_info.dtype.clone())),
         }
     }
@@ -373,11 +417,57 @@ impl _LyFile {
     }
 
     pub fn read_rows_by_indices(&self, row_indices: &[usize]) -> PyResult<RecordBatch> {
-        let indices = self.get_cached_indices()?;
-        let mut chunk_rows: HashMap<usize, Vec<(usize, usize)>> = HashMap::new();
+        // 先读取文件元数据以初始化 schema 和 chunks
+        let mut file = File::open(&self.filepath)?;
+        let metadata = self.read_metadata(&mut file)?;
         
-        // 将行号映射到对应的数据块和块内偏移
-        for &row_idx in row_indices {
+        // 初始化 schema
+        {
+            let mut schema_guard = self.schema.write().unwrap();
+            if schema_guard.is_none() {
+                let arrow_schema = Arc::new(metadata.schema.to_arrow_schema());
+                *schema_guard = Some(arrow_schema);
+            }
+        }
+        
+        // 初始化 chunks
+        {
+            let mut chunks_guard = self.chunks.write().unwrap();
+            if chunks_guard.is_empty() {
+                *chunks_guard = metadata.chunks.clone();
+            }
+        }
+        
+        // 验证 chunks 是否为空
+        let chunks = self.chunks.read().unwrap();
+        if chunks.is_empty() {
+            return Err(PyValueError::new_err("No data chunks found in file"));
+        }
+        
+        // 验证行索引是否有效
+        let total_rows: usize = chunks.iter().map(|chunk| chunk.rows).sum();
+        if let Some(&max_index) = row_indices.iter().max() {
+            if max_index >= total_rows {
+                return Err(PyValueError::new_err(format!(
+                    "Row index {} out of bounds. Total rows: {}", 
+                    max_index, 
+                    total_rows
+                )));
+            }
+        }
+        
+        // 获取索引信息
+        let indices = self.get_cached_indices()?;
+        
+        // 对行号进行排序和去重
+        let mut sorted_indices: Vec<usize> = row_indices.to_vec();
+        sorted_indices.sort_unstable();
+        sorted_indices.dedup();
+        
+        // 将行号映射到对应的数据块
+        let mut chunk_rows: HashMap<usize, Vec<usize>> = HashMap::new();
+        
+        for &row_idx in &sorted_indices {
             let chunk = indices.iter()
                 .find(|idx| row_idx >= idx.start_row && row_idx < idx.end_row)
                 .ok_or_else(|| PyValueError::new_err(format!("Row {} is out of range", row_idx)))?;
@@ -385,28 +475,59 @@ impl _LyFile {
             let chunk_row = row_idx - chunk.start_row;
             chunk_rows.entry(chunk.chunk_id)
                 .or_insert_with(Vec::new)
-                .push((row_idx, chunk_row));
+                .push(chunk_row);
         }
-
-        // 读取并处理每个需要的数据块
+        
+        // 读取 schema
         let schema = self.schema.read().unwrap();
         let schema = schema.as_ref()
             .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
         
         let mut final_arrays = Vec::new();
         
+        // 处理每个字段
         for field in schema.fields() {
-            // 根据字段类型创建相应的数组构建器
             let mut array_builder: Box<dyn ArrayBuilder> = match field.data_type() {
+                DataType::Int8 => Box::new(Int8Builder::new()),
+                DataType::Int16 => Box::new(Int16Builder::new()),
+                DataType::Int32 => Box::new(Int32Builder::new()),
+                DataType::Int64 => Box::new(Int64Builder::new()),
+                DataType::UInt8 => Box::new(UInt8Builder::new()),
+                DataType::UInt16 => Box::new(UInt16Builder::new()),
+                DataType::UInt32 => Box::new(UInt32Builder::new()),
+                DataType::UInt64 => Box::new(UInt64Builder::new()),
+                DataType::Float16 => Box::new(Float16Builder::new()),
                 DataType::Float32 => Box::new(Float32Builder::new()),
                 DataType::Float64 => Box::new(Float64Builder::new()),
-                DataType::Int64 => Box::new(Int64Builder::new()),
+                DataType::Boolean => Box::new(BooleanBuilder::new()),
                 DataType::Utf8 => Box::new(StringBuilder::new()),
+                DataType::Binary => Box::new(BinaryBuilder::new()),
+                DataType::Date32 => Box::new(Date32Builder::new()),
+                DataType::Date64 => Box::new(Date64Builder::new()),
+                DataType::List(field_ref) => {
+                    match field_ref.data_type() {
+                        DataType::Int8 => Box::new(ListBuilder::new(Int8Builder::new())),
+                        DataType::Int16 => Box::new(ListBuilder::new(Int16Builder::new())),
+                        DataType::Int32 => Box::new(ListBuilder::new(Int32Builder::new())),
+                        DataType::Int64 => Box::new(ListBuilder::new(Int64Builder::new())),
+                        DataType::UInt8 => Box::new(ListBuilder::new(UInt8Builder::new())),
+                        DataType::UInt16 => Box::new(ListBuilder::new(UInt16Builder::new())),
+                        DataType::UInt32 => Box::new(ListBuilder::new(UInt32Builder::new())),
+                        DataType::UInt64 => Box::new(ListBuilder::new(UInt64Builder::new())),
+                        DataType::Float16 => Box::new(ListBuilder::new(Float16Builder::new())),
+                        DataType::Float32 => Box::new(ListBuilder::new(Float32Builder::new())),
+                        DataType::Float64 => Box::new(ListBuilder::new(Float64Builder::new())),
+                        _ => return Err(PyValueError::new_err(
+                            format!("Unsupported list element type: {:?}", field_ref.data_type())
+                        )),
+                    }
+                },
                 _ => return Err(PyValueError::new_err(
                     format!("Unsupported data type: {:?}", field.data_type())
                 )),
             };
             
+            // 读取每个数据块中的数据
             for (chunk_id, rows) in &chunk_rows {
                 let chunk_info = &self.chunks.read().unwrap()[*chunk_id];
                 let batch = self.read_chunk(
@@ -417,57 +538,59 @@ impl _LyFile {
                 )?;
                 
                 let column = batch.column(0);
-                for &(_, chunk_row) in rows {
+                
+                for &chunk_row in rows {
                     match field.data_type() {
-                        DataType::Float32 => {
-                            if let Some(array) = column.as_any().downcast_ref::<Float32Array>() {
-                                if array.is_null(chunk_row) {
-                                    array_builder.as_any_mut().downcast_mut::<Float32Builder>()
-                                        .unwrap()
-                                        .append_null();
+                        DataType::Int8 => append_value!(column, chunk_row, Int8Array, Int8Builder, array_builder),
+                        DataType::Int16 => append_value!(column, chunk_row, Int16Array, Int16Builder, array_builder),
+                        DataType::Int32 => append_value!(column, chunk_row, Int32Array, Int32Builder, array_builder),
+                        DataType::Int64 => append_value!(column, chunk_row, Int64Array, Int64Builder, array_builder),
+                        DataType::UInt8 => append_value!(column, chunk_row, UInt8Array, UInt8Builder, array_builder),
+                        DataType::UInt16 => append_value!(column, chunk_row, UInt16Array, UInt16Builder, array_builder),
+                        DataType::UInt32 => append_value!(column, chunk_row, UInt32Array, UInt32Builder, array_builder),
+                        DataType::UInt64 => append_value!(column, chunk_row, UInt64Array, UInt64Builder, array_builder),
+                        DataType::Float16 => append_value!(column, chunk_row, Float16Array, Float16Builder, array_builder),
+                        DataType::Float32 => append_value!(column, chunk_row, Float32Array, Float32Builder, array_builder),
+                        DataType::Float64 => append_value!(column, chunk_row, Float64Array, Float64Builder, array_builder),
+                        DataType::Boolean => append_value!(column, chunk_row, BooleanArray, BooleanBuilder, array_builder),
+                        DataType::Utf8 => append_value!(column, chunk_row, StringArray, StringBuilder, array_builder),
+                        DataType::Binary => append_value!(column, chunk_row, BinaryArray, BinaryBuilder, array_builder),
+                        DataType::Date32 => append_value!(column, chunk_row, Date32Array, Date32Builder, array_builder),
+                        DataType::Date64 => append_value!(column, chunk_row, Date64Array, Date64Builder, array_builder),
+                        DataType::List(_) => {
+                            if let Some(list_array) = column.as_any().downcast_ref::<ListArray>() {
+                                if list_array.is_null(chunk_row) {
+                                    let list_builder = array_builder.as_any_mut()
+                                        .downcast_mut::<ListBuilder<Float32Builder>>()
+                                        .unwrap();
+                                    list_builder.append(false);
                                 } else {
-                                    array_builder.as_any_mut().downcast_mut::<Float32Builder>()
-                                        .unwrap()
-                                        .append_value(array.value(chunk_row));
-                                }
-                            }
-                        },
-                        DataType::Float64 => {
-                            if let Some(array) = column.as_any().downcast_ref::<Float64Array>() {
-                                if array.is_null(chunk_row) {
-                                    array_builder.as_any_mut().downcast_mut::<Float64Builder>()
-                                        .unwrap()
-                                        .append_null();
-                                } else {
-                                    array_builder.as_any_mut().downcast_mut::<Float64Builder>()
-                                        .unwrap()
-                                        .append_value(array.value(chunk_row));
-                                }
-                            }
-                        },
-                        DataType::Int64 => {
-                            if let Some(array) = column.as_any().downcast_ref::<Int64Array>() {
-                                if array.is_null(chunk_row) {
-                                    array_builder.as_any_mut().downcast_mut::<Int64Builder>()
-                                        .unwrap()
-                                        .append_null();
-                                } else {
-                                    array_builder.as_any_mut().downcast_mut::<Int64Builder>()
-                                        .unwrap()
-                                        .append_value(array.value(chunk_row));
-                                }
-                            }
-                        },
-                        DataType::Utf8 => {
-                            if let Some(array) = column.as_any().downcast_ref::<StringArray>() {
-                                if array.is_null(chunk_row) {
-                                    array_builder.as_any_mut().downcast_mut::<StringBuilder>()
-                                        .unwrap()
-                                        .append_null();
-                                } else {
-                                    array_builder.as_any_mut().downcast_mut::<StringBuilder>()
-                                        .unwrap()
-                                        .append_value(array.value(chunk_row));
+                                    let list_builder = array_builder.as_any_mut()
+                                        .downcast_mut::<ListBuilder<Float32Builder>>()
+                                        .unwrap();
+                                    
+                                    let values = list_array.value(chunk_row);
+                                    list_builder.append(true);
+                                    
+                                    for i in 0..values.len() {
+                                        match values.data_type() {
+                                            DataType::Float32 => {
+                                                let value = values.as_any()
+                                                    .downcast_ref::<Float32Array>()
+                                                    .unwrap()
+                                                    .value(i);
+                                                list_builder.values().append_value(value);
+                                            },
+                                            DataType::Float64 => {
+                                                let value = values.as_any()
+                                                    .downcast_ref::<Float64Array>()
+                                                    .unwrap()
+                                                    .value(i) as f32;
+                                                list_builder.values().append_value(value);
+                                            },
+                                            _ => unreachable!(),
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -478,7 +601,8 @@ impl _LyFile {
             
             final_arrays.push(array_builder.finish());
         }
-
+        
+        // 创建最终的 RecordBatch
         RecordBatch::try_new(
             Arc::new(Schema::new(schema.fields().to_vec())),
             final_arrays,
@@ -617,4 +741,52 @@ fn parallel_copy_with_prefetch(src: *const u8, dst: *mut u8, size: usize) {
                 }
             }
         });
+}
+
+#[inline]
+fn handle_numeric_type<T: Copy + Send + Sync + 'static>(
+    mmap: &memmap2::MmapMut,
+    vector_info: &VectorInfo,
+) -> Result<VectorData, VectorError> {
+    let num_elements = vector_info.size as usize / std::mem::size_of::<T>();
+    let layout = Layout::from_size_align(
+        num_elements * std::mem::size_of::<T>(),
+        16
+    ).unwrap();
+    
+    unsafe {
+        let ptr = alloc(layout) as *mut T;
+        parallel_copy_with_prefetch(
+            mmap.as_ptr(),
+            ptr as *mut u8,
+            vector_info.size as usize
+        );
+        let vec = Vec::from_raw_parts(ptr, num_elements, num_elements);
+        
+        match std::any::TypeId::of::<T>() {
+            t if t == std::any::TypeId::of::<f32>() => 
+                Ok(VectorData::F32(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<f64>() => 
+                Ok(VectorData::F64(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<i32>() => 
+                Ok(VectorData::I32(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<i64>() => 
+                Ok(VectorData::I64(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<u32>() => 
+                Ok(VectorData::U32(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<u64>() => 
+                Ok(VectorData::U64(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<i16>() => 
+                Ok(VectorData::I16(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<u16>() => 
+                Ok(VectorData::U16(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<i8>() => 
+                Ok(VectorData::I8(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<u8>() => 
+                Ok(VectorData::U8(std::mem::transmute(vec), vector_info.shape.clone())),
+            t if t == std::any::TypeId::of::<f16>() => 
+                Ok(VectorData::F16(std::mem::transmute(vec), vector_info.shape.clone())),
+            _ => Err(VectorError::UnsupportedDataType(vector_info.dtype.clone())),
+        }
+    }
 }

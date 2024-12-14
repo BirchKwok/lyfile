@@ -15,9 +15,15 @@ use pyo3::types::PyDict;
 use serde_json;
 use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 
-use arrow::array::{Array, ListArray, Float64Array};
+use arrow::array::{
+    Array, ListArray, Float64Array, Float32Array, 
+    Int64Array, Int32Array, Int16Array, Int8Array,
+    UInt64Array, UInt32Array, UInt16Array, UInt8Array,
+    Float16Array
+};
 
 use crate::structs::*;
+use half;
 
 
 impl _LyFile {
@@ -222,8 +228,18 @@ impl _LyFile {
             .extract::<(usize, bool)>()?;
         let ptr = data_ptr.0 as *const u8;
         let total_bytes = shape.iter().product::<usize>() * match typestr.as_str() {
+            "<f2" | "float16" => 2,
             "<f4" | "float32" => 4,
             "<f8" | "float64" => 8,
+            "<i4" | "int32" => 4,
+            "<i8" | "int64" => 8,
+            "<u4" | "uint32" => 4,
+            "<u8" | "uint64" => 8,
+            "<i2" | "int16" => 2,
+            "<u2" | "uint16" => 2,
+            "<i1" | "int8" => 1,
+            "<u1" | "uint8" => 1,
+            "|b1" | "bool" => 1,
             _ => return Err(PyValueError::new_err(format!("Unsupported dtype: {}", typestr))),
         };
 
@@ -505,33 +521,154 @@ impl _LyFile {
             *current_offset += PAGE_MAGIC.len() as u64;
 
             // serialize column data
-            let buffer = if let DataType::List(_) = field.data_type() {
-                // List type not compressed, convert to bytes directly
-                let list_array = column.as_any()
-                    .downcast_ref::<ListArray>()
-                    .ok_or_else(|| PyValueError::new_err("Failed to downcast to ListArray"))?;
-                
-                let values = list_array.values();
-                let float_array = values.as_any()
-                    .downcast_ref::<Float64Array>()
-                    .ok_or_else(|| PyValueError::new_err("Failed to downcast to Float64Array"))?;
-                
-                unsafe {
-                    std::slice::from_raw_parts(
-                        float_array.values().as_ptr() as *const u8,
-                        float_array.values().len() * std::mem::size_of::<f64>()
-                    ).to_vec()
-                }
-            } else {
-                // other types use Arrow IPC serialization
-                let mut buffer = Vec::new();
-                let schema = Schema::new(vec![field.clone()]);
-                let single_column_batch = RecordBatch::try_new(
-                    Arc::new(schema.clone()),
-                    vec![column.clone()],
-                ).map_err(convert_arrow_error)?;
+            let buffer = match field.data_type() {
+                // List types (vectors) not compressed
+                DataType::List(_) => {
+                    let list_array = column.as_any()
+                        .downcast_ref::<ListArray>()
+                        .ok_or_else(|| PyValueError::new_err("Failed to downcast to ListArray"))?;
+                    
+                    let values = list_array.values();
+                    match values.data_type() {
+                        DataType::Float64 => {
+                            let array = values.as_any().downcast_ref::<Float64Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Float64Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<f64>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Float32 => {
+                            let array = values.as_any().downcast_ref::<Float32Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Float32Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<f32>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Int64 => {
+                            let array = values.as_any().downcast_ref::<Int64Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Int64Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<i64>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Int32 => {
+                            let array = values.as_any().downcast_ref::<Int32Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Int32Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<i32>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Int16 => {
+                            let array = values.as_any().downcast_ref::<Int16Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Int16Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<i16>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Int8 => {
+                            let array = values.as_any().downcast_ref::<Int8Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Int8Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<i8>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::UInt64 => {
+                            let array = values.as_any().downcast_ref::<UInt64Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to UInt64Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<u64>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::UInt32 => {
+                            let array = values.as_any().downcast_ref::<UInt32Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to UInt32Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<u32>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::UInt16 => {
+                            let array = values.as_any().downcast_ref::<UInt16Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to UInt16Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<u16>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::UInt8 => {
+                            let array = values.as_any().downcast_ref::<UInt8Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to UInt8Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<u8>()
+                                ).to_vec()
+                            }
+                        },
+                        DataType::Float16 => {
+                            let array = values.as_any().downcast_ref::<Float16Array>()
+                                .ok_or_else(|| PyValueError::new_err("Failed to downcast to Float16Array"))?;
+                            unsafe {
+                                std::slice::from_raw_parts(
+                                    array.values().as_ptr() as *const u8,
+                                    array.values().len() * std::mem::size_of::<half::f16>()
+                                ).to_vec()
+                            }
+                        },
+                        _ => {
+                            let mut buffer = Vec::new();
+                            let schema = Schema::new(vec![field.clone()]);
+                            let single_column_batch = RecordBatch::try_new(
+                                Arc::new(schema.clone()),
+                                vec![column.clone()],
+                            ).map_err(convert_arrow_error)?;
 
-                {
+                            let mut writer = writer::FileWriter::try_new(
+                                &mut buffer,
+                                &schema,
+                            ).map_err(convert_arrow_error)?;
+
+                            writer.write(&single_column_batch).map_err(convert_arrow_error)?;
+                            writer.finish().map_err(convert_arrow_error)?;
+                            drop(writer);
+                            buffer
+                        }
+                    }
+                },
+                // Other types use Arrow IPC serialization
+                _ => {
+                    let mut buffer = Vec::new();
+                    let schema = Schema::new(vec![field.clone()]);
+                    let single_column_batch = RecordBatch::try_new(
+                        Arc::new(schema.clone()),
+                        vec![column.clone()],
+                    ).map_err(convert_arrow_error)?;
+
                     let mut writer = writer::FileWriter::try_new(
                         &mut buffer,
                         &schema,
@@ -539,8 +676,9 @@ impl _LyFile {
 
                     writer.write(&single_column_batch).map_err(convert_arrow_error)?;
                     writer.finish().map_err(convert_arrow_error)?;
+                    drop(writer);  // 显式释放 writer
+                    buffer
                 }
-                buffer
             };
 
             // determine if compression is needed

@@ -91,9 +91,12 @@ class LyFile:
             load_mmap_vec (bool): Whether to use numpy's memmap to read vector data.
 
         Returns:
-            Union[pyarrow.Table, numpy.ndarray]: 
-                - If reading table columns: returns a pyarrow Table
-                - If reading a vector: returns a numpy array
+            LyDataView: 包含表格数据和向量数据的读取结果
+                属性:
+                    - all_entries: 包含表格数据和向量数据的读取结果
+                    - columns_list: 列名列表
+                    - table_data: 表格数据
+                    - vector_data: 向量数据
         """
         return self._inner.read(columns=columns, load_mmap_vec=load_mmap_vec)
 
@@ -121,18 +124,62 @@ class LyFile:
     def __getitem__(self, key):
         """
         Get item from the file.
+        
+        Args:
+            key: 可以是以下类型:
+                - int: 返回单行数据
+                - str: 返回指定列的所有数据
+                - slice: 返回指定范围的数据
+                - list/ndarray: 包含整数索引或列名的列表
+
+        Returns:
+            tuple or dict or pyarrow.Table: 
+                - 如果向量数据为空，则返回表格数据（pyarrow.Table）
+                - 如果向量数据不为空，则返回包含两个元素的元组（tuple）
+                    - 第一个元素: 表格数据（pyarrow.Table）
+                    - 第二个元素: 向量数据（dict）
+                - 如果表格数据为空，则返回向量数据（dict）
         """
+        def _read_vectors(indices):
+            """辅助函数：读取向量数据"""
+            _ = self._inner.read(vector_columns, load_mmap_vec=True).vector_data
+            if len(vector_columns) == 1:
+                result[1][vector_columns[0]] = _[vector_columns[0]][indices]
+            else:
+                for vec_name in vector_columns:
+                    result[1][vec_name] = _[vec_name][indices]
+
+        vector_columns = [k for k, v in self._inner.list_columns().items() if v["lytype"] == "vector"]
+        result = [None, {}]
+
         if isinstance(key, int):
-            return self._inner.read_rows([key])
+            result[0] = self._inner.read_rows([key])
+            _read_vectors(key)
+            return tuple(result)
+        
+        elif isinstance(key, str):
+            return self.read(columns=[key], load_mmap_vec=True).all_entries
+        
         elif isinstance(key, slice):
-            # 处理切片的start、stop和step
             start = key.start if key.start is not None else 0
             stop = key.stop if key.stop is not None else len(self)
             step = key.step if key.step is not None else 1
-            return self._inner.read_rows(list(range(start, stop, step)))
+            indices = list(range(start, stop, step))
+            
+            result[0] = self._inner.read_rows(indices)
+            _read_vectors(indices)
+            return tuple(result)
+        
         elif isinstance(key, (list, np.ndarray)):
-            # 支持花式索引
-            return self._inner.read_rows(key)
+            if all(isinstance(k, int) for k in key):
+                result[0] = self._inner.read_rows(key)
+                _read_vectors(key)
+                return tuple(result)
+            elif all(isinstance(k, str) for k in key):
+                return self.read(columns=key, load_mmap_vec=True).all_entries
+            else:
+                raise ValueError("Unsupported index type. Only int or str are supported.")
+        
         else:
             raise ValueError(f"Unsupported index type: {type(key)}")
 

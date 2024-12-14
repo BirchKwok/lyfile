@@ -2,6 +2,7 @@
 mod py_api;
 mod structs;
 mod io;
+mod neighbors;
 
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
