@@ -81,7 +81,7 @@ class LyFile:
         """
         return self._inner.list_vectors()
     
-    def read(self, columns: Optional[Union[str, List[str]]] = None, load_mmap_vec: bool = False):
+    def read(self, columns: Optional[Union[str, List[str]]] = None, load_mmap_vec: bool = True):
         """Reads data from the file.
 
         Args:
@@ -95,8 +95,8 @@ class LyFile:
                 属性:
                     - all_entries: 包含表格数据和向量数据的读取结果
                     - columns_list: 列名列表
-                    - table_data: 表格数据
-                    - vector_data: 向量数据
+                    - tdata: 表格数据
+                    - vdata: 向量数据
         """
         return self._inner.read(columns=columns, load_mmap_vec=load_mmap_vec)
 
@@ -107,12 +107,24 @@ class LyFile:
             emb_name (str): The name of the vector column to search.
             queries (numpy.ndarray): Query vectors, shape is (n_queries, dim)
             top_k (int): Number of nearest neighbors to return
-            metric (str): Distance metric, supported metrics are "l2", "ip" (inner product), "cosine"
-
+            metric (str): Distance metric, supported metrics are "l2"(Euclidean distance), "ip" (inner product distance), "cosine" (cosine distance)
+                - The alias of "l2" is "Euclidean", or "L2"
+                - The alias of "ip" is "InnerProduct", or "IP"
+                - The alias of "cosine" is "Cosine", or "COSINE" or "Cos"
         Returns:
             Tuple[numpy.ndarray, numpy.ndarray]: (indices, distances)
             indices shape is (n_queries, top_k), distances shape is (n_queries, top_k)
         """
+        if metric not in ("l2", "ip", "cosine"):
+            if metric in ("Euclidean", "L2"):
+                metric = "l2"
+            elif metric in ("InnerProduct", "IP"):
+                metric = "ip"
+            elif metric in ("Cosine", "COSINE", "Cos"):
+                metric = "cosine"
+            else:
+                raise ValueError(f"Unsupported metric: {metric}")
+
         return self._inner.search_vector(vector_name=emb_name, query_vectors=queries, top_k=top_k, metric=metric)
     
     @property
@@ -142,7 +154,7 @@ class LyFile:
         """
         def _read_vectors(indices):
             """辅助函数：读取向量数据"""
-            _ = self._inner.read(vector_columns, load_mmap_vec=True).vector_data
+            _ = self._inner.read(vector_columns, load_mmap_vec=True).vdata
             if len(vector_columns) == 1:
                 result[1][vector_columns[0]] = _[vector_columns[0]][indices]
             else:

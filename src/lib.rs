@@ -1,4 +1,3 @@
-// lib.rs
 mod py_api;
 mod structs;
 mod io;
@@ -6,7 +5,7 @@ mod neighbors;
 
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
-use pyo3::PyResult; 
+use pyo3::PyResult;
 
 use structs::_LyFile;
 

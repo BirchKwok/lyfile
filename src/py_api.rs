@@ -27,7 +27,7 @@ struct LyDataView {
 #[pymethods]
 impl LyDataView {
     #[getter]
-    fn table_data(&self, py: Python) -> PyResult<PyObject> {
+    fn tdata(&self, py: Python) -> PyResult<PyObject> {
         self.cached_table.get_or_try_init(|| {
             // 如果只选择了向量列，直接返回 None
             if let Some(cols) = &self.selected_columns {
@@ -68,8 +68,7 @@ impl LyDataView {
         }).map(|obj| obj.clone_ref(py))
     }
 
-    #[getter]
-    fn vector_data(&self, py: Python) -> PyResult<PyObject> {
+    fn __get_vector_data(&self, py: Python, wrap_single_vector: bool) -> PyResult<PyObject> {
         self.cached_vectors.get_or_try_init(|| {
             // 如果只选择了表格列，直接返回 None
             if let Some(cols) = &self.selected_columns {
@@ -89,7 +88,6 @@ impl LyDataView {
                 }
             }
 
-            // 原有的向量数据读取逻辑...
             let mut file = File::open(&self.file.filepath)?;
             let metadata = self.file.read_metadata(&mut file)?;
 
@@ -108,6 +106,9 @@ impl LyDataView {
 
             if vector_names.is_empty() {
                 Ok(py.None())
+            } else if vector_names.len() == 1 && wrap_single_vector {
+                let vec_data = self.file.read_vec_with_mmap(vector_names[0].clone(), self.load_mmap_vec, py)?;
+                Ok(vec_data.into_py(py))
             } else {
                 let vector_data = PyDict::new(py);
                 for name in vector_names {
@@ -120,9 +121,14 @@ impl LyDataView {
     }
 
     #[getter]
+    fn vdata(&self, py: Python) -> PyResult<PyObject> {
+        self.__get_vector_data(py, true)
+    }
+
+    #[getter]
     fn all_entries(&self, py: Python) -> PyResult<PyObject> {
-        let table = self.table_data(py)?;
-        let vectors = self.vector_data(py)?;
+        let table = self.tdata(py)?;
+        let vectors = self.__get_vector_data(py, false)?;
         
         // 如果两者都是 None，返回 None
         if table.is_none(py) && vectors.is_none(py) {
