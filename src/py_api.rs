@@ -29,13 +29,12 @@ impl LyDataView {
     #[getter]
     fn tdata(&self, py: Python) -> PyResult<PyObject> {
         self.cached_table.get_or_try_init(|| {
-            // 如果只选择了向量列，直接返回 None
+            // return None if only vector columns are selected
             if let Some(cols) = &self.selected_columns {
                 let schema = self.file.schema.read().unwrap();
                 let schema = schema.as_ref()
                     .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
                 
-                // 检查是否有表格列
                 let has_table_columns = cols.iter()
                     .any(|col| schema.fields().iter().any(|f| f.name() == col));
                 
@@ -44,7 +43,6 @@ impl LyDataView {
                 }
             }
 
-            // 原有的表格数据读取逻辑...
             let schema = self.file.schema.read().unwrap();
             let schema = schema.as_ref()
                 .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
@@ -70,13 +68,13 @@ impl LyDataView {
 
     fn __get_vector_data(&self, py: Python, wrap_single_vector: bool) -> PyResult<PyObject> {
         self.cached_vectors.get_or_try_init(|| {
-            // 如果只选择了表格列，直接返回 None
+            // return None if only table columns are selected
             if let Some(cols) = &self.selected_columns {
                 let mut file = File::open(&self.file.filepath)?;
                 let metadata = self.file.read_metadata(&mut file)?;
                 
                 if let Some(vec_region) = &metadata.vec_region {
-                    // 检查是否有向量列
+                    // check if there are vector columns
                     let has_vector_columns = cols.iter()
                         .any(|col| vec_region.vectors.iter().any(|v| &v.name == col));
                     
@@ -130,24 +128,24 @@ impl LyDataView {
         let table = self.tdata(py)?;
         let vectors = self.__get_vector_data(py, false)?;
         
-        // 如果两者都是 None，返回 None
+        // return None if both are None
         if table.is_none(py) && vectors.is_none(py) {
             return Ok(py.None());
         }
         
         if let Some(_cols) = &self.selected_columns {
-            // 如果只有表格数据，直接返回表格数据
+            // return table data if only table data is present
             if vectors.is_none(py) {
                 return Ok(table);
             }
             
-            // 如果只有向量数据（无论单列还是多列），直接返回向量数据
+            // return vector data if only vector data is present (either single column or multiple columns)
             if table.is_none(py) {
                 return Ok(vectors);
             }
         }
         
-        // 同时有表格和向量数据时，返回元组
+        // return tuple when both table and vector data are present
         Ok((table, vectors).into_py(py))
     }
 }
@@ -211,7 +209,7 @@ impl _LyFile {
             *chunks_lock = metadata.chunks.clone();
         }
 
-        // 处理列名
+        // handle column names
         let selected_columns = if let Some(cols) = columns {
             let cols = if cols.is_instance_of::<pyo3::types::PyString>() {
                 vec![cols.extract::<String>()?]
@@ -223,7 +221,7 @@ impl _LyFile {
                 ));
             };
 
-            // 验证所有列是否存在
+            // verify all columns exist
             for col in &cols {
                 let is_table_col = schema.fields().iter().any(|f| f.name() == col);
                 let is_vector_col = metadata.vec_region.as_ref()
@@ -239,7 +237,7 @@ impl _LyFile {
             None
         };
 
-        // 获取选中的列名或所有列名
+        // get selected column names or all column names
         let columns_list = if let Some(cols) = &selected_columns {
             cols.clone()
         } else {
@@ -254,12 +252,12 @@ impl _LyFile {
             all_columns
         };
 
-        // 创建 LyDataView 实例
+        // create LyDataView instance
         let view = LyDataView {
             columns_list,
             cached_table: OnceCell::new(),
             cached_vectors: OnceCell::new(),
-            file: Arc::new((*self).clone()),  // 先解引用，再克隆，最后创建新的 Arc
+            file: Arc::new((*self).clone()),
             selected_columns,
             load_mmap_vec,
         };
@@ -495,7 +493,6 @@ impl _LyFile {
                 search_vector_internal::<f32>(base_vecs_f32, query_vectors, top_k, metric, py)
             },
             VectorData::F16(data, _shape) => {
-                // 改进float16到float32的换
                 let base_vecs_f32: Vec<f32> = data.into_iter()
                     .map(|x| {
                         let val = f32::from(x);
@@ -504,7 +501,7 @@ impl _LyFile {
                     .collect();
                 search_vector_internal::<f32>(base_vecs_f32, query_vectors, top_k, metric, py)
             },
-            // 对于其他整数类型，先转换为 f32
+            // for other integer types, convert to f32
             VectorData::I32(data, _shape) => {
                 let base_vecs_f32: Vec<f32> = data.into_iter()
                     .map(|x| x as f32)
@@ -562,28 +559,28 @@ impl _LyFile {
         }
     }
 
-    /// 读取指定行号的数据
+    /// read data by specified row indices
     ///
     /// Args:
-    ///     row_indices (List[int]): 要读取的行号列表
+    ///     row_indices (List[int]): row indices to read
     ///
     /// Returns:
-    ///     pyarrow.Table: 包含指定行的数据表
+    ///     pyarrow.Table: table with specified rows
     ///
     /// Example:
     ///     >>> lyfile = LyFile("example.ly")
-    ///     >>> data = lyfile.read_rows([0, 5, 10, 15])  # 读取第0、5、10、15行
+    ///     >>> data = lyfile.read_rows([0, 5, 10, 15])  # read rows 0, 5, 10, 15
     #[pyo3(text_signature = "(self, row_indices)")]
     fn read_rows(&self, row_indices: Vec<usize>, py: Python) -> PyResult<PyObject> {
-        // 验证输入
+        // verify input
         if row_indices.is_empty() {
             return Err(PyValueError::new_err("row_indices cannot be empty"));
         }
 
-        // 读取指定行的数据
+        // read data by specified row indices
         let batch = self.read_rows_by_indices(&row_indices)?;
         
-        // 转换为PyArrow Table并返回
+        // convert to PyArrow Table and return
         let py_batch = batch.into_pyarrow(py)?;
         let pa = py.import("pyarrow")?;
         Ok(pa.getattr("Table")?.call_method1("from_batches", ([py_batch],))?.into_py(py))

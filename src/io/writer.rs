@@ -676,7 +676,7 @@ impl _LyFile {
 
                     writer.write(&single_column_batch).map_err(convert_arrow_error)?;
                     writer.finish().map_err(convert_arrow_error)?;
-                    drop(writer);  // 显式释放 writer
+                    drop(writer);
                     buffer
                 }
             };
@@ -729,7 +729,7 @@ impl _LyFile {
     ) -> PyResult<IndexRegion> {
         let index_start = file.seek(SeekFrom::Current(0))?;
         
-        // 创建行组索引
+        // create row group index
         let mut row_groups = Vec::new();
         let mut current_row = 0;
         
@@ -744,7 +744,7 @@ impl _LyFile {
             current_row += chunk_info.rows;
         }
 
-        // 序列化并写入索引数据
+        // 
         let index_bytes = serde_json::to_vec(&row_groups)
             .map_err(|e| PyValueError::new_err(format!("Failed to serialize index: {}", e)))?;
         

@@ -17,14 +17,12 @@ use arrow::pyarrow::IntoPyArrow;
 
 use arrow::array::{
     Array, ArrayBuilder, ListBuilder,
-    // 基础类型的 Builder
     Int8Builder, Int16Builder, Int32Builder, Int64Builder,
     UInt8Builder, UInt16Builder, UInt32Builder, UInt64Builder,
     Float16Builder, Float32Builder, Float64Builder,
     BooleanBuilder, StringBuilder, BinaryBuilder,
     Date32Builder, Date64Builder,
     
-    // 基础类型的 Array
     Int8Array, Int16Array, Int32Array, Int64Array,
     UInt8Array, UInt16Array, UInt32Array, UInt64Array,
     Float16Array, Float32Array, Float64Array,
@@ -323,7 +321,7 @@ impl _LyFile {
             .find(|v| v.name == name)
             .ok_or_else(|| VectorError::VectorNotFound(name.clone()))?;
 
-        // 创建内存映射
+        // create memory mapping
         let mmap = unsafe {
             MmapOptions::new()
                 .offset(vector_info.offset)
@@ -332,11 +330,11 @@ impl _LyFile {
         };
 
         match vector_info.dtype.as_str() {
-            // 浮点类型
+            // float type
             "<f4" | "float32" => handle_numeric_type::<f32>(&mmap, vector_info),
             "<f8" | "float64" => handle_numeric_type::<f64>(&mmap, vector_info),
             
-            // 整数类型
+            // integer type
             "<i4" | "int32" => handle_numeric_type::<i32>(&mmap, vector_info),
             "<i8" | "int64" => handle_numeric_type::<i64>(&mmap, vector_info),
             "<u4" | "uint32" => handle_numeric_type::<u32>(&mmap, vector_info),
@@ -346,7 +344,7 @@ impl _LyFile {
             "<i1" | "int8" => handle_numeric_type::<i8>(&mmap, vector_info),
             "<u1" | "uint8" => handle_numeric_type::<u8>(&mmap, vector_info),
 
-            // 布尔类型
+            // boolean type
             "|b1" | "bool" => {
                 let num_elements = vector_info.size as usize;
                 let layout = Layout::from_size_align(num_elements, 16).unwrap();
@@ -389,7 +387,7 @@ impl _LyFile {
     pub fn get_cached_indices(&self) -> PyResult<Vec<RowGroupIndex>> {
         let mut cache = INDEX_CACHE.lock().unwrap();
         
-        // 检查文件是否存在于缓存中，且是否需要更新
+        // check if file exists in cache and if it needs to be updated
         if let Some(cached_index) = cache.get(&self.filepath) {
             let metadata = std::fs::metadata(&self.filepath)?;
             if let Ok(modified_time) = metadata.modified() {
@@ -399,12 +397,12 @@ impl _LyFile {
             }
         }
         
-        // 如果缓存不存在或需要更新，则重新读取
+        // if cache does not exist or needs to be updated, read again
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
         
         if let Some(index_region) = metadata.index_region {
-            // 更新缓存
+            // update cache
             cache.insert(self.filepath.clone(), IndexCache {
                 row_groups: index_region.row_groups.clone(),
                 last_modified: SystemTime::now(),
@@ -417,11 +415,11 @@ impl _LyFile {
     }
 
     pub fn read_rows_by_indices(&self, row_indices: &[usize]) -> PyResult<RecordBatch> {
-        // 先读取文件元数据以初始化 schema 和 chunks
+        // read file metadata to initialize schema and chunks
         let mut file = File::open(&self.filepath)?;
         let metadata = self.read_metadata(&mut file)?;
         
-        // 初始化 schema
+        // initialize schema
         {
             let mut schema_guard = self.schema.write().unwrap();
             if schema_guard.is_none() {
@@ -430,7 +428,7 @@ impl _LyFile {
             }
         }
         
-        // 初始化 chunks
+        // initialize chunks
         {
             let mut chunks_guard = self.chunks.write().unwrap();
             if chunks_guard.is_empty() {
@@ -438,13 +436,13 @@ impl _LyFile {
             }
         }
         
-        // 验证 chunks 是否为空
+        // verify chunks are not empty
         let chunks = self.chunks.read().unwrap();
         if chunks.is_empty() {
             return Err(PyValueError::new_err("No data chunks found in file"));
         }
         
-        // 验证行索引是否有效
+        // verify row indices are valid
         let total_rows: usize = chunks.iter().map(|chunk| chunk.rows).sum();
         if let Some(&max_index) = row_indices.iter().max() {
             if max_index >= total_rows {
@@ -456,15 +454,15 @@ impl _LyFile {
             }
         }
         
-        // 获取索引信息
+        // get index information
         let indices = self.get_cached_indices()?;
         
-        // 对行号进行排序和去重
+        // sort and deduplicate row indices
         let mut sorted_indices: Vec<usize> = row_indices.to_vec();
         sorted_indices.sort_unstable();
         sorted_indices.dedup();
         
-        // 将行号映射到对应的数据块
+        // map row indices to corresponding data blocks
         let mut chunk_rows: HashMap<usize, Vec<usize>> = HashMap::new();
         
         for &row_idx in &sorted_indices {
@@ -478,14 +476,14 @@ impl _LyFile {
                 .push(chunk_row);
         }
         
-        // 读取 schema
+        // read schema
         let schema = self.schema.read().unwrap();
         let schema = schema.as_ref()
             .ok_or_else(|| PyValueError::new_err("Schema not initialized"))?;
         
         let mut final_arrays = Vec::new();
         
-        // 处理每个字段
+        // process each field
         for field in schema.fields() {
             let mut array_builder: Box<dyn ArrayBuilder> = match field.data_type() {
                 DataType::Int8 => Box::new(Int8Builder::new()),
@@ -527,7 +525,7 @@ impl _LyFile {
                 )),
             };
             
-            // 读取每个数据块中的数据
+            // read data from each data block
             for (chunk_id, rows) in &chunk_rows {
                 let chunk_info = &self.chunks.read().unwrap()[*chunk_id];
                 let batch = self.read_chunk(
@@ -602,7 +600,7 @@ impl _LyFile {
             final_arrays.push(array_builder.finish());
         }
         
-        // 创建最终的 RecordBatch
+        // create final RecordBatch 
         RecordBatch::try_new(
             Arc::new(Schema::new(schema.fields().to_vec())),
             final_arrays,

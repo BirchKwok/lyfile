@@ -5,6 +5,29 @@ use pyo3::PyResult;
 use simsimd::SpatialSimilarity;
 use num_traits::{Float, FromPrimitive, ToPrimitive};
 
+macro_rules! compute_distance {
+    ($query_vec:expr, $base_vec:expr, $metric:expr, $T:ty) => {{
+        match $metric {
+            "l2" => {
+                <$T>::sqeuclidean($query_vec, $base_vec)
+                    .map(|x| x.to_f64().unwrap_or(1e30))
+                    .unwrap_or(1e30)
+            },
+            "cosine" => {
+                <$T>::cosine($query_vec, $base_vec)
+                    .map(|x| x.to_f64().unwrap_or(-1e30))
+                    .unwrap_or(-1e30)
+            },
+            "ip" => {
+                <$T>::dot($query_vec, $base_vec)
+                    .map(|x| x.to_f64().unwrap_or(-1e30))
+                    .unwrap_or(-1e30)
+            },
+            _ => unreachable!(),
+        }
+    }};
+}
+
 struct BinaryHeap<T> {
     data: Vec<(T, i32)>,
     is_max: bool,
@@ -112,37 +135,20 @@ where
         let mut distances_with_indices: Vec<_> = base_vecs.chunks(dim)
             .enumerate()
             .map(|(i, base_vec)| {
-                let dist = match metric {
-                    "l2" => {
-                        T::sqeuclidean(query_vec, base_vec)
-                            .map(|x| x.to_f64().unwrap_or(1e30))
-                            .unwrap_or(1e30)
-                    },
-                    "cosine" => {
-                        T::cosine(query_vec, base_vec)
-                                .map(|x| x.to_f64().unwrap_or(-1e30))
-                                .unwrap_or(-1e30)
-                    },
-                    "ip" => {
-                        T::dot(query_vec, base_vec)
-                            .map(|x| x.to_f64().unwrap_or(-1e30))
-                            .unwrap_or(-1e30)
-                    },
-                    _ => unreachable!(),
-                };
+                let dist = compute_distance!(query_vec, base_vec, metric, T);
                 (T::from_f64(dist).unwrap_or_else(T::zero), i as i32)
             })
             .collect();
 
         if metric == "ip" {
-            // IP距离：值越大越相似
+            // ip distance: the larger the better
             block_partition_sort(&mut distances_with_indices, top_k, true);
         } else {
-            // L2和cosine距离：值越小越相似
+            // L2 and cosine distance: the smaller the better
             block_partition_sort(&mut distances_with_indices, top_k, false);
         }
 
-        // 确保只保留top_k个结果
+        // ensure only top_k results are kept
         distances_with_indices.truncate(top_k);
         
         for k in 0..top_k {
@@ -158,7 +164,7 @@ where
     Ok((indices_array.to_owned(), distances_array.to_owned()))
 }
 
-// 分块处理函数
+// block partition sort function
 fn block_partition_sort<T: PartialOrd + Copy>(
     arr: &mut [(T, i32)], 
     k: usize,
@@ -169,15 +175,15 @@ fn block_partition_sort<T: PartialOrd + Copy>(
         return;
     }
 
-    // 使用堆来维护top-k
-    let mut heap = BinaryHeap::new(!is_max); // 注意这里取反，因为我们要保留k个最大/最小值
+    // use heap to maintain top-k
+    let mut heap = BinaryHeap::new(!is_max); // note the negation here, because we want to keep k largest/smallest values
     
-    // 先将前k个元素放入堆
+    // push first k elements into heap
     for i in 0..k {
         heap.push(arr[i]);
     }
     
-    // 处理剩余元素
+    // process remaining elements
     for i in k..len {
         if (is_max && arr[i].0 > heap.data[0].0) ||
            (!is_max && arr[i].0 < heap.data[0].0) {
@@ -186,7 +192,7 @@ fn block_partition_sort<T: PartialOrd + Copy>(
         }
     }
     
-    // 将堆中的元素按顺序放回数组
+    // put elements back into array in order
     let mut idx = k;
     while let Some(item) = heap.pop() {
         idx -= 1;

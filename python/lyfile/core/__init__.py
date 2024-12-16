@@ -91,12 +91,12 @@ class LyFile:
             load_mmap_vec (bool): Whether to use numpy's memmap to read vector data.
 
         Returns:
-            LyDataView: 包含表格数据和向量数据的读取结果
-                属性:
-                    - all_entries: 包含表格数据和向量数据的读取结果
-                    - columns_list: 列名列表
-                    - tdata: 表格数据
-                    - vdata: 向量数据
+            LyDataView: instance containing the read results of table and vector data
+                Attributes:
+                    - all_entries: read results of table and vector data
+                    - columns_list: list of column names
+                    - tdata: table data
+                    - vdata: vector data
         """
         return self._inner.read(columns=columns, load_mmap_vec=load_mmap_vec)
 
@@ -138,22 +138,22 @@ class LyFile:
         Get item from the file.
         
         Args:
-            key: 可以是以下类型:
-                - int: 返回单行数据
-                - str: 返回指定列的所有数据
-                - slice: 返回指定范围的数据
-                - list/ndarray: 包含整数索引或列名的列表
+            key: 
+                - int: return single row data
+                - str: return all data of specified column
+                - slice: return data of specified range
+                - list/ndarray: list or array containing integer indices or column names
 
         Returns:
             tuple or dict or pyarrow.Table: 
-                - 如果向量数据为空，则返回表格数据（pyarrow.Table）
-                - 如果向量数据不为空，则返回包含两个元素的元组（tuple）
-                    - 第一个元素: 表格数据（pyarrow.Table）
-                    - 第二个元素: 向量数据（dict）
-                - 如果表格数据为空，则返回向量数据（dict）
+                - if vector data is empty, return table data (pyarrow.Table)
+                - if vector data is not empty, return tuple containing two elements
+                    - first element: table data (pyarrow.Table)
+                    - second element: vector data (dict)
+                - if table data is empty, return vector data (dict)
         """
         def _read_vectors(indices):
-            """辅助函数：读取向量数据"""
+            """Helper function: read vector data"""
             _ = self._inner.read(vector_columns, load_mmap_vec=True).vdata
             if len(vector_columns) == 1:
                 result[1][vector_columns[0]] = _[vector_columns[0]][indices]
